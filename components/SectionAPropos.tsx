@@ -49,17 +49,17 @@ export default function SectionAPropos() {
             style={{ color: "var(--creme)", opacity: 0.8 }}
           >
             <p>
-              Je m'appelle Yan et j'ai grandi en Savoie entouré d'artisans. Mon
+              Je m&apos;appelle Yan et j&apos;ai grandi en Savoie entouré d&apos;artisans. Mon
               père est charpentier et guide de haute montagne. Le père de mon
               meilleur ami fait les intérieurs — salles de bain, plafonds,
               finitions.
             </p>
             <p>
-              Je connais ce monde. Je sais ce que c'est de rentrer d'un chantier
+              Je connais ce monde. Je sais ce que c&apos;est de rentrer d&apos;un chantier
               à 18h sans avoir le temps de penser à son site web.
             </p>
             <p>
-              C'est pour ça que j'ai créé Compagnon Digital. Des sites simples,
+              C&apos;est pour ça que j&apos;ai créé Compagnon Digital. Des sites simples,
               honnêtes, qui ramènent des clients — sans jargon, sans prise de
               tête.
             </p>

@@ -85,8 +85,8 @@ export default function SectionServices() {
             className="mb-8 text-sm leading-relaxed"
             style={{ color: "var(--anthracite)", opacity: 0.6 }}
           >
-            Je m'occupe de tout — nom de domaine ~10€/an et hébergement inclus
-            dans l'accompagnement, tout reste à votre nom.
+            Je m&apos;occupe de tout — nom de domaine ~10€/an et hébergement inclus
+            dans l&apos;accompagnement, tout reste à votre nom.
           </p>
 
           <ul className="mb-10 space-y-3">

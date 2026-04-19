@@ -91,7 +91,7 @@ export default function SectionPortfolio() {
               className="mb-6 text-sm leading-relaxed"
               style={{ color: "var(--anthracite)", opacity: 0.7 }}
             >
-              Site vitrine pour un guide UIAGM avec 25 ans d'expérience.
+              Site vitrine pour un guide UIAGM avec 25 ans d&apos;expérience.
               Slideshow plein écran, page dédiée à la Super Haute Route
               Wien–Menton, formulaire de contact multilingue.
             </p>
