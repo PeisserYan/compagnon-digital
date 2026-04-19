@@ -36,13 +36,27 @@ export default function SectionContact() {
         </h2>
 
         <p
-          className="mb-12 text-base"
-          style={{ color: "var(--creme)", opacity: 0.65 }}
+          className="mb-6 text-base"
+          style={{ color: "var(--anthracite)", opacity: 0.65 }}
         >
           Répondez à quelques questions et je reviens vers vous sous 24h.
         </p>
 
-        <form className="flex flex-col gap-5">
+        <p style={{ color: "var(--anthracite)", marginBottom: "2rem", fontSize: "1rem" }}>
+          Tu préfères appeler ?{" "}
+          <a href="tel:+33612345678" style={{ color: "var(--terracotta)", fontWeight: 600 }}>
+            +33 6 12 34 56 78
+          </a>
+          {" "}— je réponds entre 8h et 19h.
+        </p>
+
+        <form
+          action="https://formspree.io/f/XXXXXXXX"
+          method="POST"
+          className="flex flex-col gap-5"
+        >
+          <input type="hidden" name="_subject" value="Nouveau contact — Compagnon Digital" />
+
           <div>
             <label
               htmlFor="prenom"
@@ -106,7 +120,7 @@ export default function SectionContact() {
               id="projet"
               name="projet"
               rows={5}
-              placeholder="Je cherche un site vitrine pour mon activité de..."
+              placeholder="Je suis plombier à Chambéry, je n'ai pas de site et je perds des clients..."
               style={{ ...inputStyle, resize: "vertical" }}
             />
           </div>

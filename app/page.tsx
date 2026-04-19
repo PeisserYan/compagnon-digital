@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SectionProbleme from "@/components/SectionProbleme";
 import SectionServices from "@/components/SectionServices";
+import SectionConfiance from "@/components/SectionConfiance";
+import SectionZone from "@/components/SectionZone";
 import SectionPortfolio from "@/components/SectionPortfolio";
 import SectionAPropos from "@/components/SectionAPropos";
 import SectionContact from "@/components/SectionContact";
@@ -17,6 +19,8 @@ export default function Home() {
         <Hero />
         <SectionProbleme />
         <SectionServices />
+        <SectionConfiance />
+        <SectionZone />
         <SectionPortfolio />
         <SectionAPropos />
         <SectionContact />

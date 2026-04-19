@@ -4,17 +4,52 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const inclus = [
-  "Site 4-5 pages",
-  "Formulaire de contact",
-  "Adapté mobile et tablette",
-  "Mis en ligne et livré clé en main",
-  "Accompagnement après livraison",
+const services = [
+  {
+    tag: "TECH",
+    titre: "Développement web & mobile",
+    description:
+      "Un site rapide, moderne et facile à gérer, conçu pour valoriser ton activité et convertir tes visiteurs en clients. Responsive, sécurisé, optimisé SEO.",
+    items: [
+      "Sites vitrine",
+      "Responsive & mobile-first",
+      "Formulaire de contact et réservation",
+      "Hébergement inclus",
+      "Performances et accessibilité",
+    ],
+  },
+  {
+    tag: "DESIGN",
+    titre: "Identité Visuelle & Web Design",
+    description:
+      "Un design qui raconte ton histoire et renforce la confiance. Logo, charte graphique, site web — pensés pour tes clients, pas pour faire joli.",
+    items: [
+      "Logo & charte graphique",
+      "Web-design moderne",
+      "Approche responsive",
+      "Identité visuelle sur-mesure",
+      "Supports print & digital",
+    ],
+  },
+  {
+    tag: "CONSEIL",
+    titre: "Stratégie & SEO Local",
+    description:
+      "Être trouvé sur Google à Chambéry, Annecy ou Genève, ça ne s&apos;improvise pas. On t&apos;aide à construire une visibilité locale durable, sans promesses vagues.",
+    items: [
+      "Référencement local",
+      "Google My Business optimisé",
+      "Stratégie digitale",
+      "Analytics & reporting",
+      "Visibilité locale Savoie / Haute-Savoie",
+    ],
+  },
 ];
 
 export default function SectionServices() {
   const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: offreRef, isInView: offreInView } = useScrollAnimation();
+  const { ref: cardsRef, isInView: cardsInView } = useScrollAnimation();
+  const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
 
   return (
     <section
@@ -42,77 +77,81 @@ export default function SectionServices() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--anthracite)",
+              color: "var(--creme)",
             }}
           >
-            Un site qui travaille pour vous.
+            Une offre adaptée aux besoins d&apos;aujourd&apos;hui.
           </motion.h2>
         </div>
 
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.tag}
+              initial={{ opacity: 0, y: 60 }}
+              animate={cardsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
+              style={{
+                backgroundColor: "#333333",
+                borderRadius: "4px",
+                padding: "2rem",
+              }}
+            >
+              <p
+                className="mb-3 text-xs font-bold tracking-widest"
+                style={{ color: "var(--terracotta)" }}
+              >
+                {service.tag}
+              </p>
+
+              <h3
+                className="mb-4 leading-snug"
+                style={{
+                  fontFamily: "var(--font-playfair)",
+                  fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
+                  color: "var(--creme)",
+                }}
+              >
+                {service.titre}
+              </h3>
+
+              <p
+                className="mb-6 text-sm leading-relaxed"
+                style={{ color: "var(--creme)", opacity: 0.65 }}
+              >
+                {service.description}
+              </p>
+
+              <ul className="space-y-2">
+                {service.items.map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm">
+                    <span style={{ color: "var(--terracotta)" }}>✓</span>
+                    <span style={{ color: "var(--creme)", opacity: 0.85 }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
         <motion.div
-          ref={offreRef}
-          initial={{ opacity: 0, y: 60 }}
-          animate={offreInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="mx-auto"
-          style={{
-            maxWidth: "600px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "4px",
-            padding: "3rem 3.5rem",
-            boxShadow: "0 4px 24px rgba(44,44,44,0.08)",
-          }}
+          ref={ctaRef}
+          initial={{ opacity: 0, y: 24 }}
+          animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mt-14 text-center"
         >
-          <p
-            className="mb-2 text-sm font-medium tracking-wide uppercase"
-            style={{ color: "var(--anthracite)", opacity: 0.5 }}
-          >
-            Site vitrine professionnel
-          </p>
-
-          <p
-            className="mb-1 leading-none"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(3rem, 6vw, 4.5rem)",
-              color: "var(--anthracite)",
-            }}
-          >
-            500€
-          </p>
-
-          <p
-            className="mb-8 text-sm leading-relaxed"
-            style={{ color: "var(--anthracite)", opacity: 0.6 }}
-          >
-            Je m&apos;occupe de tout — nom de domaine ~10€/an et hébergement inclus
-            dans l&apos;accompagnement, tout reste à votre nom.
-          </p>
-
-          <ul className="mb-10 space-y-3">
-            {inclus.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-sm">
-                <span
-                  className="shrink-0 text-base leading-none"
-                  style={{ color: "var(--terracotta)" }}
-                >
-                  ✓
-                </span>
-                <span style={{ color: "var(--anthracite)" }}>{item}</span>
-              </li>
-            ))}
-          </ul>
-
           <Link
             href="#contact"
-            className="inline-block font-medium text-white transition-opacity hover:opacity-85"
+            className="inline-block font-medium transition-opacity hover:opacity-85"
             style={{
               backgroundColor: "var(--terracotta)",
+              color: "#FAFAF5",
               padding: "1rem 2.25rem",
               borderRadius: "2px",
             }}
           >
-            Demander un devis gratuit
+            → Parlons de votre projet
           </Link>
         </motion.div>
       </div>

@@ -23,7 +23,7 @@ export default function Hero() {
           className="mb-8 text-xs font-medium tracking-widest uppercase"
           style={{ color: "#C1694F" }}
         >
-          Développeur web · Savoie
+          Agence Numérique · Savoie
         </motion.p>
 
         {/* Titre ligne par ligne */}
@@ -43,7 +43,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.3, ease }}
               style={{ display: "block" }}
             >
-              Des sites web qui ramènent des clients.
+              Ton allié numérique local.
             </motion.span>
           </div>
         </h1>
@@ -56,8 +56,9 @@ export default function Hero() {
           className="mb-10 text-lg leading-relaxed"
           style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center", color: "#FAFAF5" }}
         >
-          Artisan du web basé en Savoie — je conçois des sites simples, rapides
-          et efficaces pour les artisans et TPE qui veulent exister en ligne.
+          On aide les PME, artisans et commerces de Savoie, Haute-Savoie et environs
+          à développer leur présence en ligne et à être trouvés sur Google.
+          Parce que le digital, c&apos;est notre métier, pas le vôtre.
         </motion.p>
 
         {/* CTA */}

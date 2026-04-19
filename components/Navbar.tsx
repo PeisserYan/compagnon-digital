@@ -5,14 +5,16 @@ import { useEffect, useState } from "react";
 
 const sectionBg: Record<string, string> = {
   hero:      "#2C2C2C",
-  probleme:  "#2C2C2C",
+  probleme:  "#FFFFFF",
   services:  "#2C2C2C",
-  portfolio: "#2C2C2C",
+  confiance: "#F5ECD7",
+  portfolio: "#FFFFFF",
+  zone:      "#2C2C2C",
   apropos:   "#2C2C2C",
-  contact:   "#2C2C2C",
+  contact:   "#FFFFFF",
 };
 
-const sectionIds = ["hero", "probleme", "services", "portfolio", "apropos", "contact"];
+const sectionIds = ["hero", "probleme", "services", "confiance", "portfolio", "zone", "apropos", "contact"];
 
 function isDark(bg: string) {
   return bg === "var(--anthracite)" || bg === "#2C2C2C";

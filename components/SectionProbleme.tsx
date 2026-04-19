@@ -5,25 +5,26 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const constats = [
   {
-    chiffre: "97%",
-    texte: "des gens cherchent un artisan local sur internet avant d'appeler",
+    chiffre: "01",
+    texte: "Un client qui ne te trouve pas sur Google appelle ton concurrent. Pas toi.",
   },
   {
-    chiffre: "3 secondes",
-    texte: "c'est le temps qu'a un visiteur pour décider de rester sur votre site",
+    chiffre: "02",
+    texte: "Ton site actuel te fait peut-être perdre des clients sans que tu le saches.",
   },
   {
-    chiffre: "1ère page",
-    texte: "Si vous n'apparaissez pas sur Google, vous n'existez pas pour vos futurs clients.",
+    chiffre: "03",
+    texte: "Tu passes des heures sur le chantier. Ton site devrait travailler pendant ce temps-là.",
   },
 ];
 
-const titleText = "Votre travail est excellent. Vos clients potentiels ne le savent pas encore.";
+const titleText = "Personne ne veut un site internet.";
 const titleWords = titleText.split(" ");
 const ease = [0.76, 0, 0.24, 1] as const;
 
 export default function SectionProbleme() {
   const { ref: titleRef, isInView: titleInView } = useScrollAnimation();
+  const { ref: subtitleRef, isInView: subtitleInView } = useScrollAnimation();
   const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
 
   return (
@@ -42,7 +43,7 @@ export default function SectionProbleme() {
 
         <h2
           ref={titleRef}
-          className="mb-16 leading-snug"
+          className="mb-8 leading-snug"
           style={{
             fontFamily: "var(--font-playfair)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
@@ -65,6 +66,17 @@ export default function SectionProbleme() {
             </span>
           ))}
         </h2>
+
+        <motion.p
+          ref={subtitleRef}
+          initial={{ opacity: 0, y: 24 }}
+          animate={subtitleInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-16 text-base leading-relaxed"
+          style={{ color: "var(--anthracite)", opacity: 0.7 }}
+        >
+          Personne ne se réveille le matin en se disant « tiens, j&apos;aimerais bien un beau site ». Ce que tu veux, c&apos;est qu&apos;on te laisse tranquille pour faire ton métier. Tu veux des clients, de la visibilité, et pas de mauvaises surprises. On est là pour ça. On est d&apos;ici.
+        </motion.p>
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {constats.map((item, i) => (

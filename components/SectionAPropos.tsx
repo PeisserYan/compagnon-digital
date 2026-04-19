@@ -59,9 +59,9 @@ export default function SectionAPropos() {
               à 18h sans avoir le temps de penser à son site web.
             </p>
             <p>
-              C&apos;est pour ça que j&apos;ai créé Compagnon Digital. Des sites simples,
-              honnêtes, qui ramènent des clients — sans jargon, sans prise de
-              tête.
+              C&apos;est pour ça que j&apos;ai créé Compagnon Digital. Le digital, c&apos;est
+              mon métier. Pas le tien. Et c&apos;est exactement comme ça que ça doit
+              rester.
             </p>
           </div>
         </motion.div>

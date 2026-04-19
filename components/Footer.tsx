@@ -19,11 +19,11 @@ export default function Footer() {
         </span>
 
         <span style={{ color: "var(--creme)", opacity: 0.5 }}>
-          Agence web · Savoie
+          Compagnon Digital · Savoie
         </span>
 
         <span style={{ color: "var(--creme)", opacity: 0.5 }}>
-          © 2025 Compagnon Digital
+          © 2026 Compagnon Digital
         </span>
       </div>
     </footer>
