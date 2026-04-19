@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const text = "Compagnon Digital";
-const ease = [0.76, 0, 0.24, 1];
+const ease: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
 export default function Loader() {
   const [visible, setVisible] = useState(true);
