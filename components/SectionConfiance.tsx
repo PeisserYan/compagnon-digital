@@ -45,7 +45,7 @@ export default function SectionConfiance() {
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--terracotta)", letterSpacing: "0.15em" }}
           >
             Pourquoi je travaille différemment
           </motion.p>
@@ -100,7 +100,7 @@ export default function SectionConfiance() {
                 <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--gris-texte)", width: "36%" }}>
                   Agences / SoLocal
                 </th>
-                <th className="py-3 text-left font-semibold" style={{ color: "var(--terracotta)", width: "36%" }}>
+                <th className="py-3 text-left font-semibold" style={{ color: "var(--terracotta)", width: "36%", backgroundColor: "rgba(193, 105, 79, 0.05)" }}>
                   Moi
                 </th>
               </tr>
@@ -117,7 +117,7 @@ export default function SectionConfiance() {
                   <td className="py-4 pr-6" style={{ color: "var(--gris-texte)" }}>
                     {row.classique}
                   </td>
-                  <td className="py-4" style={{ color: "var(--noir)", fontWeight: 500 }}>
+                  <td className="py-4" style={{ color: "var(--noir)", fontWeight: 500, backgroundColor: "rgba(193, 105, 79, 0.05)" }}>
                     {row.compagnon}
                   </td>
                 </tr>

@@ -44,7 +44,7 @@ export default function SectionZone() {
             className="mb-6 text-xs font-medium tracking-widest uppercase"
             style={{ color: "var(--terracotta)" }}
           >
-            Où intervenons-nous ?
+            Où j'interviens
           </motion.p>
 
           <motion.h2

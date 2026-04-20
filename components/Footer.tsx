@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer
       className="py-8 px-6 md:px-12"
-      style={{ backgroundColor: "#111111" }}
+      style={{ backgroundColor: "#111111", borderTop: "3px solid var(--terracotta)" }}
     >
       <div
         className="flex flex-col items-center gap-4 text-sm md:flex-row md:justify-between"

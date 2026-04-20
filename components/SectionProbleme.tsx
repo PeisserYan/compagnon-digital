@@ -85,6 +85,10 @@ export default function SectionProbleme() {
               initial={{ opacity: 0, y: 40 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: (i + 1) * 0.1, ease: "easeOut" }}
+              style={{
+                borderLeft: "3px solid var(--terracotta)",
+                paddingLeft: "1.25rem",
+              }}
             >
               <p
                 className="mb-3 font-bold leading-none"

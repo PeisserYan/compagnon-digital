@@ -70,10 +70,12 @@ export default function Hero() {
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.7, ease }}
           style={{
-            height: "1px",
-            backgroundColor: "var(--gris-border)",
+            height: "2px",
+            width: "60px",
+            backgroundColor: "var(--terracotta)",
             marginBottom: "2rem",
             transformOrigin: "left center",
+            margin: "0 auto 2rem",
           }}
         />
 

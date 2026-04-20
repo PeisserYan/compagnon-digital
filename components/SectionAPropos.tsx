@@ -34,7 +34,7 @@ export default function SectionAPropos() {
           </p>
 
           <h2
-            className="mb-8 leading-snug"
+            className="mb-2 leading-snug"
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
@@ -43,6 +43,16 @@ export default function SectionAPropos() {
           >
             Je connais votre monde.
           </h2>
+
+          <div
+            style={{
+              width: "40px",
+              height: "2px",
+              backgroundColor: "var(--terracotta)",
+              marginBottom: "2rem",
+              marginTop: "0.5rem",
+            }}
+          />
 
           <div
             className="space-y-5 text-base leading-relaxed"

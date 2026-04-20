@@ -75,7 +75,7 @@ export default function Navbar() {
           (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
         }}
       >
-        Nous contacter
+        Parlons de votre projet
       </Link>
 
       {/* Barre de progression */}

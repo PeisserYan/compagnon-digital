@@ -67,6 +67,7 @@ export default function SectionServices() {
               borderRadius: "4px",
               padding: "2.5rem",
               border: "1px solid var(--gris-border)",
+              borderTop: "3px solid var(--terracotta)",
               maxWidth: "480px",
               width: "100%",
             }}
@@ -99,7 +100,7 @@ export default function SectionServices() {
             <ul className="space-y-2">
               {service.items.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm">
-                  <span style={{ color: "var(--terracotta)" }}>✓</span>
+                  <span style={{ color: "var(--terracotta)", fontSize: "1rem" }}>✓</span>
                   <span style={{ color: "var(--noir)" }}>{item}</span>
                 </li>
               ))}
