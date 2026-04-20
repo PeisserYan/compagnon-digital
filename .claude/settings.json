@@ -12,7 +12,13 @@
       "Bash(git commit *)",
       "Bash(git branch *)",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Read(//private/var/folders/**)",
+      "Read(//Users/yanpeisser/Downloads/**)",
+      "Read(//Users/yanpeisser/Desktop/**)",
+      "Read(//Users/yanpeisser/Documents/**)",
+      "Bash(cp \"/Users/yanpeisser/Documents/icon.png\" \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/icon.png\")",
+      "Bash(rm \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/favicon.ico\")"
     ],
     "additionalDirectories": [
       "/private/tmp/yan-compagnon"
