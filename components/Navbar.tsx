@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -29,16 +30,23 @@ export default function Navbar() {
         transition: "border-color 0.3s ease",
       }}
     >
-      <Link
-        href="/"
-        className="text-xl font-bold"
-        style={{
+      <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
+        <Image
+          src="/icon.png"
+          alt="Compagnon Digital"
+          width={32}
+          height={32}
+          style={{ borderRadius: "50%" }}
+        />
+        <span style={{
           fontFamily: "var(--font-playfair)",
-          color: "var(--noir)",
-          textDecoration: "none",
-        }}
-      >
-        Compagnon Digital
+          fontSize: "1.1rem",
+          fontWeight: 700,
+          color: "#111111",
+          letterSpacing: "0.01em",
+        }}>
+          Compagnon Digital
+        </span>
       </Link>
 
       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
