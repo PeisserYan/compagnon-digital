@@ -72,7 +72,7 @@ export default function SectionZone() {
           </motion.p>
         </div>
 
-        <div ref={colsRef} className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+        <div ref={colsRef} className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16" style={{ flexWrap: "wrap" }}>
           {/* Savoie */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}

@@ -21,8 +21,9 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
+        padding: "1.25rem clamp(1rem, 4vw, 3rem)",
         backgroundColor: "#FFFFFF",
         borderBottom: scrolled ? "1px solid var(--gris-border)" : "1px solid transparent",
         transition: "border-color 0.3s ease",

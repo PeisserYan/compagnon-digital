@@ -16,7 +16,7 @@ export default function SectionAPropos() {
     >
       <div
         className="flex flex-col md:flex-row gap-12 md:gap-16 items-start"
-        style={{ maxWidth: "1100px", margin: "0 auto" }}
+        style={{ maxWidth: "1100px", margin: "0 auto", overflow: "hidden" }}
       >
         {/* Texte */}
         <motion.div

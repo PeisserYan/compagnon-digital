@@ -11,26 +11,7 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center text-center pt-[72px] px-6 md:px-12 overflow-hidden"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      {/* Cercle décoratif */}
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.2, ease }}
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "clamp(400px, 60vw, 800px)",
-          height: "clamp(400px, 60vw, 800px)",
-          borderRadius: "50%",
-          border: "1px solid var(--gris-border)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-
-      <div style={{ maxWidth: "820px", width: "100%", position: "relative", zIndex: 1 }}>
+<div style={{ maxWidth: "820px", width: "100%", position: "relative", zIndex: 1 }}>
         {/* Tag */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
