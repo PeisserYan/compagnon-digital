@@ -1,44 +1,60 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 
 export default function Hero() {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <motion.section
+    <section
       className="relative min-h-screen flex flex-col items-center justify-center text-center pt-[72px] px-6 md:px-12 overflow-hidden"
-      style={{ backgroundColor: "#2C2C2C" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
-      <div style={{ maxWidth: "800px", width: "100%", position: "relative", zIndex: 1 }}>
+      {/* Cercle décoratif */}
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.2, ease }}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "clamp(400px, 60vw, 800px)",
+          height: "clamp(400px, 60vw, 800px)",
+          borderRadius: "50%",
+          border: "1px solid var(--gris-border)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      <div style={{ maxWidth: "820px", width: "100%", position: "relative", zIndex: 1 }}>
         {/* Tag */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease }}
           className="mb-8 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "#C1694F" }}
+          style={{ color: "var(--terracotta)" }}
         >
           Agence Numérique · Savoie
         </motion.p>
 
-        {/* Titre ligne par ligne */}
+        {/* Titre */}
         <h1
           style={{
             fontFamily: "var(--font-playfair)",
             fontSize: "clamp(3rem, 5.5vw, 5.5rem)",
             lineHeight: 1.1,
             marginBottom: "2rem",
-            color: "#FAFAF5",
+            color: "var(--noir)",
           }}
         >
-          <div>
+          <div style={{ overflow: "hidden" }}>
             <motion.span
-              initial={{ y: 60, opacity: 0 }}
+              initial={{ y: 80, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.3, ease }}
               style={{ display: "block" }}
@@ -48,63 +64,107 @@ export default function Hero() {
           </div>
         </h1>
 
+        {/* Ligne séparatrice animée */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 0.7, ease }}
+          style={{
+            height: "1px",
+            backgroundColor: "var(--gris-border)",
+            marginBottom: "2rem",
+            transformOrigin: "left center",
+          }}
+        />
+
         {/* Sous-titre */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 0.65, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.8, ease }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.9, ease }}
           className="mb-10 text-lg leading-relaxed"
-          style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center", color: "#FAFAF5" }}
+          style={{
+            maxWidth: "580px",
+            margin: "0 auto 2.5rem",
+            color: "var(--gris-texte)",
+          }}
         >
-          On aide les PME, artisans et commerces de Savoie, Haute-Savoie et environs
-          à développer leur présence en ligne et à être trouvés sur Google.
-          Parce que le digital, c&apos;est notre métier, pas le vôtre.
+          On aide les PME, artisans et commerces de Savoie à développer leur présence
+          en ligne et à être trouvés sur Google.
         </motion.p>
 
-        {/* CTA */}
+        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2, ease }}
-          style={{ marginTop: "2rem" }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
             href="#contact"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+            className="inline-block font-medium transition-colors"
             style={{
-              display: "inline-block",
+              backgroundColor: "var(--noir)",
+              color: "#FFFFFF",
               padding: "1rem 2.25rem",
               borderRadius: "2px",
-              border: `1px solid ${hovered ? "#C1694F" : "#FAFAF5"}`,
-              backgroundColor: hovered ? "#C1694F" : "transparent",
-              color: "#FAFAF5",
-              fontWeight: 500,
               textDecoration: "none",
-              transition: "background-color 0.3s ease, border-color 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
             }}
           >
             Parlons de votre projet
           </Link>
+
+          <Link
+            href="#services"
+            className="inline-block font-medium transition-opacity hover:opacity-60"
+            style={{
+              color: "var(--noir)",
+              padding: "1rem 2.25rem",
+              borderRadius: "2px",
+              border: "1px solid var(--gris-border)",
+              textDecoration: "none",
+            }}
+          >
+            Nos services
+          </Link>
         </motion.div>
       </div>
 
-      {/* Scroll vertical */}
-      <div
-        className="absolute bottom-24 right-10"
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.8 }}
+        className="absolute bottom-10"
         style={{
-          transform: "rotate(-90deg)",
-          transformOrigin: "center center",
-          color: "#FAFAF5",
-          opacity: 0.4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "8px",
+          color: "var(--gris-texte)",
           fontSize: "0.65rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
           zIndex: 1,
         }}
       >
-        Scroll
-      </div>
-    </motion.section>
+        <span>Scroll</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+          style={{
+            width: "1px",
+            height: "32px",
+            backgroundColor: "var(--gris-border)",
+          }}
+        />
+      </motion.div>
+    </section>
   );
 }

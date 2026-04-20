@@ -32,7 +32,7 @@ export default function SectionZone() {
     <section
       id="zone"
       className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "#2C2C2C" }}
+      style={{ backgroundColor: "#111111" }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
@@ -55,7 +55,7 @@ export default function SectionZone() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--creme)",
+              color: "#FAFAF5",
             }}
           >
             Une vraie proximité locale.
@@ -66,7 +66,7 @@ export default function SectionZone() {
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             className="mb-16 text-base"
-            style={{ color: "var(--creme)", opacity: 0.65 }}
+            style={{ color: "#FAFAF5", opacity: 0.65 }}
           >
             Pour mieux comprendre tes enjeux et être réactif à tes besoins.
           </motion.p>
@@ -90,7 +90,7 @@ export default function SectionZone() {
                 <li
                   key={ville}
                   className="flex items-center gap-3 text-sm"
-                  style={{ color: "var(--creme)", opacity: 0.8 }}
+                  style={{ color: "#FAFAF5", opacity: 0.8 }}
                 >
                   <span style={{ color: "var(--terracotta)", opacity: 1 }}>—</span>
                   {ville}
@@ -116,7 +116,7 @@ export default function SectionZone() {
                 <li
                   key={ville}
                   className="flex items-center gap-3 text-sm"
-                  style={{ color: "var(--creme)", opacity: 0.8 }}
+                  style={{ color: "#FAFAF5", opacity: 0.8 }}
                 >
                   <span style={{ color: "var(--terracotta)", opacity: 1 }}>—</span>
                   {ville}
@@ -133,7 +133,7 @@ export default function SectionZone() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-sm leading-relaxed"
           style={{
-            color: "var(--creme)",
+            color: "#FAFAF5",
             opacity: 0.5,
             borderTop: "1px solid rgba(250,250,245,0.1)",
             paddingTop: "2rem",

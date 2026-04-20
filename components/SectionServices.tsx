@@ -35,7 +35,7 @@ const services = [
     tag: "CONSEIL",
     titre: "Stratégie & SEO Local",
     description:
-      "Être trouvé sur Google à Chambéry, Annecy ou Genève, ça ne s&apos;improvise pas. On t&apos;aide à construire une visibilité locale durable, sans promesses vagues.",
+      "Être trouvé sur Google à Chambéry, Annecy ou Genève, ça ne s'improvise pas. On t'aide à construire une visibilité locale durable, sans promesses vagues.",
     items: [
       "Référencement local",
       "Google My Business optimisé",
@@ -55,7 +55,7 @@ export default function SectionServices() {
     <section
       id="services"
       className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "#2C2C2C" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div ref={headerRef}>
@@ -77,10 +77,10 @@ export default function SectionServices() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--creme)",
+              color: "var(--noir)",
             }}
           >
-            Une offre adaptée aux besoins d&apos;aujourd&apos;hui.
+            Une offre adaptée aux besoins d'aujourd'hui.
           </motion.h2>
         </div>
 
@@ -92,9 +92,10 @@ export default function SectionServices() {
               animate={cardsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
               style={{
-                backgroundColor: "#333333",
+                backgroundColor: "var(--gris-clair)",
                 borderRadius: "4px",
                 padding: "2rem",
+                border: "1px solid var(--gris-border)",
               }}
             >
               <p
@@ -109,7 +110,7 @@ export default function SectionServices() {
                 style={{
                   fontFamily: "var(--font-playfair)",
                   fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
-                  color: "var(--creme)",
+                  color: "var(--noir)",
                 }}
               >
                 {service.titre}
@@ -117,7 +118,7 @@ export default function SectionServices() {
 
               <p
                 className="mb-6 text-sm leading-relaxed"
-                style={{ color: "var(--creme)", opacity: 0.65 }}
+                style={{ color: "var(--gris-texte)" }}
               >
                 {service.description}
               </p>
@@ -126,7 +127,7 @@ export default function SectionServices() {
                 {service.items.map((item) => (
                   <li key={item} className="flex items-center gap-2 text-sm">
                     <span style={{ color: "var(--terracotta)" }}>✓</span>
-                    <span style={{ color: "var(--creme)", opacity: 0.85 }}>{item}</span>
+                    <span style={{ color: "var(--noir)" }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -143,12 +144,18 @@ export default function SectionServices() {
         >
           <Link
             href="#contact"
-            className="inline-block font-medium transition-opacity hover:opacity-85"
+            className="inline-block font-medium transition-colors"
             style={{
-              backgroundColor: "var(--terracotta)",
-              color: "#FAFAF5",
+              backgroundColor: "var(--noir)",
+              color: "#FFFFFF",
               padding: "1rem 2.25rem",
               borderRadius: "2px",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
             }}
           >
             → Parlons de votre projet

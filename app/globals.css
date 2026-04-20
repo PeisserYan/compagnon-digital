@@ -4,9 +4,11 @@
 
 :root {
   --terracotta: #C1694F;
-  --beige: #F5ECD7;
-  --anthracite: #2C2C2C;
-  --creme: #FAFAF5;
+  --blanc: #FFFFFF;
+  --gris-clair: #F7F7F5;
+  --gris-border: #E8E8E4;
+  --gris-texte: #6B6B6B;
+  --noir: #111111;
 }
 
 @layer utilities {

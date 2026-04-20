@@ -64,7 +64,7 @@ export default function SectionConfiance() {
     <section
       id="confiance"
       className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "#F5ECD7" }}
+      style={{ backgroundColor: "var(--gris-clair)" }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
@@ -88,7 +88,7 @@ export default function SectionConfiance() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--anthracite)",
+              color: "var(--noir)",
             }}
           >
             Pourquoi Compagnon Digital n&apos;est pas une agence comme les autres.
@@ -99,7 +99,7 @@ export default function SectionConfiance() {
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             className="mb-16 text-base leading-relaxed"
-            style={{ color: "var(--anthracite)", opacity: 0.7, maxWidth: "680px" }}
+            style={{ color: "var(--gris-texte)", maxWidth: "680px" }}
           >
             On a fait le choix de la transparence radicale et de la liberté totale pour nos clients. Parce qu&apos;une bonne agence, ça se mérite — pas ça s&apos;impose par contrat.
           </motion.p>
@@ -115,11 +115,11 @@ export default function SectionConfiance() {
         >
           <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ borderBottom: "2px solid var(--anthracite)" }}>
-                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--anthracite)", width: "28%" }}>
+              <tr style={{ borderBottom: "2px solid var(--noir)" }}>
+                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--noir)", width: "28%" }}>
                   Critère
                 </th>
-                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--anthracite)", opacity: 0.5, width: "36%" }}>
+                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--gris-texte)", width: "36%" }}>
                   Agences classiques
                 </th>
                 <th className="py-3 text-left font-semibold" style={{ color: "var(--terracotta)", width: "36%" }}>
@@ -131,15 +131,15 @@ export default function SectionConfiance() {
               {comparatif.map((row, i) => (
                 <tr
                   key={i}
-                  style={{ borderBottom: "1px solid rgba(44,44,44,0.1)" }}
+                  style={{ borderBottom: "1px solid var(--gris-border)" }}
                 >
-                  <td className="py-4 pr-6 font-medium" style={{ color: "var(--anthracite)" }}>
+                  <td className="py-4 pr-6 font-medium" style={{ color: "var(--noir)" }}>
                     {row.critere}
                   </td>
-                  <td className="py-4 pr-6" style={{ color: "var(--anthracite)", opacity: 0.5 }}>
+                  <td className="py-4 pr-6" style={{ color: "var(--gris-texte)" }}>
                     {row.classique}
                   </td>
-                  <td className="py-4" style={{ color: "var(--anthracite)", fontWeight: 500 }}>
+                  <td className="py-4" style={{ color: "var(--noir)", fontWeight: 500 }}>
                     {row.compagnon}
                   </td>
                 </tr>
@@ -162,12 +162,12 @@ export default function SectionConfiance() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-              color: "var(--anthracite)",
+              color: "var(--noir)",
             }}
           >
             Pourquoi personne ne fait confiance aux agences web.
           </h3>
-          <div className="space-y-5 text-base leading-relaxed" style={{ color: "var(--anthracite)", opacity: 0.75 }}>
+          <div className="space-y-5 text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
             <p>
               On va être directs, parce que tu l&apos;as sûrement déjà vécu — ou quelqu&apos;un autour de toi l&apos;a vécu.
             </p>
@@ -201,21 +201,22 @@ export default function SectionConfiance() {
               <div
                 key={i}
                 style={{
-                  backgroundColor: "rgba(44,44,44,0.06)",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid var(--gris-border)",
                   borderRadius: "4px",
                   padding: "1.5rem",
                 }}
               >
                 <p
                   className="mb-4 text-sm leading-relaxed italic"
-                  style={{ color: "var(--anthracite)", opacity: 0.5 }}
+                  style={{ color: "var(--gris-texte)" }}
                 >
                   {t.texte}
                 </p>
-                <p className="text-sm font-semibold" style={{ color: "var(--anthracite)" }}>
+                <p className="text-sm font-semibold" style={{ color: "var(--noir)" }}>
                   {t.nom}
                 </p>
-                <p className="text-xs" style={{ color: "var(--anthracite)", opacity: 0.5 }}>
+                <p className="text-xs" style={{ color: "var(--gris-texte)" }}>
                   {t.metier}
                 </p>
               </div>
@@ -223,7 +224,7 @@ export default function SectionConfiance() {
           </div>
           <p
             className="mt-6 text-xs text-center italic"
-            style={{ color: "var(--anthracite)", opacity: 0.4 }}
+            style={{ color: "var(--gris-texte)" }}
           >
             Témoignages en cours de collecte
           </p>

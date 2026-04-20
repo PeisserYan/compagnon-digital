@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <Loader />
       <Navbar />
-      <main className="bg-[#F5ECD7]" style={{ backgroundColor: "var(--creme)" }}>
+      <main style={{ backgroundColor: "#FFFFFF" }}>
         <Hero />
         <SectionProbleme />
         <SectionServices />

@@ -35,7 +35,7 @@ export default function SectionPortfolio() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--anthracite)",
+              color: "var(--noir)",
             }}
           >
             Première réalisation.
@@ -81,7 +81,7 @@ export default function SectionPortfolio() {
               style={{
                 fontFamily: "var(--font-playfair)",
                 fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                color: "var(--anthracite)",
+                color: "var(--noir)",
               }}
             >
               Andreas Peisser
@@ -89,7 +89,7 @@ export default function SectionPortfolio() {
 
             <p
               className="mb-6 text-sm leading-relaxed"
-              style={{ color: "var(--anthracite)", opacity: 0.7 }}
+              style={{ color: "var(--gris-texte)" }}
             >
               Site vitrine pour un guide UIAGM avec 25 ans d&apos;expérience.
               Slideshow plein écran, page dédiée à la Super Haute Route
@@ -110,7 +110,7 @@ export default function SectionPortfolio() {
 
         <p
           className="mt-16 text-center text-sm italic"
-          style={{ color: "var(--anthracite)", opacity: 0.5 }}
+          style={{ color: "var(--gris-texte)" }}
         >
           D'autres projets en cours — disponible pour votre secteur.
         </p>

@@ -30,7 +30,7 @@ export default function Loader() {
               left: 0,
               right: 0,
               height: "50vh",
-              backgroundColor: "var(--anthracite)",
+              backgroundColor: "#FFFFFF",
               zIndex: 9999,
             }}
           />
@@ -47,7 +47,7 @@ export default function Loader() {
               left: 0,
               right: 0,
               height: "50vh",
-              backgroundColor: "var(--anthracite)",
+              backgroundColor: "#FFFFFF",
               zIndex: 9999,
             }}
           />
@@ -78,7 +78,7 @@ export default function Loader() {
               style={{
                 fontFamily: "var(--font-playfair)",
                 fontSize: "clamp(2rem, 5vw, 4rem)",
-                color: "var(--creme)",
+                color: "#111111",
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",

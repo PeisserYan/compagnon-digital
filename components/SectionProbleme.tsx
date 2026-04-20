@@ -31,7 +31,7 @@ export default function SectionProbleme() {
     <section
       id="probleme"
       className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "var(--gris-clair)" }}
     >
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
         <p
@@ -47,7 +47,7 @@ export default function SectionProbleme() {
           style={{
             fontFamily: "var(--font-playfair)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            color: "var(--anthracite)",
+            color: "var(--noir)",
           }}
         >
           {titleWords.map((word, i) => (
@@ -73,7 +73,7 @@ export default function SectionProbleme() {
           animate={subtitleInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="mb-16 text-base leading-relaxed"
-          style={{ color: "var(--anthracite)", opacity: 0.7 }}
+          style={{ color: "var(--gris-texte)" }}
         >
           Personne ne se réveille le matin en se disant « tiens, j&apos;aimerais bien un beau site ». Ce que tu veux, c&apos;est qu&apos;on te laisse tranquille pour faire ton métier. Tu veux des clients, de la visibilité, et pas de mauvaises surprises. On est là pour ça. On est d&apos;ici.
         </motion.p>
@@ -98,7 +98,7 @@ export default function SectionProbleme() {
               </p>
               <p
                 className="text-sm leading-relaxed"
-                style={{ color: "var(--anthracite)", opacity: 0.75 }}
+                style={{ color: "var(--gris-texte)" }}
               >
                 {item.texte}
               </p>

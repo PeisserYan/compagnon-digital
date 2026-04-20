@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer
       className="py-8 px-6 md:px-12"
-      style={{ backgroundColor: "var(--anthracite)" }}
+      style={{ backgroundColor: "#111111" }}
     >
       <div
         className="flex flex-col items-center gap-4 text-sm md:flex-row md:justify-between"
@@ -12,17 +12,17 @@ export default function Footer() {
           className="font-bold text-base"
           style={{
             fontFamily: "var(--font-playfair)",
-            color: "var(--creme)",
+            color: "#FFFFFF",
           }}
         >
           Compagnon Digital
         </span>
 
-        <span style={{ color: "var(--creme)", opacity: 0.5 }}>
+        <span style={{ color: "#FFFFFF", opacity: 0.5 }}>
           Compagnon Digital · Savoie
         </span>
 
-        <span style={{ color: "var(--creme)", opacity: 0.5 }}>
+        <span style={{ color: "#FFFFFF", opacity: 0.5 }}>
           © 2026 Compagnon Digital
         </span>
       </div>

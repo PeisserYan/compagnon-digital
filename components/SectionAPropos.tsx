@@ -12,7 +12,7 @@ export default function SectionAPropos() {
     <section
       id="apropos"
       className="pt-24 pb-24 px-6 md:px-12 overflow-hidden mt-0"
-      style={{ backgroundColor: "var(--anthracite)" }}
+      style={{ backgroundColor: "var(--gris-clair)" }}
     >
       <div
         className="flex flex-col md:flex-row gap-12 md:gap-16 items-start"
@@ -38,7 +38,7 @@ export default function SectionAPropos() {
             style={{
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--creme)",
+              color: "var(--noir)",
             }}
           >
             Je connais votre monde.
@@ -46,7 +46,7 @@ export default function SectionAPropos() {
 
           <div
             className="space-y-5 text-base leading-relaxed"
-            style={{ color: "var(--creme)", opacity: 0.8 }}
+            style={{ color: "var(--gris-texte)" }}
           >
             <p>
               Je m&apos;appelle Yan et j&apos;ai grandi en Savoie entouré d&apos;artisans. Mon

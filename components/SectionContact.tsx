@@ -2,10 +2,10 @@ export default function SectionContact() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "0.875rem 1rem",
-    border: "1px solid rgba(44,44,44,0.2)",
+    border: "1px solid var(--gris-border)",
     borderRadius: "2px",
-    backgroundColor: "#F5F5F5",
-    color: "var(--anthracite)",
+    backgroundColor: "#FFFFFF",
+    color: "var(--noir)",
     fontSize: "0.9375rem",
     outline: "none",
   };
@@ -14,7 +14,7 @@ export default function SectionContact() {
     <section
       id="contact"
       className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "var(--blanc)" }}
     >
       <div style={{ maxWidth: "700px", margin: "0 auto" }}>
         <p
@@ -29,7 +29,7 @@ export default function SectionContact() {
           style={{
             fontFamily: "var(--font-playfair)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            color: "var(--anthracite)",
+            color: "var(--noir)",
           }}
         >
           Parlons de votre projet.
@@ -37,12 +37,12 @@ export default function SectionContact() {
 
         <p
           className="mb-6 text-base"
-          style={{ color: "var(--anthracite)", opacity: 0.65 }}
+          style={{ color: "var(--gris-texte)" }}
         >
           Répondez à quelques questions et je reviens vers vous sous 24h.
         </p>
 
-        <p style={{ color: "var(--anthracite)", marginBottom: "2rem", fontSize: "1rem" }}>
+        <p style={{ color: "var(--noir)", marginBottom: "2rem", fontSize: "1rem" }}>
           Tu préfères appeler ?{" "}
           <a href="tel:+33612345678" style={{ color: "var(--terracotta)", fontWeight: 600 }}>
             +33 6 12 34 56 78
@@ -61,7 +61,7 @@ export default function SectionContact() {
             <label
               htmlFor="prenom"
               className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--anthracite)" }}
+              style={{ color: "var(--noir)" }}
             >
               Votre prénom
             </label>
@@ -78,7 +78,7 @@ export default function SectionContact() {
             <label
               htmlFor="metier"
               className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--anthracite)" }}
+              style={{ color: "var(--noir)" }}
             >
               Votre métier
             </label>
@@ -95,7 +95,7 @@ export default function SectionContact() {
             <label
               htmlFor="ville"
               className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--anthracite)" }}
+              style={{ color: "var(--noir)" }}
             >
               Votre ville
             </label>
@@ -112,7 +112,7 @@ export default function SectionContact() {
             <label
               htmlFor="projet"
               className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--anthracite)" }}
+              style={{ color: "var(--noir)" }}
             >
               Votre projet en quelques mots
             </label>
@@ -130,7 +130,7 @@ export default function SectionContact() {
               type="submit"
               className="inline-block font-medium text-white transition-opacity hover:opacity-85"
               style={{
-                backgroundColor: "var(--terracotta)",
+                backgroundColor: "var(--noir)",
                 padding: "1rem 2.25rem",
                 borderRadius: "2px",
                 border: "none",
