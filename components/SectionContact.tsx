@@ -44,8 +44,8 @@ export default function SectionContact() {
 
         <p style={{ color: "var(--noir)", marginBottom: "2rem", fontSize: "1rem" }}>
           Tu préfères appeler ?{" "}
-          <a href="tel:+33612345678" style={{ color: "var(--terracotta)", fontWeight: 600 }}>
-            +33 6 12 34 56 78
+          <a href="tel:+33673401475" style={{ color: "var(--terracotta)", fontWeight: 600 }}>
+            +33 6 73 40 14 75
           </a>
           {" "}— je réponds entre 8h et 19h.
         </p>
