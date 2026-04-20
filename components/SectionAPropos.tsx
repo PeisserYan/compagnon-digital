@@ -49,19 +49,13 @@ export default function SectionAPropos() {
             style={{ color: "var(--gris-texte)" }}
           >
             <p>
-              Je m&apos;appelle Yan et j&apos;ai grandi en Savoie entouré d&apos;artisans. Mon
-              père est charpentier et guide de haute montagne. Le père de mon
-              meilleur ami fait les intérieurs — salles de bain, plafonds,
-              finitions.
+              J'ai 22 ans et j'ai grandi en Savoie entouré d'artisans. Mon père est charpentier et guide de haute montagne. J'ai vu de près ce que ça veut dire de rentrer d'un chantier à 18h, fatigué, sans avoir le temps de penser à sa visibilité en ligne.
             </p>
             <p>
-              Je connais ce monde. Je sais ce que c&apos;est de rentrer d&apos;un chantier
-              à 18h sans avoir le temps de penser à son site web.
+              J'ai commencé par lui faire un site. Puis j'ai réalisé que des centaines d'artisans et de petites entreprises en Savoie étaient dans la même situation — excellents dans leur métier, invisibles sur internet.
             </p>
             <p>
-              C&apos;est pour ça que j&apos;ai créé Compagnon Digital. Le digital, c&apos;est
-              mon métier. Pas le tien. Et c&apos;est exactement comme ça que ça doit
-              rester.
+              C'est pour ça que j'ai créé Compagnon Digital. Pas pour vendre des sites web. Pour que les meilleurs artisans de la région soient enfin trouvés par ceux qui cherchent exactement ce qu'ils font.
             </p>
           </div>
         </motion.div>

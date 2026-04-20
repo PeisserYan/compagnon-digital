@@ -75,7 +75,7 @@ export default function SectionProbleme() {
           className="mb-16 text-base leading-relaxed"
           style={{ color: "var(--gris-texte)" }}
         >
-          Personne ne se réveille le matin en se disant « tiens, j&apos;aimerais bien un beau site ». Ce que tu veux, c&apos;est qu&apos;on te laisse tranquille pour faire ton métier. Tu veux des clients, de la visibilité, et pas de mauvaises surprises. On est là pour ça. On est d&apos;ici.
+          C'est pas d'un site dont on parle. C'est de plus de clients. Tu veux qu'on te laisse tranquille pour faire ton métier — et que les clients te trouvent quand ils cherchent ce que tu fais. C'est pour ça que je suis là.
         </motion.p>
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-10">

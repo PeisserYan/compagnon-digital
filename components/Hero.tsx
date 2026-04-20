@@ -39,7 +39,7 @@ export default function Hero() {
           className="mb-8 text-xs font-medium tracking-widest uppercase"
           style={{ color: "var(--terracotta)" }}
         >
-          Agence Numérique · Savoie
+          Développeur web indépendant · Savoie
         </motion.p>
 
         {/* Titre */}
@@ -89,8 +89,7 @@ export default function Hero() {
             color: "var(--gris-texte)",
           }}
         >
-          On aide les PME, artisans et commerces de Savoie à développer leur présence
-          en ligne et à être trouvés sur Google.
+          J'aide les artisans et PME de Savoie et Haute-Savoie à développer leur présence en ligne — pour être trouvés sur Google et transformer les visites en appels.
         </motion.p>
 
         {/* CTAs */}
