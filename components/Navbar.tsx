@@ -36,7 +36,7 @@ export default function Navbar() {
           alt="Compagnon Digital"
           width={42}
           height={42}
-          style={{ borderRadius: "50%" }}
+          style={{ borderRadius: "50%", objectFit: "cover" }}
         />
         <span style={{
           fontFamily: "var(--font-playfair)",
