@@ -34,8 +34,8 @@ export default function Navbar() {
         <Image
           src="/icon-navbar.png"
           alt="Compagnon Digital"
-          width={72}
-          height={72}
+          width={62}
+          height={62}
           style={{ borderRadius: "50%" }}
         />
         <span style={{
