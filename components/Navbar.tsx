@@ -32,11 +32,11 @@ export default function Navbar() {
     >
       <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
         <Image
-          src="/icon.png"
+          src="/icon-navbar.png"
           alt="Compagnon Digital"
-          width={42}
-          height={42}
-          style={{ borderRadius: "50%", objectFit: "cover" }}
+          width={72}
+          height={72}
+          style={{ borderRadius: "50%" }}
         />
         <span style={{
           fontFamily: "var(--font-playfair)",
