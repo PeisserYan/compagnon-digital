@@ -38,7 +38,7 @@ export default function SectionPortfolio() {
               color: "var(--noir)",
             }}
           >
-            Première réalisation.
+            Réalisations.
           </motion.h2>
         </div>
 
@@ -108,12 +108,6 @@ export default function SectionPortfolio() {
           </motion.div>
         </div>
 
-        <p
-          className="mt-16 text-center text-sm italic"
-          style={{ color: "var(--gris-texte)" }}
-        >
-          D'autres projets en cours — disponible pour votre secteur.
-        </p>
       </div>
     </section>
   );

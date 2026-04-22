@@ -40,7 +40,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.3, ease }}
               style={{ display: "block" }}
             >
-              Ton allié numérique local.
+              Des sites web qui ramènent des clients.
             </motion.span>
           </div>
         </h1>
