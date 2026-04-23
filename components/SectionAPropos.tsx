@@ -65,7 +65,7 @@ export default function SectionAPropos() {
               J'ai commencé par lui faire un site. Puis j'ai réalisé que des centaines d'artisans et de petites entreprises en Savoie étaient dans la même situation — excellents dans leur métier, invisibles sur internet.
             </p>
             <p>
-              C'est pour ça que j'ai créé Compagnon Digital. Pas pour vendre des sites web. Pour que les meilleurs artisans de la région soient enfin trouvés par ceux qui cherchent exactement ce qu'ils font.
+              C'est pour ça que j'ai créé Compagnon Digital. Diplômé en marketing et finance d'HEC Montréal, je comprends ce qui fait qu'un client choisit une entreprise plutôt qu'une autre. Je mets ça au service d'une seule chose : que les meilleurs artisans de la région soient enfin trouvés par ceux qui cherchent exactement ce qu'ils font.
             </p>
           </div>
         </motion.div>

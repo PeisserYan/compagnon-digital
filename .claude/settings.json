@@ -18,10 +18,15 @@
       "Read(//Users/yanpeisser/Desktop/**)",
       "Read(//Users/yanpeisser/Documents/**)",
       "Bash(cp \"/Users/yanpeisser/Documents/icon.png\" \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/icon.png\")",
-      "Bash(rm \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/favicon.ico\")"
+      "Bash(rm \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/favicon.ico\")",
+      "Bash(mv \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/public/icon.png\" \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/public/favicon.png\")",
+      "Bash(mv \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/icon.png\" \"/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/app/favicon.png\")"
     ],
     "additionalDirectories": [
-      "/private/tmp/yan-compagnon"
+      "/private/tmp/yan-compagnon",
+      "/Users/yanpeisser/Desktop",
+      "/Users/yanpeisser/Downloads",
+      "/Users/yanpeisser/Documents/Sites/Yan Compagnon Digital/public"
     ]
   }
 }

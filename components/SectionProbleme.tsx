@@ -18,7 +18,7 @@ const constats = [
   },
 ];
 
-const titleText = "Personne ne veut un site internet.";
+const titleText = "Tes futurs clients te cherchent en ce moment.";
 const titleWords = titleText.split(" ");
 const ease = [0.76, 0, 0.24, 1] as const;
 
