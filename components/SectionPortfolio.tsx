@@ -97,7 +97,7 @@ export default function SectionPortfolio() {
             </p>
 
             <a
-              href="https://andreas-peisser.netlify.app"
+              href="https://andreaspeisser.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
