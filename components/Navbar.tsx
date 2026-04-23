@@ -10,7 +10,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 50);
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(docHeight > 0 ? (scrollY / docHeight) * 100 : 0);
@@ -24,10 +24,11 @@ export default function Navbar() {
     <nav
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
-        padding: "1.25rem clamp(1rem, 4vw, 3rem)",
+        padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
         backgroundColor: "#FFFFFF",
         borderBottom: scrolled ? "1px solid var(--gris-border)" : "1px solid transparent",
-        transition: "border-color 0.3s ease",
+        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
+        transition: "padding 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
       }}
     >
       <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
