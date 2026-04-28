@@ -20,7 +20,7 @@ export default function Hero() {
           className="mb-8 text-xs font-medium tracking-widest uppercase"
           style={{ color: "var(--terracotta)" }}
         >
-          Développeur web indépendant · Savoie
+          Création de sites web · Savoie & Haute-Savoie
         </motion.p>
 
         {/* Titre */}
@@ -72,7 +72,7 @@ export default function Hero() {
             color: "var(--gris-texte)",
           }}
         >
-          J'aide les artisans et PME de Savoie et Haute-Savoie à développer leur présence en ligne — pour être trouvés sur Google et transformer les visites en appels.
+          J'aide les artisans et PME de Savoie à obtenir un site internet professionnel — pour apparaître en tête de Google quand vos clients cherchent votre métier et transformer les visites en appels.
         </motion.p>
 
         {/* CTAs */}
