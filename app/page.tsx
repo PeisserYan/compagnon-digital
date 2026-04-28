@@ -1,4 +1,3 @@
-import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SectionProbleme from "@/components/SectionProbleme";
@@ -12,7 +11,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <Loader />
       <Navbar />
       <main style={{ backgroundColor: "#FFFFFF" }}>
         <Hero />

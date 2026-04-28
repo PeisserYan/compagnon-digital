@@ -41,12 +41,12 @@ export default function SectionContact() {
           className="mb-8 text-base"
           style={{ color: "var(--gris-texte)" }}
         >
-          Dis-moi ce que tu fais et où tu es. Je te réponds dans la journée.
+          Dites-moi ce que vous faites et où vous êtes. Je vous réponds dans la journée.
         </p>
 
         <div style={{ marginBottom: "2rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <p style={{ color: "var(--noir)", fontSize: "0.9375rem" }}>
-            Tu préfères appeler ?{" "}
+            Vous préférez appeler ?{" "}
             <a
               href="tel:+33673401475"
               style={{ color: "var(--terracotta)", fontWeight: 600 }}

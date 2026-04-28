@@ -16,13 +16,13 @@ const comparatif = [
   },
   {
     critere: "Après livraison",
-    classique: "Débrouille-toi",
+    classique: "Débrouillez-vous",
     compagnon: "Je reste disponible",
   },
   {
     critere: "Propriété du site",
     classique: "Souvent bloqué chez eux",
-    compagnon: "100% à toi",
+    compagnon: "100% à vous",
   },
 ];
 
@@ -75,10 +75,10 @@ export default function SectionConfiance() {
               Mon père a payé 2500€ pour un site il y a quelques années. Il n'a jamais eu un seul client grâce à lui. En prospectant, j'entends régulièrement des artisans coincés chez SoLocal à 200€ par mois, sous contrat, sans résultat.
             </p>
             <p>
-              Ce n'est pas normal. Un site doit travailler pour toi. Sinon c'est de l'argent jeté.
+              Ce n'est pas normal. Un site doit travailler pour vous. Sinon c'est de l'argent jeté.
             </p>
             <p>
-              Je suis indépendant, sans frais fixes à couvrir, sans commercial à payer. Ce que tu paies va directement dans ton site.
+              Je suis indépendant, sans frais fixes à couvrir, sans commercial à payer. Ce que vous payez va directement dans votre site.
             </p>
           </motion.div>
         </div>

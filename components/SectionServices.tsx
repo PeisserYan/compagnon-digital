@@ -6,9 +6,9 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const service = {
   tag: "SITE VITRINE",
-  titre: "Ton entreprise, visible sur Google.",
+  titre: "Votre entreprise, visible sur Google.",
   description:
-    "Je conçois des sites vitrines rapides, clairs et adaptés mobile — pour que tes clients te trouvent quand ils cherchent ton métier en Savoie.",
+    "Je conçois des sites vitrines rapides, clairs et adaptés mobile — pour que vos clients vous trouvent quand ils cherchent votre métier en Savoie.",
   items: [
     "Site 4-5 pages",
     "Formulaire de contact",
