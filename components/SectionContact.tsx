@@ -1,6 +1,16 @@
 "use client";
 
+import { useState } from "react";
+
+type Status = "idle" | "loading" | "success" | "error";
+
 export default function SectionContact() {
+  const [prenom, setPrenom] = useState("");
+  const [metier, setMetier] = useState("");
+  const [ville, setVille] = useState("");
+  const [projet, setProjet] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "0.875rem 1rem",
@@ -11,6 +21,22 @@ export default function SectionContact() {
     fontSize: "0.9375rem",
     outline: "none",
   };
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prenom, metier, ville, projet }),
+      });
+      const data = await res.json();
+      setStatus(data.success ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section
@@ -34,14 +60,14 @@ export default function SectionContact() {
             color: "var(--noir)",
           }}
         >
-          On se parle ?
+          Un projet&nbsp;? On en parle.
         </h2>
 
         <p
           className="mb-8 text-base"
           style={{ color: "var(--gris-texte)" }}
         >
-          Dites-moi ce que vous faites et où vous êtes. Je vous réponds dans la journée.
+          Dites-moi ce que vous faites et où vous en êtes. Je vous réponds dans la journée — pas un bot, moi.
         </p>
 
         <div style={{ marginBottom: "2rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
@@ -92,97 +118,122 @@ export default function SectionContact() {
           </a>
         </div>
 
-        <form
-          action="https://formspree.io/f/XXXXXXXX"
-          method="POST"
-          className="flex flex-col gap-5"
-        >
-          <input type="hidden" name="_subject" value="Nouveau contact — Compagnon Digital" />
+        {status === "success" ? (
+          <p style={{ color: "var(--noir)", fontSize: "1rem", lineHeight: 1.6 }}>
+            Merci {prenom}, je vous réponds dans la journée.
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <div>
+              <label
+                htmlFor="prenom"
+                className="block mb-2 text-sm font-medium"
+                style={{ color: "var(--noir)" }}
+              >
+                Votre prénom
+              </label>
+              <input
+                id="prenom"
+                type="text"
+                name="prenom"
+                placeholder="Jean"
+                value={prenom}
+                onChange={e => setPrenom(e.target.value)}
+                required
+                style={inputStyle}
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="prenom"
-              className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--noir)" }}
-            >
-              Votre prénom
-            </label>
-            <input
-              id="prenom"
-              type="text"
-              name="prenom"
-              placeholder="Jean"
-              style={inputStyle}
-            />
-          </div>
+            <div>
+              <label
+                htmlFor="metier"
+                className="block mb-2 text-sm font-medium"
+                style={{ color: "var(--noir)" }}
+              >
+                Votre métier
+              </label>
+              <input
+                id="metier"
+                type="text"
+                name="metier"
+                placeholder="ex: plombier, menuisier..."
+                value={metier}
+                onChange={e => setMetier(e.target.value)}
+                required
+                style={inputStyle}
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="metier"
-              className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--noir)" }}
-            >
-              Votre métier
-            </label>
-            <input
-              id="metier"
-              type="text"
-              name="metier"
-              placeholder="ex: plombier, menuisier..."
-              style={inputStyle}
-            />
-          </div>
+            <div>
+              <label
+                htmlFor="ville"
+                className="block mb-2 text-sm font-medium"
+                style={{ color: "var(--noir)" }}
+              >
+                Votre ville
+              </label>
+              <input
+                id="ville"
+                type="text"
+                name="ville"
+                placeholder="Chambéry"
+                value={ville}
+                onChange={e => setVille(e.target.value)}
+                required
+                style={inputStyle}
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="ville"
-              className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--noir)" }}
-            >
-              Votre ville
-            </label>
-            <input
-              id="ville"
-              type="text"
-              name="ville"
-              placeholder="Chambéry"
-              style={inputStyle}
-            />
-          </div>
+            <div>
+              <label
+                htmlFor="projet"
+                className="block mb-2 text-sm font-medium"
+                style={{ color: "var(--noir)" }}
+              >
+                Votre projet en quelques mots
+              </label>
+              <textarea
+                id="projet"
+                name="projet"
+                rows={5}
+                placeholder="Je suis plombier à Chambéry, je n'ai pas de site et je perds des clients..."
+                value={projet}
+                onChange={e => setProjet(e.target.value)}
+                required
+                style={{ ...inputStyle, resize: "vertical" }}
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="projet"
-              className="block mb-2 text-sm font-medium"
-              style={{ color: "var(--noir)" }}
-            >
-              Votre projet en quelques mots
-            </label>
-            <textarea
-              id="projet"
-              name="projet"
-              rows={5}
-              placeholder="Je suis plombier à Chambéry, je n'ai pas de site et je perds des clients..."
-              style={{ ...inputStyle, resize: "vertical" }}
-            />
-          </div>
+            <div className="pt-2 flex flex-col gap-2">
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="inline-block font-medium text-white transition-opacity hover:opacity-85"
+                style={{
+                  backgroundColor: "var(--noir)",
+                  padding: "1rem 2.25rem",
+                  borderRadius: "2px",
+                  border: "none",
+                  cursor: status === "loading" ? "not-allowed" : "pointer",
+                  opacity: status === "loading" ? 0.65 : 1,
+                  width: "fit-content",
+                }}
+              >
+                {status === "loading" ? "Envoi en cours…" : "Je veux un site qui me rapporte des clients →"}
+              </button>
 
-          <div className="pt-2">
-            <button
-              type="submit"
-              className="inline-block font-medium text-white transition-opacity hover:opacity-85"
-              style={{
-                backgroundColor: "var(--noir)",
-                padding: "1rem 2.25rem",
-                borderRadius: "2px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Envoyer ma demande
-            </button>
-          </div>
-        </form>
+              {status === "error" && (
+                <p style={{ color: "#c0392b", fontSize: "0.875rem" }}>
+                  Une erreur est survenue. Appelez-moi directement.
+                </p>
+              )}
+
+              <p style={{ color: "var(--gris-texte)", fontSize: "0.75rem" }}>
+                Vos données sont utilisées uniquement pour vous répondre.
+              </p>
+            </div>
+          </form>
+        )}
       </div>
     </section>
   );
