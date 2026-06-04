@@ -22,8 +22,12 @@ export default function Footer() {
           Compagnon Digital
         </span>
 
-        <span style={{ color: "#FFFFFF", opacity: 0.5 }}>
-          Compagnon Digital · Savoie
+        <span
+          style={{ color: "#FFFFFF", opacity: 0.5, display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem" }}
+        >
+          <span>Compagnon Digital · Savoie</span>
+          <a href="tel:+33673401475" style={{ color: "#FFFFFF", textDecoration: "none" }}>06 73 40 14 75</a>
+          <a href="mailto:yan@compagnondigital.fr" style={{ color: "#FFFFFF", textDecoration: "none" }}>yan@compagnondigital.fr</a>
         </span>
 
         <span style={{ color: "#FFFFFF", opacity: 0.5 }}>
