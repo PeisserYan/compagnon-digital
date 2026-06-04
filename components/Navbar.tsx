@@ -55,6 +55,7 @@ export default function Navbar() {
           { href: "/#services",  label: "Services" },
           { href: "/realisations", label: "Réalisations" },
           { href: "/#apropos",   label: "À propos" },
+          { href: "/#contact",   label: "Contact" },
         ].map(({ href, label }) => (
           <li key={href}>
             <Link
