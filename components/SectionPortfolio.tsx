@@ -1,13 +1,44 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
+const projets = [
+  {
+    image: "/tbd-fret.png",
+    alt: "Site TBD Fret — Transporteur France-Italie",
+    tag: "Transport routier · Savoie",
+    nom: "TBD Fret",
+    description:
+      "Site vitrine Next.js pour un transporteur France-Italie actif depuis 1980. Formulaires devis et candidature connectés à Brevo.",
+    lien: "https://www.tbd-fret.com",
+  },
+  {
+    image: "/lm3c.png",
+    alt: "Site LM3C Plomberie — Artisan plombier-chauffagiste",
+    tag: "Plomberie · Savoie & Haute-Savoie",
+    nom: "LM3C Plomberie",
+    description:
+      "Site vitrine pour un artisan plombier-chauffagiste. Design épuré, formulaire de contact, optimisation SEO locale.",
+    lien: "https://www.lm3c.fr",
+  },
+  {
+    image: "/andreas-peisser.png",
+    alt: "Site Andreas Peisser — Guide de haute montagne",
+    tag: "Guide de haute montagne · Savoie",
+    nom: "Andreas Peisser",
+    description:
+      "Site vitrine pour un guide UIAGM avec 25 ans d'expérience. Slideshow plein écran, page Super Haute Route, formulaire multilingue.",
+    lien: "https://andreaspeisser.netlify.app/",
+  },
+];
+
 export default function SectionPortfolio() {
   const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: imageRef, isInView: imageInView } = useScrollAnimation();
-  const { ref: texteRef, isInView: texteInView } = useScrollAnimation();
+  const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
+  const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
 
   return (
     <section
@@ -42,72 +73,96 @@ export default function SectionPortfolio() {
           </motion.h2>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
-          {/* Image */}
-          <motion.div
-            ref={imageRef}
-            initial={{ opacity: 0, x: -60 }}
-            animate={imageInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="w-full md:w-[60%] shrink-0 overflow-hidden"
-            style={{ height: "400px", borderRadius: "4px" }}
-          >
-            <Image
-              src="/andreas-peisser.png"
-              alt="Site Andreas Peisser — Guide de haute montagne"
-              width={800}
-              height={400}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          {/* Texte */}
-          <motion.div
-            ref={texteRef}
-            initial={{ opacity: 0, x: 60 }}
-            animate={texteInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-            className="w-full md:w-[40%] flex flex-col justify-center"
-          >
-            <p
-              className="mb-3 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--terracotta)" }}
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          {projets.map((projet, i) => (
+            <motion.div
+              key={projet.nom}
+              initial={{ opacity: 0, y: 40 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
+              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
             >
-              Guide de haute montagne · Savoie
-            </p>
+              <div style={{ height: "220px", borderRadius: "4px", overflow: "hidden" }}>
+                <Image
+                  src={projet.image}
+                  alt={projet.alt}
+                  width={600}
+                  height={220}
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            <h3
-              className="mb-4 leading-tight"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                color: "var(--noir)",
-              }}
-            >
-              Andreas Peisser
-            </h3>
+              <p
+                className="text-xs font-medium tracking-widest uppercase"
+                style={{ color: "var(--terracotta)" }}
+              >
+                {projet.tag}
+              </p>
 
-            <p
-              className="mb-6 text-sm leading-relaxed"
-              style={{ color: "var(--gris-texte)" }}
-            >
-              Site vitrine pour un guide UIAGM avec 25 ans d&apos;expérience.
-              Slideshow plein écran, page dédiée à la Super Haute Route
-              Wien–Menton, formulaire de contact multilingue.
-            </p>
+              <h3
+                className="leading-tight"
+                style={{
+                  fontFamily: "var(--font-playfair)",
+                  fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
+                  color: "var(--noir)",
+                }}
+              >
+                {projet.nom}
+              </h3>
 
-            <a
-              href="https://andreaspeisser.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-              style={{ color: "var(--terracotta)" }}
-            >
-              Voir le site →
-            </a>
-          </motion.div>
+              <p
+                className="text-sm leading-relaxed"
+                style={{
+                  color: "var(--gris-texte)",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                {projet.description}
+              </p>
+
+              <a
+                href={projet.lien}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
+                style={{ color: "var(--terracotta)" }}
+              >
+                Voir le site →
+              </a>
+            </motion.div>
+          ))}
         </div>
 
+        <motion.div
+          ref={ctaRef}
+          initial={{ opacity: 0, y: 30 }}
+          animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mt-16 flex justify-center"
+        >
+          <Link
+            href="/realisations"
+            className="transition-opacity hover:opacity-60"
+            style={{
+              border: "1px solid var(--noir)",
+              color: "var(--noir)",
+              padding: "0.875rem 2rem",
+              borderRadius: "2px",
+              backgroundColor: "transparent",
+              fontSize: "0.9375rem",
+              fontWeight: 500,
+              textDecoration: "none",
+            }}
+          >
+            Voir toutes mes réalisations →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
