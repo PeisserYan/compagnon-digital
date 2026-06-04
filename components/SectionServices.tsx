@@ -8,6 +8,7 @@ const services = [
   {
     tag: "01 · L'ESSENTIEL",
     titre: "Tu veux exister proprement.",
+    prix: "Site vitrine · à partir de 500€",
     description:
       "Un site vitrine qui te ressemble. Mobile, propre, RGPD en règle. Le client te trouve, t'appelle, ou te laisse un message.",
     items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
@@ -15,6 +16,7 @@ const services = [
   {
     tag: "02 · LA VISIBILITÉ",
     titre: "Tu veux qu'on te trouve.",
+    prix: "Sur mesure selon vos besoins",
     description:
       "SEO local, fiche Google Business, avis clients. Trois leviers qu'on active ensemble pour que les bons clients arrivent.",
     items: ["SEO local", "Google Business", "Avis clients", "Contenu"],
@@ -22,6 +24,7 @@ const services = [
   {
     tag: "03 · L'OUTIL",
     titre: "Tu veux que ton site bosse pour toi.",
+    prix: "Sur mesure selon vos besoins",
     description:
       "Réservation, e-commerce, devis en ligne, espace client. Ton site devient ton premier salarié — celui qui ne dort pas.",
     items: ["Réservation", "E-commerce", "Devis en ligne", "Espace client"],
@@ -98,6 +101,17 @@ export default function SectionServices() {
               >
                 {service.titre}
               </h3>
+
+              <p
+                style={{
+                  fontWeight: 600,
+                  color: "var(--noir)",
+                  fontSize: "0.9375rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                {service.prix}
+              </p>
 
               <p
                 className="mb-6 text-sm leading-relaxed"

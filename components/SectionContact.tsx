@@ -8,6 +8,8 @@ export default function SectionContact() {
   const [prenom, setPrenom] = useState("");
   const [metier, setMetier] = useState("");
   const [ville, setVille] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [email, setEmail] = useState("");
   const [projet, setProjet] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
@@ -29,7 +31,7 @@ export default function SectionContact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prenom, metier, ville, projet }),
+        body: JSON.stringify({ prenom, metier, ville, telephone, email, projet }),
       });
       const data = await res.json();
       setStatus(data.success ? "success" : "error");
@@ -94,7 +96,7 @@ export default function SectionContact() {
                 className="block mb-2 text-sm font-medium"
                 style={{ color: "var(--noir)" }}
               >
-                Votre prénom
+                Votre prénom<span style={{ color: "#c0392b" }}> *</span>
               </label>
               <input
                 id="prenom"
@@ -113,7 +115,7 @@ export default function SectionContact() {
                 className="block mb-2 text-sm font-medium"
                 style={{ color: "var(--noir)" }}
               >
-                Votre métier
+                Votre métier<span style={{ color: "#c0392b" }}> *</span>
               </label>
               <input
                 id="metier"
@@ -132,7 +134,7 @@ export default function SectionContact() {
                 className="block mb-2 text-sm font-medium"
                 style={{ color: "var(--noir)" }}
               >
-                Votre ville
+                Votre ville<span style={{ color: "#c0392b" }}> *</span>
               </label>
               <input
                 id="ville"
@@ -147,11 +149,49 @@ export default function SectionContact() {
 
             <div>
               <label
+                htmlFor="telephone"
+                className="block mb-2 text-sm font-medium"
+                style={{ color: "var(--noir)" }}
+              >
+                Votre téléphone<span style={{ color: "#c0392b" }}> *</span>
+              </label>
+              <input
+                id="telephone"
+                type="tel"
+                placeholder="06 12 34 56 78"
+                value={telephone}
+                onChange={e => setTelephone(e.target.value)}
+                required
+                style={inputStyle}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium"
+                style={{ color: "var(--noir)" }}
+              >
+                Votre email<span style={{ color: "#c0392b" }}> *</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="jean@exemple.fr"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                style={inputStyle}
+              />
+            </div>
+
+            <div>
+              <label
                 htmlFor="projet"
                 className="block mb-2 text-sm font-medium"
                 style={{ color: "var(--noir)" }}
               >
-                Votre projet en quelques mots
+                Votre projet en quelques mots<span style={{ color: "#c0392b" }}> *</span>
               </label>
               <textarea
                 id="projet"

@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { prenom, metier, ville, projet } = await req.json();
+  const { prenom, metier, ville, telephone, email, projet } = await req.json();
+
+  if (!prenom || !metier || !ville || !telephone || !email || !projet) {
+    return NextResponse.json({ success: false, error: "Champs manquants" }, { status: 400 });
+  }
 
   const htmlContent = `
     <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse;width:100%;max-width:480px">
@@ -17,6 +21,14 @@ export async function POST(req: NextRequest) {
         <tr>
           <td style="padding:10px 14px;background:#f5f5f5;font-weight:600">Ville</td>
           <td style="padding:10px 14px;border-bottom:1px solid #e0e0e0">${ville}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;background:#f5f5f5;font-weight:600">Téléphone</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #e0e0e0">${telephone}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;background:#f5f5f5;font-weight:600">Email</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #e0e0e0">${email}</td>
         </tr>
         <tr>
           <td style="padding:10px 14px;background:#f5f5f5;font-weight:600;vertical-align:top">Projet</td>
@@ -36,6 +48,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         sender: { name: "Compagnon Digital", email: "yan@compagnondigital.fr" },
         to: [{ email: "yan@compagnondigital.fr", name: "Yan Peisser" }],
+        replyTo: { email },
         subject: "Nouvelle demande — Compagnon Digital",
         htmlContent,
       }),
