@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const projets = [
   {
@@ -58,7 +60,9 @@ export const metadata = {
 
 export default function RealisationsPage() {
   return (
-    <main className="py-24 px-6 md:px-12">
+    <>
+      <Navbar />
+      <main className="py-24 px-6 md:px-12">
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         <Link
@@ -159,5 +163,8 @@ export default function RealisationsPage() {
 
       </div>
     </main>
+    <Footer />
+    </>
   );
 }
+
