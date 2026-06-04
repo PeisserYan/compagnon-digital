@@ -53,7 +53,7 @@ export default function Navbar() {
       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
         {[
           { href: "/#services",  label: "Services" },
-          { href: "/#portfolio", label: "Réalisations" },
+          { href: "/realisations", label: "Réalisations" },
           { href: "/#apropos",   label: "À propos" },
         ].map(({ href, label }) => (
           <li key={href}>

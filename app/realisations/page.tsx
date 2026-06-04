@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -64,14 +63,6 @@ export default function RealisationsPage() {
       <Navbar />
       <main className="py-24 px-6 md:px-12">
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-
-        <Link
-          href="/#portfolio"
-          className="inline-block mb-10 text-sm transition-opacity hover:opacity-60"
-          style={{ color: "var(--gris-texte)", textDecoration: "none" }}
-        >
-          ← Retour
-        </Link>
 
         <p
           className="mb-6 text-xs font-medium tracking-widest uppercase"
