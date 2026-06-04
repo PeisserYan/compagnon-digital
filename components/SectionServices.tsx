@@ -4,23 +4,33 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const service = {
-  tag: "SITE VITRINE",
-  titre: "Votre entreprise, visible sur Google.",
-  description:
-    "Je conçois des sites vitrines rapides, clairs et adaptés mobile — pour que vos clients vous trouvent quand ils cherchent votre métier en Savoie.",
-  items: [
-    "Site 4-5 pages",
-    "Formulaire de contact",
-    "Adapté mobile et tablette",
-    "Mis en ligne clé en main",
-    "Nom de domaine et hébergement inclus",
-  ],
-};
+const services = [
+  {
+    tag: "01 · L'ESSENTIEL",
+    titre: "Tu veux exister proprement.",
+    description:
+      "Un site vitrine qui te ressemble. Mobile, propre, RGPD en règle. Le client te trouve, t'appelle, ou te laisse un message.",
+    items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
+  },
+  {
+    tag: "02 · LA VISIBILITÉ",
+    titre: "Tu veux qu'on te trouve.",
+    description:
+      "SEO local, fiche Google Business, avis clients. Trois leviers qu'on active ensemble pour que les bons clients arrivent.",
+    items: ["SEO local", "Google Business", "Avis clients", "Contenu"],
+  },
+  {
+    tag: "03 · L'OUTIL",
+    titre: "Tu veux que ton site bosse pour toi.",
+    description:
+      "Réservation, e-commerce, devis en ligne, espace client. Ton site devient ton premier salarié — celui qui ne dort pas.",
+    items: ["Réservation", "E-commerce", "Devis en ligne", "Espace client"],
+  },
+];
 
 export default function SectionServices() {
   const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: cardRef, isInView: cardInView } = useScrollAnimation();
+  const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
   const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
 
   return (
@@ -56,56 +66,56 @@ export default function SectionServices() {
           </motion.h2>
         </div>
 
-        <div className="flex justify-center">
-          <motion.div
-            ref={cardRef}
-            initial={{ opacity: 0, y: 60 }}
-            animate={cardInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            style={{
-              backgroundColor: "var(--gris-clair)",
-              borderRadius: "4px",
-              padding: "2.5rem",
-              border: "1px solid var(--gris-border)",
-              borderTop: "3px solid var(--terracotta)",
-              maxWidth: "480px",
-              width: "100%",
-            }}
-          >
-            <p
-              className="mb-3 text-xs font-bold tracking-widest"
-              style={{ color: "var(--terracotta)" }}
-            >
-              {service.tag}
-            </p>
-
-            <h3
-              className="mb-4 leading-snug"
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.tag}
+              initial={{ opacity: 0, y: 60 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
               style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
-                color: "var(--noir)",
+                backgroundColor: "var(--gris-clair)",
+                borderRadius: "4px",
+                padding: "2.5rem",
+                border: "1px solid var(--gris-border)",
+                borderTop: "3px solid var(--terracotta)",
               }}
             >
-              {service.titre}
-            </h3>
+              <p
+                className="mb-3 text-xs font-bold tracking-widest"
+                style={{ color: "var(--terracotta)" }}
+              >
+                {service.tag}
+              </p>
 
-            <p
-              className="mb-6 text-sm leading-relaxed"
-              style={{ color: "var(--gris-texte)" }}
-            >
-              {service.description}
-            </p>
+              <h3
+                className="mb-4 leading-snug"
+                style={{
+                  fontFamily: "var(--font-playfair)",
+                  fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
+                  color: "var(--noir)",
+                }}
+              >
+                {service.titre}
+              </h3>
 
-            <ul className="space-y-2">
-              {service.items.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm">
-                  <span style={{ color: "var(--terracotta)", fontSize: "1rem" }}>✓</span>
-                  <span style={{ color: "var(--noir)" }}>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+              <p
+                className="mb-6 text-sm leading-relaxed"
+                style={{ color: "var(--gris-texte)" }}
+              >
+                {service.description}
+              </p>
+
+              <ul className="space-y-2">
+                {service.items.map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm">
+                    <span style={{ color: "var(--terracotta)", fontSize: "1rem" }}>✓</span>
+                    <span style={{ color: "var(--noir)" }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
 
         <motion.div
