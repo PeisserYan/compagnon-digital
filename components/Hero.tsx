@@ -2,150 +2,167 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 
+type Side = "left" | "right" | null;
+
 export default function Hero() {
+  const [hovered, setHovered] = useState<Side>(null);
+
   return (
-    <section
-      className="relative min-h-screen flex flex-col items-center justify-center text-center pt-[72px] px-6 md:px-12 overflow-hidden"
-      style={{ backgroundColor: "#FFFFFF" }}
-    >
-<div style={{ maxWidth: "820px", width: "100%", position: "relative", zIndex: 1 }}>
-        {/* Tag */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease }}
-          className="mb-8 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--terracotta)" }}
-        >
-          Création de sites web · Savoie & Haute-Savoie
-        </motion.p>
-
-        {/* Titre */}
-        <h1
-          style={{
-            fontFamily: "var(--font-playfair)",
-            fontSize: "clamp(3rem, 5.5vw, 5.5rem)",
-            lineHeight: 1.1,
-            marginBottom: "2rem",
-            color: "var(--noir)",
-          }}
-        >
-          <div style={{ overflow: "hidden" }}>
-            <motion.span
-              initial={{ y: 80, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3, ease }}
-              style={{ display: "block" }}
-            >
-              Des sites web qui ramènent des clients.
-            </motion.span>
-          </div>
-        </h1>
-
-        {/* Ligne séparatrice animée */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.7, ease }}
-          style={{
-            height: "2px",
-            width: "60px",
-            backgroundColor: "var(--terracotta)",
-            marginBottom: "2rem",
-            transformOrigin: "left center",
-            margin: "0 auto 2rem",
-          }}
-        />
-
-        {/* Sous-titre */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9, ease }}
-          className="mb-10 text-lg leading-relaxed"
-          style={{
-            maxWidth: "580px",
-            margin: "0 auto 2.5rem",
-            color: "var(--gris-texte)",
-          }}
-        >
-          J'aide les artisans et PME de Savoie à obtenir un site internet professionnel — pour apparaître en tête de Google quand vos clients cherchent votre métier et transformer les visites en appels.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2, ease }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Link
-            href="#contact"
-            className="inline-block font-medium transition-colors"
-            style={{
-              backgroundColor: "var(--noir)",
-              color: "#FFFFFF",
-              padding: "1rem 2.25rem",
-              borderRadius: "2px",
-              textDecoration: "none",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-            }}
-          >
-            Parlons de votre projet
-          </Link>
-
-          <Link
-            href="#services"
-            className="inline-block font-medium transition-opacity hover:opacity-60"
-            style={{
-              color: "var(--noir)",
-              padding: "1rem 2.25rem",
-              borderRadius: "2px",
-              border: "1px solid var(--gris-border)",
-              textDecoration: "none",
-            }}
-          >
-            Nos services
-          </Link>
-        </motion.div>
-      </div>
-
-      {/* Scroll indicator */}
+    <section className="relative flex flex-col md:flex-row min-h-screen w-full overflow-hidden">
+      {/* Moitié gauche */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1.8 }}
-        className="absolute bottom-10"
+        initial={{ x: -30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.9, delay: 0.1, ease }}
+        onMouseEnter={() => setHovered("left")}
+        onMouseLeave={() => setHovered(null)}
+        className="relative flex min-h-[50vh] md:min-h-screen flex-1 items-center justify-center px-8 text-center"
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "8px",
-          color: "var(--gris-texte)",
-          fontSize: "0.65rem",
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          zIndex: 1,
+          flex: hovered === "left" ? 1.2 : 1,
+          transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
+          backgroundColor: "var(--noir)",
+          paddingTop: "72px",
         }}
       >
-        <span>Scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
-          style={{
-            width: "1px",
-            height: "32px",
-            backgroundColor: "var(--gris-border)",
-          }}
-        />
+        <Link href="/site-web" className="absolute inset-0 cursor-pointer" aria-label="Site web qui convertit" />
+
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
+          <p
+            className="text-xs font-medium uppercase tracking-widest"
+            style={{ color: "#FFFFFF", opacity: 0.6 }}
+          >
+            Création &amp; référencement
+          </p>
+
+          <h2
+            style={{
+              fontFamily: "var(--font-playfair)",
+              fontSize: "clamp(2.8rem, 4.5vw, 4.5rem)",
+              lineHeight: 1.1,
+              color: "#FFFFFF",
+              marginTop: "1.25rem",
+            }}
+          >
+            Site web qui convertit.
+          </h2>
+
+          <div
+            style={{
+              width: "50px",
+              height: "2px",
+              backgroundColor: "#FFFFFF",
+              opacity: 0.4,
+              margin: "1.5rem auto",
+            }}
+          />
+
+          <p
+            style={{
+              fontSize: "1rem",
+              color: "#FFFFFF",
+              opacity: 0.75,
+              maxWidth: "320px",
+              lineHeight: 1.6,
+              margin: "0 auto",
+            }}
+          >
+            Visibilité locale, design professionnel, résultats mesurables.
+          </p>
+
+          <p
+            className="font-medium"
+            style={{ color: "#FFFFFF", opacity: 0.8, marginTop: "2rem" }}
+          >
+            Découvrir →
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Séparation centrale */}
+      <div
+        className="hidden md:block"
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: "50%",
+          width: "1px",
+          backgroundColor: "rgba(255,255,255,0.15)",
+          zIndex: 2,
+        }}
+      />
+
+      {/* Moitié droite */}
+      <motion.div
+        initial={{ x: 30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.9, delay: 0.25, ease }}
+        onMouseEnter={() => setHovered("right")}
+        onMouseLeave={() => setHovered(null)}
+        className="relative flex min-h-[50vh] md:min-h-screen flex-1 items-center justify-center px-8 text-center"
+        style={{
+          flex: hovered === "right" ? 1.2 : 1,
+          transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
+          backgroundColor: "var(--terracotta)",
+          paddingTop: "72px",
+        }}
+      >
+        <Link href="/ia" className="absolute inset-0 cursor-pointer" aria-label="Automatisez votre business" />
+
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
+          <p
+            className="text-xs font-medium uppercase tracking-widest"
+            style={{ color: "#FFFFFF", opacity: 0.6 }}
+          >
+            Intelligence artificielle
+          </p>
+
+          <h2
+            style={{
+              fontFamily: "var(--font-playfair)",
+              fontSize: "clamp(2.8rem, 4.5vw, 4.5rem)",
+              lineHeight: 1.1,
+              color: "#FFFFFF",
+              marginTop: "1.25rem",
+            }}
+          >
+            Automatisez votre business.
+          </h2>
+
+          <div
+            style={{
+              width: "50px",
+              height: "2px",
+              backgroundColor: "#FFFFFF",
+              opacity: 0.4,
+              margin: "1.5rem auto",
+            }}
+          />
+
+          <p
+            style={{
+              fontSize: "1rem",
+              color: "#FFFFFF",
+              opacity: 0.75,
+              maxWidth: "320px",
+              lineHeight: 1.6,
+              margin: "0 auto",
+            }}
+          >
+            Gagnez du temps sur les tâches répétitives. Concentrez-vous sur votre métier.
+          </p>
+
+          <p
+            className="font-medium"
+            style={{ color: "#FFFFFF", opacity: 0.8, marginTop: "2rem" }}
+          >
+            Découvrir →
+          </p>
+        </div>
       </motion.div>
     </section>
   );
