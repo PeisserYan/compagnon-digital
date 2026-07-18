@@ -52,10 +52,10 @@ export default function Navbar() {
 
       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
         {[
-          { href: "/#services",  label: "Services" },
-          { href: "/realisations", label: "Réalisations" },
-          { href: "/#apropos",   label: "À propos" },
-          { href: "/#contact",   label: "Contact" },
+          { href: "/site-web#services",     label: "Services" },
+          { href: "/site-web#realisations", label: "Réalisations" },
+          { href: "/site-web#apropos",      label: "À propos" },
+          { href: "/site-web#contact",      label: "Contact" },
         ].map(({ href, label }) => (
           <li key={href}>
             <Link
@@ -70,7 +70,7 @@ export default function Navbar() {
       </ul>
 
       <Link
-        href="/#contact"
+        href="/site-web#contact"
         className="text-sm font-medium transition-colors"
         style={{
           backgroundColor: "var(--noir)",
