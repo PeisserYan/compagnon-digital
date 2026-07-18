@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import ConditionalLoader from "@/components/ConditionalLoader";
 import Script from "next/script";
 
 const inter = Inter({
@@ -58,7 +57,6 @@ export default function RootLayout({
   return (
     <html lang="fr" className={playfair.variable}>
       <body className={`${inter.className} antialiased`}>
-        <ConditionalLoader />
         {children}
         <Script
           id="schema-org"
