@@ -85,15 +85,7 @@ export default function Hero() {
       {/* Séparation centrale */}
       <div
         className="hidden md:block"
-        style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: "50%",
-          width: "1px",
-          backgroundColor: "rgba(255,255,255,0.15)",
-          zIndex: 2,
-        }}
+        style={{ width: "1px", backgroundColor: "var(--terracotta)", alignSelf: "stretch", flexShrink: 0 }}
       />
 
       {/* Moitié droite */}
@@ -107,7 +99,7 @@ export default function Hero() {
         style={{
           flex: hovered === "right" ? 1.2 : 1,
           transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
-          backgroundColor: "var(--terracotta)",
+          backgroundColor: "var(--noir)",
           paddingTop: "72px",
         }}
       >
