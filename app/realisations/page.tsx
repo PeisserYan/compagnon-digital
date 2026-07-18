@@ -47,6 +47,15 @@ const projets = [
     description:
       "Charpente, menuiserie, couverture et zinguerie à Sainte-Hélène-du-Lac. Site en cours de finalisation.",
     lien: "https://www.ssb73.fr",
+  },
+  {
+    image: "/cgd-pro.png",
+    alt: "Site CGD Pro — Impression 3D",
+    tag: "Impression 3D · Savoie",
+    nom: "CGD Pro",
+    description:
+      "Site vitrine pour un professionnel de l'impression 3D. Site en cours de finalisation.",
+    lien: "https://www.cgd-pro.fr",
     badge: "En cours",
   },
 ];
