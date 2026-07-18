@@ -4,30 +4,26 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const services = [
+const MotionLink = motion(Link);
+
+const blocs = [
   {
-    tag: "01 · L'ESSENTIEL",
-    titre: "Tu veux exister proprement.",
-    prix: "Site vitrine · à partir de 500€",
+    href: "/site-web/creation",
+    tag: "01 · CRÉATION",
+    titre: "Site web qui convertit.",
     description:
-      "Un site vitrine qui te ressemble. Mobile, propre, RGPD en règle. Le client te trouve, t'appelle, ou te laisse un message.",
-    items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
+      "Site vitrine, outil métier, e-commerce. Un site conçu pour ramener des clients — pas juste pour exister.",
+    items: ["Site vitrine", "Mobile & RGPD", "Hébergement inclus", "Sur mesure"],
+    cta: "Voir les formules →",
   },
   {
-    tag: "02 · LA VISIBILITÉ",
-    titre: "Tu veux qu'on te trouve.",
-    prix: "Sur mesure selon vos besoins",
+    href: "/site-web/referencement",
+    tag: "02 · RÉFÉRENCEMENT",
+    titre: "Être trouvé par les bons clients.",
     description:
-      "SEO local, fiche Google Business, avis clients. Trois leviers qu'on active ensemble pour que les bons clients arrivent.",
-    items: ["SEO local", "Google Business", "Avis clients", "Contenu"],
-  },
-  {
-    tag: "03 · L'OUTIL",
-    titre: "Tu veux que ton site bosse pour toi.",
-    prix: "Sur mesure selon vos besoins",
-    description:
-      "Réservation, e-commerce, devis en ligne, espace client. Ton site devient ton premier salarié — celui qui ne dort pas.",
-    items: ["Réservation", "E-commerce", "Devis en ligne", "Espace client"],
+      "SEO, SEA, GEO. Trois approches complémentaires pour apparaître quand vos clients vous cherchent.",
+    items: ["SEO local", "SEA Google Ads", "GEO (IA & LLMs)", "Suivi mensuel"],
+    cta: "Voir les approches →",
   },
 ];
 
@@ -69,26 +65,30 @@ export default function SectionServices() {
           </motion.h2>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.tag}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {blocs.map((bloc, i) => (
+            <MotionLink
+              key={bloc.tag}
+              href={bloc.href}
               initial={{ opacity: 0, y: 60 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
+              whileHover={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
+              className="block"
               style={{
                 backgroundColor: "var(--gris-clair)",
                 borderRadius: "4px",
                 padding: "2.5rem",
                 border: "1px solid var(--gris-border)",
                 borderTop: "3px solid var(--terracotta)",
+                textDecoration: "none",
               }}
             >
               <p
                 className="mb-3 text-xs font-bold tracking-widest"
                 style={{ color: "var(--terracotta)" }}
               >
-                {service.tag}
+                {bloc.tag}
               </p>
 
               <h3
@@ -99,36 +99,32 @@ export default function SectionServices() {
                   color: "var(--noir)",
                 }}
               >
-                {service.titre}
+                {bloc.titre}
               </h3>
-
-              <p
-                style={{
-                  fontWeight: 600,
-                  color: "var(--noir)",
-                  fontSize: "0.9375rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                {service.prix}
-              </p>
 
               <p
                 className="mb-6 text-sm leading-relaxed"
                 style={{ color: "var(--gris-texte)" }}
               >
-                {service.description}
+                {bloc.description}
               </p>
 
-              <ul className="space-y-2">
-                {service.items.map((item) => (
+              <ul className="mb-6 space-y-2">
+                {bloc.items.map((item) => (
                   <li key={item} className="flex items-center gap-2 text-sm">
                     <span style={{ color: "var(--terracotta)", fontSize: "1rem" }}>✓</span>
                     <span style={{ color: "var(--noir)" }}>{item}</span>
                   </li>
                 ))}
               </ul>
-            </motion.div>
+
+              <p
+                className="font-medium text-sm"
+                style={{ color: "var(--terracotta)" }}
+              >
+                {bloc.cta}
+              </p>
+            </MotionLink>
           ))}
         </div>
 
@@ -140,7 +136,7 @@ export default function SectionServices() {
           className="mt-14 text-center"
         >
           <Link
-            href="#contact"
+            href="/site-web#contact"
             className="inline-block font-medium transition-colors"
             style={{
               backgroundColor: "var(--noir)",
