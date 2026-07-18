@@ -19,8 +19,8 @@ export default function Loader() {
       {visible && (
         <motion.div
           key="panel"
-          initial={{ x: 0 }}
-          exit={{ x: "100%" }}
+          initial={{ clipPath: "inset(0 0 0 0%)" }}
+          exit={{ clipPath: "inset(0 0 0 100%)" }}
           transition={{ duration: 0.7, ease }}
           style={{
             position: "fixed",
