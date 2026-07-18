@@ -30,7 +30,7 @@ export default function Hero() {
       >
         <Link href="/site-web" className="absolute inset-0 cursor-pointer" aria-label="Site web qui convertit" />
 
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px", pointerEvents: "none" }}>
           <p
             className="text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--noir)", opacity: 0.6 }}
@@ -105,7 +105,7 @@ export default function Hero() {
       >
         <Link href="/ia" className="absolute inset-0 cursor-pointer" aria-label="Automatisez votre business" />
 
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px", pointerEvents: "none" }}>
           <p
             className="text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--noir)", opacity: 0.6 }}
