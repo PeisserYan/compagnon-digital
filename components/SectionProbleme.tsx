@@ -6,11 +6,11 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const constats = [
   {
     chiffre: "01",
-    texte: "Un client qui ne vous trouve pas sur Google appelle votre concurrent. Vous perdez le chantier.",
+    texte: "Un client qui ne vous trouve pas sur Google appelle votre concurrent. Vous perdez le chantier sans même le savoir.",
   },
   {
     chiffre: "02",
-    texte: "Votre site actuel vous fait peut-être perdre des clients sans que vous le sachiez.",
+    texte: "Un client qui hésite entre vous et un concurrent regarde vos avis, vos photos, votre zone d'intervention. Si votre site ne répond pas, il passe au suivant.",
   },
   {
     chiffre: "03",
@@ -75,7 +75,7 @@ export default function SectionProbleme() {
           className="mb-16 text-base leading-relaxed"
           style={{ color: "var(--gris-texte)" }}
         >
-          C'est pas d'un site dont on parle. C'est de plus de clients. Vous voulez qu'on vous laisse tranquille pour faire votre métier — et que les clients vous trouvent quand ils cherchent ce que vous faites. C'est pour ça que je suis là.
+          Plus de clients. C'est de ça qu'on parle, pas d'un site. Vous voulez qu'on vous laisse tranquille pour faire votre métier. Que les clients vous trouvent quand ils cherchent ce que vous faites. C'est pour ça que je suis là.
         </motion.p>
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-10">
