@@ -53,7 +53,7 @@ export default function Navbar() {
       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
         {[
           { href: "/site-web#services",     label: "Services" },
-          { href: "/site-web#realisations", label: "Réalisations" },
+          { href: "/realisations", label: "Réalisations" },
           { href: "/site-web#apropos",      label: "À propos" },
           { href: "/site-web#contact",      label: "Contact" },
         ].map(({ href, label }) => (

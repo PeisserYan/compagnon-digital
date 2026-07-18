@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RealisationsGallery from "@/components/RealisationsGallery";
 
 const projets = [
   {
@@ -91,75 +91,7 @@ export default function RealisationsPage() {
           Tous mes projets.
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {projets.map((projet) => (
-            <div
-              key={projet.nom}
-              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-            >
-              <div style={{ height: "220px", borderRadius: "4px", overflow: "hidden", position: "relative" }}>
-                <Image
-                  src={projet.image}
-                  alt={projet.alt}
-                  width={600}
-                  height={220}
-                  className="w-full h-full object-cover"
-                />
-                {projet.badge && (
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "0.6rem",
-                      right: "0.6rem",
-                      backgroundColor: "var(--noir)",
-                      color: "#FFFFFF",
-                      fontSize: "0.75rem",
-                      padding: "0.25rem 0.6rem",
-                      borderRadius: "2px",
-                    }}
-                  >
-                    {projet.badge}
-                  </span>
-                )}
-              </div>
-
-              <p
-                className="text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--terracotta)" }}
-              >
-                {projet.tag}
-              </p>
-
-              <h2
-                className="leading-tight"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-                  color: "var(--noir)",
-                }}
-              >
-                {projet.nom}
-              </h2>
-
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)" }}
-              >
-                {projet.description}
-              </p>
-
-              <a
-                href={projet.lien}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--terracotta)" }}
-              >
-                Voir le site →
-              </a>
-            </div>
-          ))}
-        </div>
+        <RealisationsGallery projets={projets} />
 
       </div>
     </main>
