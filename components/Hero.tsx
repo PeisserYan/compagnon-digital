@@ -24,7 +24,7 @@ export default function Hero() {
         style={{
           flex: hovered === "left" ? 1.2 : 1,
           transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
-          backgroundColor: "var(--noir)",
+          backgroundColor: "#FFFFFF",
           paddingTop: "72px",
         }}
       >
@@ -33,7 +33,7 @@ export default function Hero() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
           <p
             className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "#FFFFFF", opacity: 0.6 }}
+            style={{ color: "var(--noir)", opacity: 0.6 }}
           >
             Création &amp; référencement
           </p>
@@ -43,7 +43,7 @@ export default function Hero() {
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(2.8rem, 4.5vw, 4.5rem)",
               lineHeight: 1.1,
-              color: "#FFFFFF",
+              color: "var(--noir)",
               marginTop: "1.25rem",
             }}
           >
@@ -54,7 +54,7 @@ export default function Hero() {
             style={{
               width: "50px",
               height: "2px",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "var(--noir)",
               opacity: 0.4,
               margin: "1.5rem auto",
             }}
@@ -63,7 +63,7 @@ export default function Hero() {
           <p
             style={{
               fontSize: "1rem",
-              color: "#FFFFFF",
+              color: "var(--noir)",
               opacity: 0.75,
               maxWidth: "320px",
               lineHeight: 1.6,
@@ -75,7 +75,7 @@ export default function Hero() {
 
           <p
             className="font-medium"
-            style={{ color: "#FFFFFF", opacity: 0.8, marginTop: "2rem" }}
+            style={{ color: "var(--noir)", opacity: 0.8, marginTop: "2rem" }}
           >
             Découvrir →
           </p>
@@ -99,7 +99,7 @@ export default function Hero() {
         style={{
           flex: hovered === "right" ? 1.2 : 1,
           transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
-          backgroundColor: "var(--noir)",
+          backgroundColor: "#FFFFFF",
           paddingTop: "72px",
         }}
       >
@@ -108,7 +108,7 @@ export default function Hero() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
           <p
             className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "#FFFFFF", opacity: 0.6 }}
+            style={{ color: "var(--noir)", opacity: 0.6 }}
           >
             Intelligence artificielle
           </p>
@@ -118,7 +118,7 @@ export default function Hero() {
               fontFamily: "var(--font-playfair)",
               fontSize: "clamp(2.8rem, 4.5vw, 4.5rem)",
               lineHeight: 1.1,
-              color: "#FFFFFF",
+              color: "var(--noir)",
               marginTop: "1.25rem",
             }}
           >
@@ -129,7 +129,7 @@ export default function Hero() {
             style={{
               width: "50px",
               height: "2px",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "var(--noir)",
               opacity: 0.4,
               margin: "1.5rem auto",
             }}
@@ -138,7 +138,7 @@ export default function Hero() {
           <p
             style={{
               fontSize: "1rem",
-              color: "#FFFFFF",
+              color: "var(--noir)",
               opacity: 0.75,
               maxWidth: "320px",
               lineHeight: 1.6,
@@ -150,7 +150,7 @@ export default function Hero() {
 
           <p
             className="font-medium"
-            style={{ color: "#FFFFFF", opacity: 0.8, marginTop: "2rem" }}
+            style={{ color: "var(--noir)", opacity: 0.8, marginTop: "2rem" }}
           >
             Découvrir →
           </p>
