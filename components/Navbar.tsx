@@ -25,9 +25,9 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
-        backgroundColor: "var(--noir)",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.1)" : "1px solid transparent",
-        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.3)" : "none",
+        backgroundColor: "#FFFFFF",
+        borderBottom: scrolled ? "1px solid var(--gris-border)" : "1px solid transparent",
+        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
         transition: "padding 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
       }}
     >
@@ -43,7 +43,7 @@ export default function Navbar() {
           fontFamily: "var(--font-playfair)",
           fontSize: "1.1rem",
           fontWeight: 700,
-          color: "#FFFFFF",
+          color: "#111111",
           letterSpacing: "0.01em",
         }}>
           Compagnon Digital
@@ -61,7 +61,7 @@ export default function Navbar() {
             <Link
               href={href}
               className="hover:opacity-60 transition-opacity"
-              style={{ color: "#FFFFFF" }}
+              style={{ color: "var(--noir)" }}
             >
               {label}
             </Link>
@@ -73,20 +73,17 @@ export default function Navbar() {
         href="/#contact"
         className="text-sm font-medium transition-colors"
         style={{
-          backgroundColor: "transparent",
+          backgroundColor: "var(--noir)",
           color: "#FFFFFF",
           padding: "0.625rem 1.375rem",
           borderRadius: "2px",
-          border: "1px solid rgba(255,255,255,0.5)",
           textDecoration: "none",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
-          (e.currentTarget as HTMLAnchorElement).style.border = "1px solid var(--terracotta)";
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-          (e.currentTarget as HTMLAnchorElement).style.border = "1px solid rgba(255,255,255,0.5)";
+          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
         }}
       >
         Parlons de votre projet
