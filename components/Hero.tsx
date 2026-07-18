@@ -20,17 +20,21 @@ export default function Hero() {
         transition={{ duration: 0.9, delay: 0.1, ease }}
         onMouseEnter={() => setHovered("left")}
         onMouseLeave={() => setHovered(null)}
-        className="relative flex min-h-[50vh] md:min-h-screen flex-1 items-center justify-center px-8 text-center"
+        className="relative min-h-[50vh] md:min-h-screen flex-1 px-8 text-center"
         style={{
           flex: hovered === "left" ? 1.2 : 1,
           transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
           backgroundColor: "#FFFFFF",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           paddingTop: "72px",
         }}
       >
         <Link href="/site-web" className="absolute inset-0 cursor-pointer" aria-label="Site web qui convertit" />
 
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px", pointerEvents: "none" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "320px", pointerEvents: "none" }}>
           <p
             className="text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--noir)", opacity: 0.6 }}
@@ -47,7 +51,9 @@ export default function Hero() {
               marginTop: "1.25rem",
             }}
           >
-            Site web qui convertit.
+            <span style={{ display: "block" }}>Site web</span>
+            <span style={{ display: "block" }}>qui</span>
+            <span style={{ display: "block" }}>convertit.</span>
           </h2>
 
           <div
@@ -65,7 +71,7 @@ export default function Hero() {
               fontSize: "1rem",
               color: "var(--noir)",
               opacity: 0.75,
-              maxWidth: "320px",
+              maxWidth: "260px",
               lineHeight: 1.6,
               margin: "0 auto",
             }}
@@ -82,12 +88,6 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Séparation centrale */}
-      <div
-        className="hidden md:block"
-        style={{ width: "1px", backgroundColor: "var(--terracotta)", alignSelf: "stretch", flexShrink: 0 }}
-      />
-
       {/* Moitié droite */}
       <motion.div
         initial={{ x: 30, opacity: 0 }}
@@ -95,17 +95,21 @@ export default function Hero() {
         transition={{ duration: 0.9, delay: 0.25, ease }}
         onMouseEnter={() => setHovered("right")}
         onMouseLeave={() => setHovered(null)}
-        className="relative flex min-h-[50vh] md:min-h-screen flex-1 items-center justify-center px-8 text-center"
+        className="relative min-h-[50vh] md:min-h-screen flex-1 px-8 text-center"
         style={{
           flex: hovered === "right" ? 1.2 : 1,
           transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
           backgroundColor: "#FFFFFF",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           paddingTop: "72px",
         }}
       >
         <Link href="/ia" className="absolute inset-0 cursor-pointer" aria-label="Automatisez votre business" />
 
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px", pointerEvents: "none" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "320px", pointerEvents: "none" }}>
           <p
             className="text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--noir)", opacity: 0.6 }}
@@ -140,7 +144,7 @@ export default function Hero() {
               fontSize: "1rem",
               color: "var(--noir)",
               opacity: 0.75,
-              maxWidth: "320px",
+              maxWidth: "260px",
               lineHeight: 1.6,
               margin: "0 auto",
             }}
