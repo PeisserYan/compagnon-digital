@@ -2,160 +2,158 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 
-type Side = "left" | "right" | null;
+const siteWebCards = [
+  { label: "Site Web", href: "/site-web/creation" },
+  { label: "SEO", href: "/site-web/referencement" },
+  { label: "SEA", href: "/site-web/referencement" },
+  { label: "GEO", href: "/site-web/referencement" },
+];
+
+const iaCards = [
+  { label: "Automatisation", href: "/ia" },
+  { label: "Assistants IA", href: "/ia" },
+  { label: "Agents & workflows", href: "/ia" },
+  { label: "Intégrations sur mesure", href: "/ia" },
+];
+
+function CardGroup({
+  title,
+  cards,
+  delay,
+}: {
+  title: string;
+  cards: { label: string; href: string }[];
+  delay: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay, ease }}
+    >
+      <p
+        className="mb-5 text-center text-xs font-medium tracking-widest uppercase"
+        style={{ color: "var(--terracotta)" }}
+      >
+        {title}
+      </p>
+      <div className="grid grid-cols-2 gap-3">
+        {cards.map((card) => (
+          <Link
+            key={card.label}
+            href={card.href}
+            className="flex items-center justify-center text-center transition-colors"
+            style={{
+              backgroundColor: "var(--gris-clair)",
+              border: "1px solid var(--gris-border)",
+              borderTop: "3px solid var(--terracotta)",
+              borderRadius: "4px",
+              padding: "1.5rem 0.75rem",
+              fontSize: "0.9rem",
+              fontWeight: 500,
+              color: "var(--noir)",
+              textDecoration: "none",
+              minHeight: "84px",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#FFFFFF";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--terracotta)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--gris-clair)";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--gris-border)";
+            }}
+          >
+            {card.label}
+          </Link>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Hero() {
-  const [hovered, setHovered] = useState<Side>(null);
-
   return (
-    <section className="relative flex flex-col md:flex-row min-h-screen w-full overflow-hidden">
-      {/* Moitié gauche */}
-      <motion.div
-        initial={{ x: -30, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.1, ease }}
-        onMouseEnter={() => setHovered("left")}
-        onMouseLeave={() => setHovered(null)}
-        className="relative flex min-h-[50vh] md:min-h-screen flex-1 items-center justify-center px-8 text-center"
-        style={{
-          flex: hovered === "left" ? 1.2 : 1,
-          transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
-          backgroundColor: "#FFFFFF",
-          paddingTop: "72px",
-        }}
-      >
-        <Link href="/site-web" className="absolute inset-0 cursor-pointer" aria-label="Site web qui convertit" />
+    <section
+      className="relative flex flex-col items-center justify-center text-center pt-[140px] pb-24 px-6 md:px-12"
+      style={{ backgroundColor: "#FFFFFF" }}
+    >
+      <div style={{ maxWidth: "980px", width: "100%" }}>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease }}
+          className="mb-4 text-xs font-medium tracking-widest uppercase"
+          style={{ color: "var(--terracotta)" }}
+        >
+          Savoie & Haute-Savoie
+        </motion.p>
 
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px", pointerEvents: "none" }}>
-          <p
-            className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "var(--noir)", opacity: 0.6 }}
-          >
-            Création &amp; référencement
-          </p>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+          className="mb-14"
+          style={{
+            fontFamily: "var(--font-playfair)",
+            fontSize: "clamp(2.25rem, 4vw, 3.25rem)",
+            lineHeight: 1.15,
+            color: "var(--noir)",
+          }}
+        >
+          Deux façons de faire venir vos clients.
+        </motion.h1>
 
-          <h2
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(2.8rem, 4.5vw, 4.5rem)",
-              lineHeight: 1.1,
-              color: "var(--noir)",
-              marginTop: "1.25rem",
-            }}
-          >
-            Site web qui convertit.
-          </h2>
-
-          <div
-            style={{
-              width: "50px",
-              height: "2px",
-              backgroundColor: "var(--noir)",
-              opacity: 0.4,
-              margin: "1.5rem auto",
-            }}
-          />
-
-          <p
-            style={{
-              fontSize: "1rem",
-              color: "var(--noir)",
-              opacity: 0.75,
-              maxWidth: "320px",
-              lineHeight: 1.6,
-              margin: "0 auto",
-            }}
-          >
-            Visibilité locale, design professionnel, résultats mesurables.
-          </p>
-
-          <p
-            className="font-medium"
-            style={{ color: "var(--noir)", opacity: 0.8, marginTop: "2rem" }}
-          >
-            Découvrir →
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 mb-20">
+          <CardGroup title="Création et référencement" cards={siteWebCards} delay={0.35} />
+          <CardGroup title="Intelligence artificielle" cards={iaCards} delay={0.5} />
         </div>
-      </motion.div>
 
-      {/* Séparation centrale */}
-      <div
-        className="hidden md:block"
-        style={{ width: "1px", backgroundColor: "var(--terracotta)", alignSelf: "stretch", flexShrink: 0 }}
-      />
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7, ease }}
+          className="mb-10"
+          style={{
+            fontFamily: "var(--font-playfair)",
+            fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
+            color: "var(--noir)",
+            maxWidth: "700px",
+            margin: "0 auto 2.5rem",
+          }}
+        >
+          Vos futurs clients vous cherchent en ce moment.
+        </motion.h2>
 
-      {/* Moitié droite */}
-      <motion.div
-        initial={{ x: 30, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.25, ease }}
-        onMouseEnter={() => setHovered("right")}
-        onMouseLeave={() => setHovered(null)}
-        className="relative flex min-h-[50vh] md:min-h-screen flex-1 items-center justify-center px-8 text-center"
-        style={{
-          flex: hovered === "right" ? 1.2 : 1,
-          transition: "flex 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
-          backgroundColor: "#FFFFFF",
-          paddingTop: "72px",
-        }}
-      >
-        <Link href="/ia" className="absolute inset-0 cursor-pointer" aria-label="Automatisez votre business" />
-
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "420px", pointerEvents: "none" }}>
-          <p
-            className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "var(--noir)", opacity: 0.6 }}
-          >
-            Intelligence artificielle
-          </p>
-
-          <h2
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.85, ease }}
+        >
+          <Link
+            href="/site-web#contact"
+            className="inline-block font-medium transition-colors"
             style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(2.8rem, 4.5vw, 4.5rem)",
-              lineHeight: 1.1,
-              color: "var(--noir)",
-              marginTop: "1.25rem",
-            }}
-          >
-            Automatisez votre business.
-          </h2>
-
-          <div
-            style={{
-              width: "50px",
-              height: "2px",
               backgroundColor: "var(--noir)",
-              opacity: 0.4,
-              margin: "1.5rem auto",
+              color: "#FFFFFF",
+              padding: "1rem 2.25rem",
+              borderRadius: "2px",
+              textDecoration: "none",
             }}
-          />
-
-          <p
-            style={{
-              fontSize: "1rem",
-              color: "var(--noir)",
-              opacity: 0.75,
-              maxWidth: "320px",
-              lineHeight: 1.6,
-              margin: "0 auto",
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
             }}
           >
-            Gagnez du temps sur les tâches répétitives. Concentrez-vous sur votre métier.
-          </p>
-
-          <p
-            className="font-medium"
-            style={{ color: "var(--noir)", opacity: 0.8, marginTop: "2rem" }}
-          >
-            Découvrir →
-          </p>
-        </div>
-      </motion.div>
+            Parlons de votre projet
+          </Link>
+        </motion.div>
+      </div>
     </section>
   );
 }
