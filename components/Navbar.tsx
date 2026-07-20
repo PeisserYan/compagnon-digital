@@ -54,8 +54,8 @@ export default function Navbar() {
         {[
           { href: "/site-web#services",     label: "Services" },
           { href: "/realisations", label: "Réalisations" },
-          { href: "/site-web#apropos",      label: "À propos" },
-          { href: "/site-web#contact",      label: "Contact" },
+          { href: "/#apropos",      label: "À propos" },
+          { href: "/#contact",      label: "Contact" },
         ].map(({ href, label }) => (
           <li key={href}>
             <Link
@@ -70,7 +70,7 @@ export default function Navbar() {
       </ul>
 
       <Link
-        href="/site-web#contact"
+        href="/#contact"
         className="text-sm font-medium transition-colors"
         style={{
           backgroundColor: "var(--noir)",

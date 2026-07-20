@@ -136,7 +136,7 @@ export default function SectionServices() {
           className="mt-14 text-center"
         >
           <Link
-            href="/site-web#contact"
+            href="/#contact"
             className="inline-block font-medium transition-colors"
             style={{
               backgroundColor: "var(--noir)",

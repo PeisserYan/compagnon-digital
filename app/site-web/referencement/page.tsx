@@ -285,7 +285,7 @@ export default function Referencement() {
             </p>
 
             <Link
-              href="/site-web#contact"
+              href="/#contact"
               className="inline-block font-medium transition-colors"
               style={{
                 backgroundColor: "var(--noir)",
