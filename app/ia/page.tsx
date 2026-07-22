@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Automatisation et IA | Compagnon Digital",
+  description: "Automatisation et IA — Compagnon Digital, offre en préparation.",
+  alternates: {
+    canonical: "https://compagnondigital.fr/ia",
+  },
+};
 
 export default function IA() {
   return (

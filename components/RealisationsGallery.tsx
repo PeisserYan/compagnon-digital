@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -16,30 +16,79 @@ type Projet = {
 
 export default function RealisationsGallery({ projets }: { projets: Projet[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const prevButtonRef = useRef<HTMLButtonElement | null>(null);
+  const nextButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const goPrev = useCallback(() => {
+    setActiveIndex((i) => (i === null ? null : (i - 1 + projets.length) % projets.length));
+  }, [projets.length]);
+
+  const goNext = useCallback(() => {
+    setActiveIndex((i) => (i === null ? null : (i + 1) % projets.length));
+  }, [projets.length]);
 
   useEffect(() => {
-    if (activeIndex === null) return;
+    if (activeIndex === null) {
+      triggerRef.current?.focus();
+      return;
+    }
 
     document.body.style.overflow = "hidden";
 
+    const raf = requestAnimationFrame(() => {
+      closeButtonRef.current?.focus();
+    });
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveIndex(null);
+      if (e.key === "Escape") {
+        setActiveIndex(null);
+        return;
+      }
+      if (e.key === "ArrowLeft") {
+        goPrev();
+        return;
+      }
+      if (e.key === "ArrowRight") {
+        goNext();
+        return;
+      }
+      if (e.key === "Tab") {
+        const focusable = [
+          closeButtonRef.current,
+          prevButtonRef.current,
+          nextButtonRef.current,
+        ].filter((el): el is HTMLButtonElement => el !== null);
+        if (focusable.length === 0) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        const focusInModal = modalRef.current?.contains(active) ?? false;
+
+        if (e.shiftKey) {
+          if (!focusInModal || active === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (!focusInModal || active === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
+      cancelAnimationFrame(raf);
     };
-  }, [activeIndex]);
-
-  const goPrev = () => {
-    setActiveIndex((i) => (i === null ? null : (i - 1 + projets.length) % projets.length));
-  };
-
-  const goNext = () => {
-    setActiveIndex((i) => (i === null ? null : (i + 1) % projets.length));
-  };
+  }, [activeIndex, goPrev, goNext]);
 
   const activeProjet = activeIndex !== null ? projets[activeIndex] : null;
 
@@ -51,14 +100,25 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             key={projet.nom}
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            <div
-              onClick={() => setActiveIndex(i)}
+            <button
+              type="button"
+              onClick={(e) => {
+                triggerRef.current = e.currentTarget;
+                setActiveIndex(i);
+              }}
               style={{
                 height: "220px",
                 borderRadius: "4px",
                 overflow: "hidden",
                 position: "relative",
                 cursor: "pointer",
+                display: "block",
+                width: "100%",
+                border: "none",
+                background: "none",
+                padding: 0,
+                textAlign: "inherit",
+                font: "inherit",
               }}
             >
               <Image
@@ -84,7 +144,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                   {projet.badge}
                 </span>
               )}
-            </div>
+            </button>
 
             <p
               className="text-xs font-medium tracking-widest uppercase"
@@ -127,6 +187,10 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
       <AnimatePresence>
         {activeProjet && (
           <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={activeProjet.nom}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -143,6 +207,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             }}
           >
             <button
+              ref={closeButtonRef}
               onClick={(e) => {
                 e.stopPropagation();
                 setActiveIndex(null);
@@ -164,6 +229,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             </button>
 
             <button
+              ref={prevButtonRef}
               onClick={(e) => {
                 e.stopPropagation();
                 goPrev();
@@ -186,6 +252,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             </button>
 
             <button
+              ref={nextButtonRef}
               onClick={(e) => {
                 e.stopPropagation();
                 goNext();

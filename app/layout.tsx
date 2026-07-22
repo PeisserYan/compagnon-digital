@@ -69,6 +69,12 @@ export default function RootLayout({
               "description": "Création de sites web professionnels pour artisans et TPE en Savoie et Haute-Savoie.",
               "url": "https://compagnondigital.fr",
               "email": "yan@compagnondigital.fr",
+              "telephone": "+33673401475",
+              "address": {
+                "@type": "PostalAddress",
+                "addressRegion": "Savoie",
+                "addressCountry": "FR"
+              },
               "founder": {
                 "@type": "Person",
                 "name": "Yan Peisser"

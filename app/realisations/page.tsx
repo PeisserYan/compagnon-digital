@@ -64,6 +64,9 @@ export const metadata = {
   title: "Réalisations — Compagnon Digital",
   description:
     "Découvrez les sites web réalisés par Compagnon Digital pour des artisans et TPE en Savoie et Haute-Savoie.",
+  alternates: {
+    canonical: "https://compagnondigital.fr/realisations",
+  },
 };
 
 export default function RealisationsPage() {

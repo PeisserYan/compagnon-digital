@@ -22,10 +22,7 @@ export default function Hero() {
           Savoie & Haute-Savoie
         </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease }}
+        <h1
           className="mb-8"
           style={{
             fontFamily: "var(--font-playfair)",
@@ -35,7 +32,7 @@ export default function Hero() {
           }}
         >
           J'aide les artisans et entreprises de Savoie à développer leur activité.
-        </motion.h1>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
