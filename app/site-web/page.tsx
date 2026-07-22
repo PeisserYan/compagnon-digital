@@ -17,7 +17,7 @@ export default function SiteWeb() {
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF", paddingTop: "120px" }}>
+      <main className="bg-paper" style={{ paddingTop: "120px" }}>
         <SectionProbleme />
         <SectionServices />
       </main>

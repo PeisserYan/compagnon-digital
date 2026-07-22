@@ -31,11 +31,7 @@ export default function SectionConfiance() {
   const { ref: tableRef, isInView: tableInView } = useScrollAnimation();
 
   return (
-    <section
-      id="confiance"
-      className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "var(--gris-clair)" }}
-    >
+    <section id="confiance" className="py-24 px-6 md:px-12 bg-paper">
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Header */}
@@ -44,8 +40,8 @@ export default function SectionConfiance() {
             initial={{ opacity: 0, y: 40 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)", letterSpacing: "0.15em" }}
+            className="mb-6 text-xs font-medium tracking-widest uppercase text-forest"
+            style={{ letterSpacing: "0.15em" }}
           >
             Pourquoi je travaille différemment
           </motion.p>
@@ -54,12 +50,7 @@ export default function SectionConfiance() {
             initial={{ opacity: 0, y: 40 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="mb-8 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
+            className="mb-8 leading-snug font-display font-semibold text-ink text-h2 md:text-h2-lg"
           >
             Pourquoi je travaille différemment.
           </motion.h2>
@@ -68,8 +59,8 @@ export default function SectionConfiance() {
             initial={{ opacity: 0, y: 24 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className="mb-16 space-y-4 text-base leading-relaxed"
-            style={{ color: "var(--gris-texte)", maxWidth: "680px" }}
+            className="mb-16 space-y-4 text-base leading-relaxed text-ink-muted"
+            style={{ maxWidth: "680px" }}
           >
             <p>
               Mon père a payé 2500€ pour un site il y a quelques années. Il n'a jamais eu un seul client grâce à lui. En prospectant, j'entends régulièrement des artisans coincés chez SoLocal à 200€ par mois, sous contrat, sans résultat.
@@ -93,31 +84,28 @@ export default function SectionConfiance() {
         >
           <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ borderBottom: "2px solid var(--noir)" }}>
-                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--noir)", width: "28%" }}>
+              <tr className="border-b-2 border-ink">
+                <th className="py-3 pr-6 text-left font-semibold text-ink" style={{ width: "28%" }}>
                   Critère
                 </th>
-                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--gris-texte)", width: "36%" }}>
+                <th className="py-3 pr-6 text-left font-semibold text-ink-muted" style={{ width: "36%" }}>
                   Agences / SoLocal
                 </th>
-                <th className="py-3 text-left font-semibold" style={{ color: "var(--terracotta)", width: "36%", backgroundColor: "rgba(193, 105, 79, 0.05)" }}>
+                <th className="py-3 text-left font-semibold text-forest bg-forest-tint" style={{ width: "36%" }}>
                   Moi
                 </th>
               </tr>
             </thead>
             <tbody>
               {comparatif.map((row, i) => (
-                <tr
-                  key={i}
-                  style={{ borderBottom: "1px solid var(--gris-border)" }}
-                >
-                  <td className="py-4 pr-6 font-medium" style={{ color: "var(--noir)" }}>
+                <tr key={i} className="border-b border-border">
+                  <td className="py-4 pr-6 font-medium text-ink">
                     {row.critere}
                   </td>
-                  <td className="py-4 pr-6" style={{ color: "var(--gris-texte)" }}>
+                  <td className="py-4 pr-6 text-ink-muted">
                     {row.classique}
                   </td>
-                  <td className="py-4" style={{ color: "var(--noir)", fontWeight: 500, backgroundColor: "rgba(193, 105, 79, 0.05)" }}>
+                  <td className="py-4 font-medium text-ink bg-forest-tint">
                     {row.compagnon}
                   </td>
                 </tr>

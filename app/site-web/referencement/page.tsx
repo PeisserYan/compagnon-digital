@@ -98,39 +98,23 @@ export default function Referencement() {
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF", paddingTop: "160px" }}>
+      <main className="bg-paper" style={{ paddingTop: "160px" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 clamp(1rem, 6vw, 4rem)" }}>
           {/* Header */}
-          <p
-            className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "var(--terracotta)" }}
-          >
+          <p className="text-xs font-medium uppercase tracking-widest text-forest">
             RÉFÉRENCEMENT
           </p>
 
-          <h1
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              color: "var(--noir)",
-            }}
-          >
+          <h1 className="font-display font-semibold text-ink text-h1 md:text-h1-lg">
             Trois approches, un objectif.
           </h1>
 
           <div
-            style={{
-              width: "50px",
-              height: "2px",
-              backgroundColor: "var(--terracotta)",
-              margin: "1.5rem 0",
-            }}
+            className="bg-forest"
+            style={{ width: "50px", height: "2px", margin: "1.5rem 0" }}
           />
 
-          <p
-            className="text-lg leading-relaxed"
-            style={{ color: "var(--gris-texte)", maxWidth: "640px" }}
-          >
+          <p className="text-lg leading-relaxed text-ink-muted" style={{ maxWidth: "640px" }}>
             Le référencement naturel (SEO) et le référencement payant (SEA) sont deux stratégies pour améliorer votre visibilité dans les moteurs de recherche. Le GEO, lui, vous positionne dans les réponses générées par les intelligences artificielles. Les trois sont complémentaires.
           </p>
 
@@ -138,55 +122,33 @@ export default function Referencement() {
           {approches.map((approche) => (
             <section
               key={approche.sigle}
-              style={{
-                paddingTop: "80px",
-                paddingBottom: "80px",
-                borderBottom: "1px solid var(--gris-border)",
-              }}
+              className="border-b border-border"
+              style={{ paddingTop: "80px", paddingBottom: "80px" }}
             >
               <div className="flex" style={{ gap: "1rem", alignItems: "baseline" }}>
                 <span
-                  style={{
-                    fontFamily: "var(--font-playfair)",
-                    fontSize: "clamp(4rem, 8vw, 7rem)",
-                    color: "var(--gris-border)",
-                  }}
+                  className="font-display text-border"
+                  style={{ fontSize: "clamp(4rem, 8vw, 7rem)" }}
                 >
                   {approche.numero}
                 </span>
                 <span
-                  style={{
-                    fontFamily: "var(--font-playfair)",
-                    fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
-                    color: "var(--noir)",
-                  }}
+                  className="font-display text-ink"
+                  style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
                 >
                   {approche.sigle}
                 </span>
               </div>
 
-              <p
-                className="mb-2 text-xs uppercase tracking-widest"
-                style={{ color: "var(--terracotta)" }}
-              >
+              <p className="mb-2 text-xs uppercase tracking-widest text-forest">
                 {approche.surtitre}
               </p>
 
-              <h2
-                className="mb-4"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.25rem, 2vw, 1.75rem)",
-                  color: "var(--noir)",
-                }}
-              >
+              <h2 className="mb-4 font-display font-semibold text-ink text-h2 md:text-h2-lg">
                 {approche.accroche}
               </h2>
 
-              <p
-                className="mb-8 text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)", maxWidth: "600px" }}
-              >
+              <p className="mb-8 text-sm leading-relaxed text-ink-muted" style={{ maxWidth: "600px" }}>
                 {approche.paragraphe}
               </p>
 
@@ -197,27 +159,20 @@ export default function Referencement() {
                 {approche.cellules.map((cellule) => (
                   <div
                     key={cellule.titre}
-                    style={{
-                      padding: "1.25rem",
-                      backgroundColor: "var(--gris-clair)",
-                      borderRadius: "4px",
-                      borderLeft: "2px solid var(--terracotta)",
-                    }}
+                    className="bg-stone rounded border-l-2 border-l-forest"
+                    style={{ padding: "1.25rem" }}
                   >
-                    <p className="mb-1 text-sm font-semibold" style={{ color: "var(--noir)" }}>
+                    <p className="mb-1 text-sm font-semibold text-ink">
                       {cellule.titre}
                     </p>
-                    <p className="text-xs" style={{ color: "var(--gris-texte)" }}>
+                    <p className="text-xs text-ink-muted">
                       {cellule.description}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <p
-                className="mt-6 text-sm"
-                style={{ color: "var(--gris-texte)", fontStyle: "italic" }}
-              >
+              <p className="mt-6 text-sm text-ink-muted" style={{ fontStyle: "italic" }}>
                 {approche.usage}
               </p>
             </section>
@@ -225,28 +180,15 @@ export default function Referencement() {
 
           {/* Que choisir ? */}
           <section style={{ paddingTop: "80px", paddingBottom: "80px" }}>
-            <p
-              className="text-xs font-medium uppercase tracking-widest"
-              style={{ color: "var(--terracotta)" }}
-            >
+            <p className="text-xs font-medium uppercase tracking-widest text-forest">
               QUE CHOISIR ?
             </p>
 
-            <h2
-              className="mb-4"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "var(--noir)",
-              }}
-            >
+            <h2 className="mb-4 font-display font-semibold text-ink text-h2 md:text-h2-lg">
               Les trois sont complémentaires.
             </h2>
 
-            <p
-              className="mb-10"
-              style={{ color: "var(--gris-texte)", maxWidth: "640px" }}
-            >
+            <p className="mb-10 text-ink-muted" style={{ maxWidth: "640px" }}>
               Le SEA pour des résultats rapides, le SEO pour une visibilité durable, le GEO pour préparer l'avenir de la recherche. La meilleure stratégie combine les trois selon vos priorités et votre budget.
             </p>
 
@@ -257,20 +199,13 @@ export default function Referencement() {
               {cartes.map((carte) => (
                 <div
                   key={carte.titre}
-                  style={{
-                    padding: "2rem",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--gris-clair)",
-                    borderTop: "3px solid var(--terracotta)",
-                  }}
+                  className="bg-stone rounded border-t-[3px] border-t-forest"
+                  style={{ padding: "2rem" }}
                 >
-                  <h3
-                    className="mb-2"
-                    style={{ fontFamily: "var(--font-playfair)", color: "var(--noir)" }}
-                  >
+                  <h3 className="mb-2 font-display text-ink">
                     {carte.titre}
                   </h3>
-                  <p className="text-sm" style={{ color: "var(--gris-texte)" }}>
+                  <p className="text-sm text-ink-muted">
                     {carte.texte}
                   </p>
                 </div>
@@ -280,25 +215,14 @@ export default function Referencement() {
 
           {/* CTA */}
           <section className="text-center" style={{ paddingBottom: "80px" }}>
-            <p className="mb-6 text-sm" style={{ color: "var(--gris-texte)" }}>
+            <p className="mb-6 text-sm text-ink-muted">
               Vous ne savez pas par où commencer ? On fait le point ensemble.
             </p>
 
             <Link
               href="/#contact"
-              className="inline-block font-medium transition-colors"
-              style={{
-                backgroundColor: "var(--noir)",
-                color: "#FFFFFF",
-                padding: "1rem 2.25rem",
-                borderRadius: "2px",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-              }}
+              className="inline-block font-medium bg-forest text-paper rounded-lg shadow-resting hover:bg-forest-hover hover:shadow-lifted hover:-translate-y-px focus-visible:ring-2 focus-visible:ring-forest transition-all"
+              style={{ padding: "1rem 2.25rem" }}
             >
               Demander un audit gratuit →
             </Link>

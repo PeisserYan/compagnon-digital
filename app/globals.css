@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --terracotta: #D26D50;
-  --blanc: #FFFFFF;
-  --gris-clair: #F7F7F5;
-  --gris-border: #E8E8E4;
-  --gris-texte: #6B6B6B;
-  --noir: #111111;
-}
-
 html, body {
   overflow-x: hidden;
   max-width: 100%;

@@ -41,7 +41,7 @@ export default function Creation() {
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF" }}>
+      <main className="bg-paper">
         <section
           className="px-6 md:px-12"
           style={{ paddingTop: "160px", paddingBottom: "80px" }}
@@ -52,8 +52,7 @@ export default function Creation() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="mb-6 text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--terracotta)" }}
+                className="mb-6 text-xs font-medium tracking-widest uppercase text-forest"
               >
                 Création de site web
               </motion.p>
@@ -62,12 +61,7 @@ export default function Creation() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-                className="leading-snug"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-                  color: "var(--noir)",
-                }}
+                className="leading-snug font-display font-semibold text-ink text-h1 md:text-h1-lg"
               >
                 Choisissez votre formule.
               </motion.h1>
@@ -76,20 +70,16 @@ export default function Creation() {
                 initial={{ scaleX: 0 }}
                 animate={headerInView ? { scaleX: 1 } : {}}
                 transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-                style={{
-                  width: "50px",
-                  height: "2px",
-                  backgroundColor: "var(--terracotta)",
-                  margin: "1.5rem auto",
-                }}
+                className="bg-forest"
+                style={{ width: "50px", height: "2px", margin: "1.5rem auto" }}
               />
 
               <motion.p
                 initial={{ opacity: 0, y: 24 }}
                 animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-                className="mb-16 text-base leading-relaxed"
-                style={{ color: "var(--gris-texte)", maxWidth: "560px", margin: "0 auto 4rem" }}
+                className="mb-16 text-base leading-relaxed text-ink-muted"
+                style={{ maxWidth: "560px", margin: "0 auto 4rem" }}
               >
                 Chaque site est conçu et développé sur mesure, adapté à votre métier et à vos clients.
               </motion.p>
@@ -102,55 +92,33 @@ export default function Creation() {
                   initial={{ opacity: 0, y: 60 }}
                   animate={gridInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-                  style={{
-                    backgroundColor: "var(--gris-clair)",
-                    borderRadius: "4px",
-                    padding: "2.5rem",
-                    border: "1px solid var(--gris-border)",
-                    borderTop: "3px solid var(--terracotta)",
-                  }}
+                  className="bg-stone rounded border border-border border-t-[3px] border-t-forest"
+                  style={{ padding: "2.5rem" }}
                 >
-                  <p
-                    className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--terracotta)" }}
-                  >
+                  <p className="mb-3 text-xs font-bold tracking-widest text-forest">
                     {service.tag}
                   </p>
 
-                  <h3
-                    className="mb-4 leading-snug"
-                    style={{
-                      fontFamily: "var(--font-playfair)",
-                      fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
-                      color: "var(--noir)",
-                    }}
-                  >
+                  <h3 className="mb-4 leading-snug font-display font-medium text-ink text-h3 md:text-h3-lg">
                     {service.titre}
                   </h3>
 
                   <p
-                    style={{
-                      fontWeight: 600,
-                      color: "var(--noir)",
-                      fontSize: "0.9375rem",
-                      marginBottom: "1rem",
-                    }}
+                    className="text-ink"
+                    style={{ fontWeight: 600, fontSize: "0.9375rem", marginBottom: "1rem" }}
                   >
                     {service.prix}
                   </p>
 
-                  <p
-                    className="mb-6 text-sm leading-relaxed"
-                    style={{ color: "var(--gris-texte)" }}
-                  >
+                  <p className="mb-6 text-sm leading-relaxed text-ink-muted">
                     {service.description}
                   </p>
 
                   <ul className="space-y-2">
                     {service.items.map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm">
-                        <span style={{ color: "var(--terracotta)", fontSize: "1rem" }}>✓</span>
-                        <span style={{ color: "var(--noir)" }}>{item}</span>
+                        <span className="text-forest" style={{ fontSize: "1rem" }}>✓</span>
+                        <span className="text-ink">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -167,19 +135,8 @@ export default function Creation() {
             >
               <Link
                 href="/#contact"
-                className="inline-block font-medium transition-colors"
-                style={{
-                  backgroundColor: "var(--noir)",
-                  color: "#FFFFFF",
-                  padding: "1rem 2.25rem",
-                  borderRadius: "2px",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-                }}
+                className="inline-block font-medium bg-forest text-paper rounded-lg shadow-resting hover:bg-forest-hover hover:shadow-lifted hover:-translate-y-px focus-visible:ring-2 focus-visible:ring-forest transition-all"
+                style={{ padding: "1rem 2.25rem" }}
               >
                 Parlons de votre projet →
               </Link>

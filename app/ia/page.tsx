@@ -15,21 +15,15 @@ export default function IA() {
     <>
       <Navbar />
       <main
+        className="bg-paper"
         style={{
-          backgroundColor: "#FFFFFF",
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <p
-          style={{
-            color: "var(--gris-texte)",
-            fontFamily: "var(--font-playfair)",
-            fontSize: "1.5rem",
-          }}
-        >
+        <p className="font-display text-ink-muted" style={{ fontSize: "1.5rem" }}>
           Bientôt disponible.
         </p>
       </main>

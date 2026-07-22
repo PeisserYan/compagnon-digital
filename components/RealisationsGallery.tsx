@@ -98,7 +98,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
         {projets.map((projet, i) => (
           <div
             key={projet.nom}
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+            className="flex flex-col gap-4 bg-paper border border-border rounded-xl shadow-resting hover:shadow-lifted p-6 md:p-8 transition-shadow"
           >
             <button
               type="button"
@@ -130,12 +130,11 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               />
               {projet.badge && (
                 <span
+                  className="bg-ink text-paper"
                   style={{
                     position: "absolute",
                     top: "0.6rem",
                     right: "0.6rem",
-                    backgroundColor: "var(--noir)",
-                    color: "#FFFFFF",
                     fontSize: "0.75rem",
                     padding: "0.25rem 0.6rem",
                     borderRadius: "2px",
@@ -146,28 +145,15 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               )}
             </button>
 
-            <p
-              className="text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--terracotta)" }}
-            >
+            <p className="text-xs font-medium tracking-widest uppercase text-forest">
               {projet.tag}
             </p>
 
-            <h2
-              className="leading-tight"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-                color: "var(--noir)",
-              }}
-            >
+            <h2 className="leading-tight font-display font-semibold text-ink text-h2 md:text-h2-lg">
               {projet.nom}
             </h2>
 
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "var(--gris-texte)" }}
-            >
+            <p className="text-sm leading-relaxed text-ink-muted">
               {projet.description}
             </p>
 
@@ -175,8 +161,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               href={projet.lien}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-              style={{ color: "var(--terracotta)" }}
+              className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors text-forest"
             >
               Voir le site →
             </a>
@@ -196,10 +181,10 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             onClick={() => setActiveIndex(null)}
+            className="bg-ink/90"
             style={{
               position: "fixed",
               inset: 0,
-              backgroundColor: "rgba(0,0,0,0.9)",
               zIndex: 100,
               display: "flex",
               alignItems: "center",
@@ -213,11 +198,11 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                 setActiveIndex(null);
               }}
               aria-label="Fermer"
+              className="text-paper"
               style={{
                 position: "absolute",
                 top: "1.5rem",
                 right: "1.5rem",
-                color: "#FFFFFF",
                 fontSize: "2rem",
                 lineHeight: 1,
                 background: "none",
@@ -235,12 +220,12 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                 goPrev();
               }}
               aria-label="Précédent"
+              className="text-paper"
               style={{
                 position: "absolute",
                 left: "1rem",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "#FFFFFF",
                 fontSize: "2.5rem",
                 lineHeight: 1,
                 background: "none",
@@ -258,12 +243,12 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                 goNext();
               }}
               aria-label="Suivant"
+              className="text-paper"
               style={{
                 position: "absolute",
                 right: "1rem",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "#FFFFFF",
                 fontSize: "2.5rem",
                 lineHeight: 1,
                 background: "none",
@@ -300,13 +285,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                 />
               </div>
 
-              <p
-                style={{
-                  color: "#FFFFFF",
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "1.1rem",
-                }}
-              >
+              <p className="font-display text-paper" style={{ fontSize: "1.1rem" }}>
                 {activeProjet.nom}
               </p>
             </div>

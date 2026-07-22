@@ -41,19 +41,14 @@ export default function SectionPortfolio() {
   const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
 
   return (
-    <section
-      id="portfolio"
-      className="pt-24 pb-24 px-6 md:px-12"
-      style={{ backgroundColor: "#FFFFFF" }}
-    >
+    <section id="portfolio" className="pt-24 pb-24 px-6 md:px-12 bg-stone">
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div ref={headerRef}>
           <motion.p
             initial={{ opacity: 0, y: 40 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            className="mb-6 text-xs font-medium tracking-widest uppercase text-forest"
           >
             Réalisations
           </motion.p>
@@ -62,12 +57,7 @@ export default function SectionPortfolio() {
             initial={{ opacity: 0, y: 40 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="mb-16 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
+            className="mb-16 leading-snug font-display font-semibold text-ink text-h2 md:text-h2-lg"
           >
             Réalisations.
           </motion.h2>
@@ -83,7 +73,7 @@ export default function SectionPortfolio() {
               initial={{ opacity: 0, y: 40 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              className="flex flex-col gap-4 bg-paper border border-border rounded-xl shadow-resting hover:shadow-lifted p-6 md:p-8 transition-shadow"
             >
               <div style={{ height: "220px", borderRadius: "4px", overflow: "hidden" }}>
                 <Image
@@ -95,28 +85,17 @@ export default function SectionPortfolio() {
                 />
               </div>
 
-              <p
-                className="text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--terracotta)" }}
-              >
+              <p className="text-xs font-medium tracking-widest uppercase text-forest">
                 {projet.tag}
               </p>
 
-              <h3
-                className="leading-tight"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-                  color: "var(--noir)",
-                }}
-              >
+              <h3 className="leading-tight font-display font-medium text-ink text-h3 md:text-h3-lg">
                 {projet.nom}
               </h3>
 
               <p
-                className="text-sm leading-relaxed"
+                className="text-sm leading-relaxed text-ink-muted"
                 style={{
-                  color: "var(--gris-texte)",
                   display: "-webkit-box",
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: "vertical",
@@ -130,8 +109,7 @@ export default function SectionPortfolio() {
                 href={projet.lien}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--terracotta)" }}
+                className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors text-forest"
               >
                 Voir le site →
               </a>
@@ -148,13 +126,10 @@ export default function SectionPortfolio() {
         >
           <Link
             href="/realisations"
-            className="transition-opacity hover:opacity-60"
+            className="border border-ink text-ink bg-transparent hover:bg-forest-tint hover:border-forest transition-colors"
             style={{
-              border: "1px solid var(--noir)",
-              color: "var(--noir)",
               padding: "0.875rem 2rem",
               borderRadius: "2px",
-              backgroundColor: "transparent",
               fontSize: "0.9375rem",
               fontWeight: 500,
               textDecoration: "none",

@@ -73,24 +73,14 @@ export default function RealisationsPage() {
   return (
     <>
       <Navbar />
-      <main className="py-24 px-6 md:px-12">
+      <main className="py-24 px-6 md:px-12 bg-paper">
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
-        <p
-          className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--terracotta)" }}
-        >
+        <p className="mb-6 text-xs font-medium tracking-widest uppercase text-forest">
           Réalisations
         </p>
 
-        <h1
-          className="mb-16 leading-snug"
-          style={{
-            fontFamily: "var(--font-playfair)",
-            fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            color: "var(--noir)",
-          }}
-        >
+        <h1 className="mb-16 leading-snug font-display font-semibold text-ink text-h1 md:text-h1-lg">
           Tous mes projets.
         </h1>
 

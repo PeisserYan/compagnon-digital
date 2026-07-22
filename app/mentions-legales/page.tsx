@@ -9,35 +9,19 @@ export default function MentionsLegales() {
   return (
     <>
       <Navbar />
-      <main
-        className="py-24 px-6 md:px-12"
-        style={{ backgroundColor: "var(--blanc)", minHeight: "80vh" }}
-      >
+      <main className="py-24 px-6 md:px-12 bg-paper" style={{ minHeight: "80vh" }}>
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-          <p
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
-          >
+          <p className="mb-6 text-xs font-medium tracking-widest uppercase text-forest">
             Informations légales
           </p>
 
-          <h1
-            className="mb-12 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
-          >
+          <h1 className="mb-12 leading-snug font-display font-semibold text-ink text-h2 md:text-h2-lg">
             Mentions légales
           </h1>
 
-          <div className="space-y-10 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
+          <div className="space-y-10 text-sm leading-relaxed text-ink-muted">
             <section>
-              <h2
-                className="mb-3 font-semibold text-base"
-                style={{ color: "var(--noir)" }}
-              >
+              <h2 className="mb-3 font-semibold text-base text-ink">
                 Éditeur du site
               </h2>
               <p>Yan Peisser</p>
@@ -46,10 +30,7 @@ export default function MentionsLegales() {
               <p>SIRET : 10326215000016</p>
               <p>
                 Email :{" "}
-                <a
-                  href="mailto:yan@compagnondigital.fr"
-                  style={{ color: "var(--terracotta)" }}
-                >
+                <a href="mailto:yan@compagnondigital.fr" className="text-forest">
                   yan@compagnondigital.fr
                 </a>
               </p>
@@ -57,10 +38,7 @@ export default function MentionsLegales() {
             </section>
 
             <section>
-              <h2
-                className="mb-3 font-semibold text-base"
-                style={{ color: "var(--noir)" }}
-              >
+              <h2 className="mb-3 font-semibold text-base text-ink">
                 Hébergement
               </h2>
               <p>Vercel Inc.</p>
@@ -70,7 +48,7 @@ export default function MentionsLegales() {
                   href="https://vercel.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "var(--terracotta)" }}
+                  className="text-forest"
                 >
                   https://vercel.com
                 </a>
@@ -78,10 +56,7 @@ export default function MentionsLegales() {
             </section>
 
             <section>
-              <h2
-                className="mb-3 font-semibold text-base"
-                style={{ color: "var(--noir)" }}
-              >
+              <h2 className="mb-3 font-semibold text-base text-ink">
                 Propriété intellectuelle
               </h2>
               <p>

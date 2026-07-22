@@ -11,8 +11,7 @@ export default function SectionAPropos() {
   return (
     <section
       id="apropos"
-      className="pt-24 pb-24 px-6 md:px-12 overflow-hidden mt-0"
-      style={{ backgroundColor: "var(--gris-clair)" }}
+      className="pt-24 pb-24 px-6 md:px-12 overflow-hidden mt-0 bg-paper"
     >
       <div
         className="flex flex-col md:flex-row gap-12 md:gap-16 items-start"
@@ -26,38 +25,25 @@ export default function SectionAPropos() {
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="w-full md:w-[55%]"
         >
-          <p
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
-          >
+          <p className="mb-6 text-xs font-medium tracking-widest uppercase text-forest">
             À propos
           </p>
 
-          <h2
-            className="mb-2 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
-          >
+          <h2 className="mb-2 leading-snug font-display font-semibold text-ink text-h2 md:text-h2-lg">
             Je connais votre monde.
           </h2>
 
           <div
+            className="bg-forest"
             style={{
               width: "40px",
               height: "2px",
-              backgroundColor: "var(--terracotta)",
               marginBottom: "2rem",
               marginTop: "0.5rem",
             }}
           />
 
-          <div
-            className="space-y-5 text-base leading-relaxed"
-            style={{ color: "var(--gris-texte)" }}
-          >
+          <div className="space-y-5 text-base leading-relaxed text-ink-muted">
             <p>
               J'ai 22 ans et j'ai grandi en Savoie entouré d'artisans. Mon père est charpentier et guide de haute montagne. J'ai vu de près ce que ça veut dire de rentrer d'un chantier à 18h, fatigué, sans avoir le temps de penser à sa visibilité en ligne.
             </p>

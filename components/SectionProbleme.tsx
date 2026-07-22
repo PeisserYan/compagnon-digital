@@ -28,27 +28,15 @@ export default function SectionProbleme() {
   const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
 
   return (
-    <section
-      id="probleme"
-      className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "var(--gris-clair)" }}
-    >
+    <section id="probleme" className="py-24 px-6 md:px-12 bg-stone">
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-        <p
-          className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--terracotta)" }}
-        >
+        <p className="mb-6 text-xs font-medium tracking-widest uppercase text-forest">
           Le constat
         </p>
 
         <h2
           ref={titleRef}
-          className="mb-8 leading-snug"
-          style={{
-            fontFamily: "var(--font-playfair)",
-            fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            color: "var(--noir)",
-          }}
+          className="mb-8 leading-snug font-display font-semibold text-ink text-h2 md:text-h2-lg"
         >
           {titleWords.map((word, i) => (
             <span
@@ -72,8 +60,7 @@ export default function SectionProbleme() {
           initial={{ opacity: 0, y: 24 }}
           animate={subtitleInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-16 text-base leading-relaxed"
-          style={{ color: "var(--gris-texte)" }}
+          className="mb-16 text-base leading-relaxed text-ink-muted"
         >
           Plus de clients. C'est de ça qu'on parle, pas d'un site. Vous voulez qu'on vous laisse tranquille pour faire votre métier. Que les clients vous trouvent quand ils cherchent ce que vous faites. C'est pour ça que je suis là.
         </motion.p>
@@ -85,25 +72,16 @@ export default function SectionProbleme() {
               initial={{ opacity: 0, y: 40 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: (i + 1) * 0.1, ease: "easeOut" }}
-              style={{
-                borderLeft: "3px solid var(--terracotta)",
-                paddingLeft: "1.25rem",
-              }}
+              className="border-l-[3px] border-forest"
+              style={{ paddingLeft: "1.25rem" }}
             >
               <p
-                className="mb-3 font-bold leading-none"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(2rem, 4vw, 2.75rem)",
-                  color: "var(--terracotta)",
-                }}
+                className="mb-3 font-bold leading-none font-display text-forest"
+                style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)" }}
               >
                 {item.chiffre}
               </p>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)" }}
-              >
+              <p className="text-sm leading-relaxed text-ink-muted">
                 {item.texte}
               </p>
             </motion.div>

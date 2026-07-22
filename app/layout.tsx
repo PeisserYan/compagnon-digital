@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  variable: "--font-body",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-playfair",
+const generalSans = localFont({
+  src: [
+    {
+      path: "./fonts/GeneralSans-Variable.woff2",
+      style: "normal",
+    },
+    {
+      path: "./fonts/GeneralSans-VariableItalic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -55,8 +65,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={playfair.variable}>
-      <body className={`${inter.className} antialiased`}>
+    <html lang="fr" className={`${generalSans.variable} ${inter.variable}`}>
+      <body className="font-body antialiased">
         {children}
         <Script
           id="schema-org"
