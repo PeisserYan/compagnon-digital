@@ -196,7 +196,7 @@ export default function SectionContact() {
               <textarea
                 id="projet"
                 rows={4}
-                placeholder="Je suis consultant à Chambéry, je n'ai pas de site et je perds des clients…"
+                placeholder="Je suis consultant à Chambéry, je veux être trouvé sur Google et automatiser mes relances client…"
                 value={projet}
                 onChange={e => setProjet(e.target.value)}
                 required
