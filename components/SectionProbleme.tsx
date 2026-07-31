@@ -6,15 +6,15 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const constats = [
   {
     chiffre: "01",
-    texte: "Un client qui ne vous trouve pas sur Google appelle votre concurrent. Vous perdez le chantier sans même le savoir.",
+    texte: "Un client qui ne vous trouve pas sur Google appelle votre concurrent. Vous perdez le contrat sans même le savoir.",
   },
   {
     chiffre: "02",
-    texte: "Un client qui hésite entre vous et un concurrent regarde vos avis, vos photos, votre zone d'intervention. Si votre site ne répond pas, il passe au suivant.",
+    texte: "Un client qui hésite entre vous et un concurrent regarde vos avis, votre site, ce que vous proposez. Si votre site ne répond pas, il passe au suivant.",
   },
   {
     chiffre: "03",
-    texte: "Vous passez des heures sur le chantier. Votre site devrait travailler pendant ce temps-là.",
+    texte: "Vous passez vos journées occupé à faire votre métier. Votre site devrait travailler pendant ce temps-là.",
   },
 ];
 

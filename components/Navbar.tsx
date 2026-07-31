@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,8 +52,54 @@ export default function Navbar() {
       </Link>
 
       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li
+          style={{ position: "relative" }}
+          onMouseEnter={() => setServicesOpen(true)}
+          onMouseLeave={() => setServicesOpen(false)}
+        >
+          <button
+            type="button"
+            className="hover:opacity-60 transition-opacity"
+            style={{ color: "var(--noir)", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
+            onClick={() => setServicesOpen((open) => !open)}
+            aria-expanded={servicesOpen}
+          >
+            Services
+          </button>
+          {servicesOpen && (
+            <ul
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                marginTop: "0.75rem",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid var(--gris-border)",
+                borderRadius: "2px",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                minWidth: "160px",
+                padding: "0.5rem 0",
+              }}
+            >
+              {[
+                { href: "/site-web#services", label: "Site Web" },
+                { href: "/ia", label: "IA" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="hover:opacity-60 transition-opacity block"
+                    style={{ color: "var(--noir)", padding: "0.5rem 1.25rem" }}
+                    onClick={() => setServicesOpen(false)}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
         {[
-          { href: "/site-web#services",     label: "Services" },
           { href: "/realisations", label: "Réalisations" },
           { href: "/#apropos",      label: "À propos" },
           { href: "/#contact",      label: "Contact" },

@@ -39,7 +39,7 @@ export default function SectionComment() {
               color: "var(--noir)",
             }}
           >
-            Je crée votre site pour que vos clients vous trouvent.
+            Création de site web pour que vos clients vous trouvent.
           </h2>
           <p
             className="mb-8 text-base leading-relaxed"
@@ -77,7 +77,7 @@ export default function SectionComment() {
               color: "var(--noir)",
             }}
           >
-            Je prépare aussi l'automatisation IA pour aller plus loin.
+            Automatisation IA pour aller plus loin.
           </h2>
           <p
             className="mb-8 text-base leading-relaxed"

@@ -61,7 +61,7 @@ export default function SectionConfiance() {
               color: "var(--noir)",
             }}
           >
-            Pourquoi je travaille différemment.
+            Zéro flou, zéro engagement caché.
           </motion.h2>
 
           <motion.div
@@ -72,7 +72,7 @@ export default function SectionConfiance() {
             style={{ color: "var(--gris-texte)", maxWidth: "680px" }}
           >
             <p>
-              Mon père a payé 2500€ pour un site il y a quelques années. Il n'a jamais eu un seul client grâce à lui. En prospectant, j'entends régulièrement des artisans coincés chez SoLocal à 200€ par mois, sous contrat, sans résultat.
+              Mon père a payé 2500€ pour un site il y a quelques années. Il n'a jamais eu un seul client grâce à lui. En prospectant, j'entends régulièrement des entreprises coincées chez SoLocal à 200€ par mois, sous contrat, sans résultat.
             </p>
             <p>
               Ce n'est pas normal. Un site doit travailler pour vous. Sinon c'est de l'argent jeté.

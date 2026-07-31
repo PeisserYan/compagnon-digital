@@ -31,7 +31,7 @@ export default function Hero() {
             color: "var(--noir)",
           }}
         >
-          J'aide les artisans et entreprises de Savoie à développer leur activité.
+          J'aide les indépendants et entreprises à être trouvés par leurs clients en ligne.
         </h1>
 
         <motion.p

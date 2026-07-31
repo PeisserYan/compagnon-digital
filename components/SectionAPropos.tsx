@@ -41,7 +41,7 @@ export default function SectionAPropos() {
               color: "var(--noir)",
             }}
           >
-            Je connais votre monde.
+            Comprendre une activité, pour la faire grandir.
           </h2>
 
           <div
@@ -59,13 +59,10 @@ export default function SectionAPropos() {
             style={{ color: "var(--gris-texte)" }}
           >
             <p>
-              J'ai 22 ans et j'ai grandi en Savoie entouré d'artisans. Mon père est charpentier et guide de haute montagne. J'ai vu de près ce que ça veut dire de rentrer d'un chantier à 18h, fatigué, sans avoir le temps de penser à sa visibilité en ligne.
+              Ce qui m'intéresse, c'est comprendre comment une activité fonctionne et comment elle se vend, que ce soit celle d'un auto-entrepreneur ou d'une structure plus grande. Diplômé en marketing et finance d'HEC Montréal, il était logique de mettre ces compétences à leur service : aider les indépendants et les entreprises à être trouvés par les bons clients, avec un site qui travaille vraiment pour eux.
             </p>
             <p>
-              J'ai commencé par lui faire un site. Puis j'ai réalisé que des centaines d'artisans et de petites entreprises en Savoie étaient dans la même situation — excellents dans leur métier, invisibles sur internet.
-            </p>
-            <p>
-              C'est pour ça que j'ai créé Compagnon Digital. Diplômé en marketing et finance d'HEC Montréal, je comprends ce qui fait qu'un client choisit une entreprise plutôt qu'une autre. Je mets ça au service d'une seule chose : que les meilleurs artisans de la région soient enfin trouvés par ceux qui cherchent exactement ce qu'ils font.
+              En finance, je me suis intéressé aux investissements massifs des grandes entreprises technologiques dans l'intelligence artificielle. J'ai vu la puissance des outils qu'elles développaient et compris qu'un écart allait se creuser entre les entreprises qui les adoptent et les autres. Je veux me positionner entre ces outils et les petites structures, pour les aider à les mettre en place concrètement.
             </p>
           </div>
         </motion.div>
