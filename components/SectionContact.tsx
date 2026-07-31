@@ -70,7 +70,7 @@ export default function SectionContact() {
           className="mb-10 text-base"
           style={{ color: "var(--gris-texte)" }}
         >
-          Dites-moi ce que vous faites. Je vous réponds dans la journée — pas un bot, moi.
+          Décrivez votre projet en quelques mots. Je vous réponds dans la journée.
         </p>
 
         {status === "success" ? (
@@ -120,7 +120,7 @@ export default function SectionContact() {
               <input
                 id="metier"
                 type="text"
-                placeholder="ex : plombier, menuisier…"
+                placeholder="ex : plombier, consultant, coach…"
                 value={metier}
                 onChange={e => setMetier(e.target.value)}
                 required
@@ -196,7 +196,7 @@ export default function SectionContact() {
               <textarea
                 id="projet"
                 rows={4}
-                placeholder="Je suis plombier à Chambéry, je n'ai pas de site et je perds des clients…"
+                placeholder="Je suis consultant à Chambéry, je n'ai pas de site et je perds des clients…"
                 value={projet}
                 onChange={e => setProjet(e.target.value)}
                 required

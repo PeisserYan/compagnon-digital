@@ -45,7 +45,7 @@ const projets = [
     tag: "Charpente · Menuiserie · Savoie",
     nom: "SSB73",
     description:
-      "Charpente, menuiserie, couverture et zinguerie à Sainte-Hélène-du-Lac. Site en cours de finalisation.",
+      "Charpente, menuiserie, couverture et zinguerie à Sainte-Hélène-du-Lac.",
     lien: "https://www.ssb73.fr",
   },
   {

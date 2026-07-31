@@ -9,15 +9,15 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const services = [
   {
     tag: "01 · L'ESSENTIEL",
-    titre: "Tu veux exister proprement.",
+    titre: "Vous voulez exister proprement.",
     prix: "Site vitrine · à partir de 500€",
     description:
-      "Un site vitrine qui te ressemble. Mobile, propre, RGPD en règle. Le client te trouve, t'appelle, ou te laisse un message.",
+      "Un site vitrine qui vous ressemble. Mobile, propre, RGPD en règle. Le client vous trouve, vous appelle, ou vous laisse un message.",
     items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
   },
   {
     tag: "02 · LA VISIBILITÉ",
-    titre: "Tu veux qu'on te trouve.",
+    titre: "Vous voulez qu'on vous trouve.",
     prix: "Sur mesure selon vos besoins",
     description:
       "SEO local, fiche Google Business, avis clients. Trois leviers qu'on active ensemble pour que les bons clients arrivent.",
@@ -25,10 +25,10 @@ const services = [
   },
   {
     tag: "03 · L'OUTIL",
-    titre: "Tu veux que ton site bosse pour toi.",
+    titre: "Vous voulez que votre site bosse pour vous.",
     prix: "Sur mesure selon vos besoins",
     description:
-      "Réservation, e-commerce, devis en ligne, espace client. Ton site devient ton premier salarié — celui qui ne dort pas.",
+      "Réservation, e-commerce, devis en ligne, espace client. Votre site devient votre premier salarié — celui qui ne dort pas.",
     items: ["Réservation", "E-commerce", "Devis en ligne", "Espace client"],
   },
 ];
