@@ -72,13 +72,12 @@ export default function Navbar() {
                 position: "absolute",
                 top: "100%",
                 left: 0,
-                marginTop: "0.75rem",
                 backgroundColor: "#FFFFFF",
                 border: "1px solid var(--gris-border)",
                 borderRadius: "2px",
                 boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
                 minWidth: "160px",
-                padding: "0.5rem 0",
+                padding: "1.25rem 0 0.5rem",
               }}
             >
               {[
