@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/realisations", label: "Réalisations" },
@@ -16,11 +16,22 @@ const SERVICES_LINKS = [
 ];
 
 export default function Navbar() {
+  const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
+
+  useEffect(() => {
+    const updateNavHeight = () => {
+      if (navRef.current) setNavHeight(navRef.current.getBoundingClientRect().height);
+    };
+    updateNavHeight();
+    window.addEventListener("resize", updateNavHeight);
+    return () => window.removeEventListener("resize", updateNavHeight);
+  }, [scrolled]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +61,7 @@ export default function Navbar() {
 
   return (
     <nav
+      ref={navRef}
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
@@ -226,8 +238,9 @@ export default function Navbar() {
           backgroundColor: "#FFFFFF",
           borderBottom: "1px solid var(--gris-border)",
           boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-          overflow: "hidden",
-          maxHeight: mobileMenuOpen ? "32rem" : "0px",
+          overflowY: "auto",
+          overflowX: "hidden",
+          maxHeight: mobileMenuOpen ? `calc(100dvh - ${navHeight}px)` : "0px",
           opacity: mobileMenuOpen ? 1 : 0,
           transform: mobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
           transition: "max-height 0.32s ease, opacity 0.25s ease, transform 0.25s ease",
@@ -237,7 +250,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: "0.5rem clamp(1rem, 4vw, 3rem) 1.5rem",
+            padding: "1rem clamp(1.5rem, 8vw, 4rem) 2rem",
           }}
         >
           <li>
@@ -252,9 +265,9 @@ export default function Navbar() {
                 width: "100%",
                 background: "none",
                 border: "none",
-                padding: "0.85rem 0",
+                padding: "1.35rem 0",
                 font: "inherit",
-                fontSize: "1rem",
+                fontSize: "1.2rem",
                 fontWeight: 600,
                 color: "var(--noir)",
                 cursor: "pointer",
@@ -287,7 +300,7 @@ export default function Navbar() {
                     <Link
                       href={href}
                       className="block"
-                      style={{ color: "var(--noir)", padding: "0.6rem 0", fontSize: "0.9rem", fontWeight: 400 }}
+                      style={{ color: "var(--noir)", padding: "0.85rem 0", fontSize: "1rem", fontWeight: 400 }}
                       onClick={closeMobileMenu}
                     >
                       {label}
@@ -302,14 +315,14 @@ export default function Navbar() {
               <Link
                 href={href}
                 className="block"
-                style={{ padding: "0.85rem 0", color: "var(--noir)", fontSize: "1rem", fontWeight: 600 }}
+                style={{ padding: "1.35rem 0", color: "var(--noir)", fontSize: "1.2rem", fontWeight: 600 }}
                 onClick={closeMobileMenu}
               >
                 {label}
               </Link>
             </li>
           ))}
-          <li style={{ marginTop: "1.25rem" }}>
+          <li style={{ marginTop: "2rem" }}>
             <Link
               href="/#contact"
               className="block"
@@ -317,7 +330,7 @@ export default function Navbar() {
                 textAlign: "center",
                 backgroundColor: "var(--noir)",
                 color: "#FFFFFF",
-                padding: "0.75rem 1.25rem",
+                padding: "1.1rem 1.25rem",
                 borderRadius: "2px",
                 textDecoration: "none",
                 fontSize: "0.9rem",
