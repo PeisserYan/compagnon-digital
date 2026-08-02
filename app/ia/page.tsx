@@ -134,8 +134,12 @@ export default function IA() {
             className="text-center"
             style={{ maxWidth: "560px", margin: "0 auto" }}
           >
-            <p className="mb-8 text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
+            <p className="mb-3 text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
               Chaque automatisation est différente. Le prix se construit sur devis, selon vos outils et vos besoins.
+            </p>
+
+            <p className="mb-8 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
+              Pour savoir si ça vaut le coup chez vous, commencez par un échange de 30 minutes, gratuit et sans engagement.
             </p>
 
             <Link
@@ -155,7 +159,7 @@ export default function IA() {
                 (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
               }}
             >
-              Parlons de votre projet →
+              Réserver mon échange gratuit →
             </Link>
           </motion.div>
         </section>
