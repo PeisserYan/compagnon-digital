@@ -4,10 +4,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+const NAV_LINKS = [
+  { href: "/realisations", label: "Réalisations" },
+  { href: "/#apropos", label: "À propos" },
+  { href: "/#contact", label: "Contact" },
+];
+
+const SERVICES_LINKS = [
+  { href: "/site-web#services", label: "Site Web" },
+  { href: "/ia", label: "IA" },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +33,20 @@ export default function Navbar() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileServicesOpen(false);
+  };
 
   return (
     <nav
@@ -80,10 +107,7 @@ export default function Navbar() {
                 padding: "1.25rem 0 0.5rem",
               }}
             >
-              {[
-                { href: "/site-web#services", label: "Site Web" },
-                { href: "/ia", label: "IA" },
-              ].map(({ href, label }) => (
+              {SERVICES_LINKS.map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
@@ -98,11 +122,7 @@ export default function Navbar() {
             </ul>
           )}
         </li>
-        {[
-          { href: "/realisations", label: "Réalisations" },
-          { href: "/#apropos",      label: "À propos" },
-          { href: "/#contact",      label: "Contact" },
-        ].map(({ href, label }) => (
+        {NAV_LINKS.map(({ href, label }) => (
           <li key={href}>
             <Link
               href={href}
@@ -117,7 +137,7 @@ export default function Navbar() {
 
       <Link
         href="/#contact"
-        className="text-sm font-medium transition-colors"
+        className="hidden md:inline-block text-sm font-medium transition-colors"
         style={{
           backgroundColor: "var(--noir)",
           color: "#FFFFFF",
@@ -134,6 +154,182 @@ export default function Navbar() {
       >
         Parlons de votre projet
       </Link>
+
+      <button
+        type="button"
+        className="md:hidden"
+        onClick={() => setMobileMenuOpen((open) => !open)}
+        aria-expanded={mobileMenuOpen}
+        aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        style={{
+          position: "relative",
+          width: "26px",
+          height: "20px",
+          background: "none",
+          border: "none",
+          padding: 0,
+          cursor: "pointer",
+          zIndex: 60,
+        }}
+      >
+        <span
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "0px",
+            width: "100%",
+            height: "2px",
+            borderRadius: "1px",
+            backgroundColor: "var(--noir)",
+            transition: "transform 0.28s ease",
+            transform: mobileMenuOpen ? "translateY(9px) rotate(45deg)" : "translateY(0) rotate(0deg)",
+          }}
+        />
+        <span
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "9px",
+            width: "100%",
+            height: "2px",
+            borderRadius: "1px",
+            backgroundColor: "var(--noir)",
+            transition: "opacity 0.2s ease",
+            opacity: mobileMenuOpen ? 0 : 1,
+          }}
+        />
+        <span
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "18px",
+            width: "100%",
+            height: "2px",
+            borderRadius: "1px",
+            backgroundColor: "var(--noir)",
+            transition: "transform 0.28s ease",
+            transform: mobileMenuOpen ? "translateY(-9px) rotate(-45deg)" : "translateY(0) rotate(0deg)",
+          }}
+        />
+      </button>
+
+      {/* Menu mobile */}
+      <div
+        className="md:hidden"
+        style={{
+          position: "absolute",
+          top: "100%",
+          left: 0,
+          right: 0,
+          marginLeft: "calc(-1 * clamp(1rem, 4vw, 3rem))",
+          marginRight: "calc(-1 * clamp(1rem, 4vw, 3rem))",
+          backgroundColor: "#FFFFFF",
+          borderBottom: "1px solid var(--gris-border)",
+          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+          overflow: "hidden",
+          maxHeight: mobileMenuOpen ? "32rem" : "0px",
+          opacity: mobileMenuOpen ? 1 : 0,
+          transform: mobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
+          transition: "max-height 0.32s ease, opacity 0.25s ease, transform 0.25s ease",
+        }}
+      >
+        <ul
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "0.5rem clamp(1rem, 4vw, 3rem) 1.5rem",
+          }}
+        >
+          <li>
+            <button
+              type="button"
+              onClick={() => setMobileServicesOpen((open) => !open)}
+              aria-expanded={mobileServicesOpen}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: "100%",
+                background: "none",
+                border: "none",
+                padding: "0.85rem 0",
+                font: "inherit",
+                fontSize: "1rem",
+                fontWeight: 600,
+                color: "var(--noir)",
+                cursor: "pointer",
+                borderBottom: "1px solid var(--gris-border)",
+              }}
+            >
+              Services
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "inline-block",
+                  transition: "transform 0.25s ease",
+                  transform: mobileServicesOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              >
+                ⌄
+              </span>
+            </button>
+            <div
+              style={{
+                overflow: "hidden",
+                maxHeight: mobileServicesOpen ? "10rem" : "0px",
+                opacity: mobileServicesOpen ? 1 : 0,
+                transition: "max-height 0.25s ease, opacity 0.2s ease",
+              }}
+            >
+              <ul style={{ display: "flex", flexDirection: "column", paddingLeft: "1rem" }}>
+                {SERVICES_LINKS.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="block"
+                      style={{ color: "var(--noir)", padding: "0.6rem 0", fontSize: "0.9rem", fontWeight: 400 }}
+                      onClick={closeMobileMenu}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+          {NAV_LINKS.map(({ href, label }) => (
+            <li key={href} style={{ borderBottom: "1px solid var(--gris-border)" }}>
+              <Link
+                href={href}
+                className="block"
+                style={{ padding: "0.85rem 0", color: "var(--noir)", fontSize: "1rem", fontWeight: 600 }}
+                onClick={closeMobileMenu}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+          <li style={{ marginTop: "1.25rem" }}>
+            <Link
+              href="/#contact"
+              className="block"
+              style={{
+                textAlign: "center",
+                backgroundColor: "var(--noir)",
+                color: "#FFFFFF",
+                padding: "0.75rem 1.25rem",
+                borderRadius: "2px",
+                textDecoration: "none",
+                fontSize: "0.9rem",
+                fontWeight: 500,
+              }}
+              onClick={closeMobileMenu}
+            >
+              Parlons de votre projet
+            </Link>
+          </li>
+        </ul>
+      </div>
 
       {/* Barre de progression */}
       <div
