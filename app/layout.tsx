@@ -17,9 +17,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Compagnon Digital | Création de sites web pour artisans et TPE en Savoie",
-  description: "Vous êtes artisan, plombier, électricien ou TPE en Savoie ? Compagnon Digital crée votre site web professionnel pour attirer plus de clients. Simple, rapide, efficace.",
-  keywords: ["création site web artisan", "site web TPE Savoie", "web designer Savoie", "site internet artisan Savoie", "site web plombier", "création site web Chambéry", "création site web Aix-les-Bains"],
+  title: "Compagnon Digital | Sites web pour indépendants et petites entreprises",
+  description: "Indépendant, freelance ou petite entreprise ? Compagnon Digital crée votre site web professionnel pour attirer plus de clients. Basé en Savoie, j'interviens partout en France.",
+  keywords: ["création site web indépendant", "site web petite entreprise", "web designer freelance", "création site web TPE", "site web artisan Savoie", "création site web Chambéry", "création site web Aix-les-Bains"],
   authors: [{ name: "Yan Peisser", url: "https://compagnondigital.fr" }],
   creator: "Yan Peisser",
   metadataBase: new URL("https://compagnondigital.fr"),
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Compagnon Digital | Sites web pour artisans en Savoie",
-    description: "Création de sites web professionnels pour artisans et TPE en Savoie. Je m'occupe de tout, vous continuez à travailler.",
+    title: "Compagnon Digital | Sites web pour indépendants et petites entreprises",
+    description: "Création de sites web professionnels pour indépendants et petites entreprises, basé en Savoie. Je m'occupe de tout, vous continuez à travailler.",
     url: "https://compagnondigital.fr",
     siteName: "Compagnon Digital",
     locale: "fr_FR",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Compagnon Digital | Sites web pour artisans en Savoie",
-    description: "Création de sites web professionnels pour artisans et TPE en Savoie.",
+    title: "Compagnon Digital | Sites web pour indépendants et petites entreprises",
+    description: "Création de sites web professionnels pour indépendants et petites entreprises, basé en Savoie.",
   },
   robots: {
     index: true,
@@ -66,7 +66,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               "name": "Compagnon Digital",
-              "description": "Création de sites web professionnels pour artisans et TPE en Savoie et Haute-Savoie.",
+              "description": "Création de sites web professionnels pour indépendants et petites entreprises, basé en Savoie et intervenant partout en France.",
               "url": "https://compagnondigital.fr",
               "email": "yan@compagnondigital.fr",
               "telephone": "+33673401475",
@@ -84,13 +84,15 @@ export default function RootLayout({
                 { "@type": "City", "name": "Aix-les-Bains" },
                 { "@type": "City", "name": "Annecy" },
                 { "@type": "AdministrativeArea", "name": "Savoie" },
-                { "@type": "AdministrativeArea", "name": "Haute-Savoie" }
+                { "@type": "AdministrativeArea", "name": "Haute-Savoie" },
+                { "@type": "Country", "name": "France" }
               ],
               "serviceType": [
                 "Création de site web",
-                "Site vitrine artisan",
+                "Site vitrine indépendant",
                 "Web design",
-                "Référencement local"
+                "Référencement local",
+                "Automatisation IA"
               ],
               "priceRange": "€€"
             })

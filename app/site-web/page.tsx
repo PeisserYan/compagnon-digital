@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Site web | Compagnon Digital",
   description:
-    "Création de sites web pour artisans et TPE en Savoie : site vitrine, référencement local et outils sur mesure.",
+    "Création de sites web pour indépendants et petites entreprises : site vitrine, référencement local et outils sur mesure. Basé en Savoie, j'interviens partout en France.",
   alternates: {
     canonical: "https://compagnondigital.fr/site-web",
   },

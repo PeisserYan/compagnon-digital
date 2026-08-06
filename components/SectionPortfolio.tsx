@@ -83,9 +83,18 @@ export default function SectionPortfolio() {
               initial={{ opacity: 0, y: 40 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.1)" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid var(--gris-border)",
+                borderRadius: "8px",
+                overflow: "hidden",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}
             >
-              <div style={{ height: "220px", borderRadius: "4px", overflow: "hidden" }}>
+              <div style={{ height: "220px", overflow: "hidden" }}>
                 <Image
                   src={projet.image}
                   alt={projet.alt}
@@ -95,46 +104,48 @@ export default function SectionPortfolio() {
                 />
               </div>
 
-              <p
-                className="text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--terracotta)" }}
-              >
-                {projet.tag}
-              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "1.5rem" }}>
+                <p
+                  className="text-xs font-medium tracking-widest uppercase"
+                  style={{ color: "var(--terracotta)" }}
+                >
+                  {projet.tag}
+                </p>
 
-              <h3
-                className="leading-tight"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-                  color: "var(--noir)",
-                }}
-              >
-                {projet.nom}
-              </h3>
+                <h3
+                  className="leading-tight"
+                  style={{
+                    fontFamily: "var(--font-playfair)",
+                    fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
+                    color: "var(--noir)",
+                  }}
+                >
+                  {projet.nom}
+                </h3>
 
-              <p
-                className="text-sm leading-relaxed"
-                style={{
-                  color: "var(--gris-texte)",
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                {projet.description}
-              </p>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{
+                    color: "var(--gris-texte)",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}
+                >
+                  {projet.description}
+                </p>
 
-              <a
-                href={projet.lien}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--terracotta)" }}
-              >
-                Voir le site →
-              </a>
+                <a
+                  href={projet.lien}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
+                  style={{ color: "var(--terracotta)" }}
+                >
+                  Voir le site →
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>
