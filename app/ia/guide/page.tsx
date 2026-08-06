@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
+const GOOGLE_BOOKING_URL = "https://calendar.app.google/FW4K2drShQNytcwt8";
+
+type Status = "idle" | "loading" | "success" | "error";
 
 const filtres = [
   {
@@ -52,6 +57,39 @@ export default function Guide() {
   const { ref: methodeRef, isInView: methodeInView } = useScrollAnimation();
   const { ref: preuveRef, isInView: preuveInView } = useScrollAnimation();
   const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
+
+  const [nom, setNom] = useState("");
+  const [email, setEmail] = useState("");
+  const [besoin, setBesoin] = useState("");
+  const [taille, setTaille] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "0.875rem 1rem",
+    border: "1px solid var(--gris-border)",
+    borderRadius: "2px",
+    backgroundColor: "#FFFFFF",
+    color: "var(--noir)",
+    fontSize: "0.9375rem",
+    outline: "none",
+  };
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/qualification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nom, email, besoin, taille }),
+      });
+      const data = await res.json();
+      setStatus(data.success ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <>
@@ -334,7 +372,7 @@ export default function Guide() {
           </motion.div>
         </section>
 
-        {/* CTA final */}
+        {/* CTA final : qualification + réservation */}
         <section className="pb-24 px-6 md:px-12" style={{ backgroundColor: "#FFFFFF", paddingTop: "5rem" }}>
           <motion.div
             ref={ctaRef}
@@ -354,29 +392,173 @@ export default function Guide() {
             >
               Envie de savoir ce qui vaut le coup chez vous ?
             </h2>
-            <p className="mb-8 text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-              Un premier échange de 30 minutes, gratuit et sans engagement, pour identifier ce qui mérite d'être automatisé dans votre activité — et ce qui ne le mérite pas.
+            <p className="mb-3 text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
+              Chaque automatisation est différente. Le prix se construit sur devis, selon vos outils et vos besoins.
+            </p>
+            <p className="mb-8 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
+              Pour savoir si ça vaut le coup chez vous, dites-m'en un mot et je vous envoie mon lien pour un échange de 30 minutes, gratuit et sans engagement.
             </p>
 
-            <Link
-              href="/#contact"
-              className="inline-block font-medium transition-colors"
-              style={{
-                backgroundColor: "var(--noir)",
-                color: "#FFFFFF",
-                padding: "1rem 2.25rem",
-                borderRadius: "2px",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-              }}
-            >
-              Réserver mon échange gratuit →
-            </Link>
+            {status === "success" ? (
+              <div
+                style={{
+                  backgroundColor: "#F8F8F8",
+                  padding: "2.5rem",
+                  borderRadius: "4px",
+                  textAlign: "center",
+                }}
+              >
+                <p className="mb-6 text-base leading-relaxed" style={{ color: "var(--noir)" }}>
+                  Merci {nom}, j'ai bien reçu votre demande. Réservez directement le créneau qui vous arrange :
+                </p>
+                <a
+                  href={GOOGLE_BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block font-medium transition-colors"
+                  style={{
+                    backgroundColor: "var(--noir)",
+                    color: "#FFFFFF",
+                    padding: "1rem 2.25rem",
+                    borderRadius: "2px",
+                    textDecoration: "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
+                  }}
+                >
+                  Réserver mon échange gratuit →
+                </a>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                style={{
+                  backgroundColor: "#F8F8F8",
+                  padding: "2.5rem",
+                  borderRadius: "4px",
+                  textAlign: "left",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1.25rem",
+                }}
+              >
+                <div>
+                  <label
+                    htmlFor="guide-nom"
+                    className="block mb-2 text-sm font-medium"
+                    style={{ color: "var(--noir)" }}
+                  >
+                    Votre nom<span style={{ color: "#c0392b" }}> *</span>
+                  </label>
+                  <input
+                    id="guide-nom"
+                    type="text"
+                    placeholder="Jean Dupont"
+                    value={nom}
+                    onChange={e => setNom(e.target.value)}
+                    required
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="guide-email-qualif"
+                    className="block mb-2 text-sm font-medium"
+                    style={{ color: "var(--noir)" }}
+                  >
+                    Votre email<span style={{ color: "#c0392b" }}> *</span>
+                  </label>
+                  <input
+                    id="guide-email-qualif"
+                    type="email"
+                    placeholder="jean@exemple.fr"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="guide-besoin"
+                    className="block mb-2 text-sm font-medium"
+                    style={{ color: "var(--noir)" }}
+                  >
+                    Votre besoin<span style={{ color: "#c0392b" }}> *</span>
+                  </label>
+                  <select
+                    id="guide-besoin"
+                    value={besoin}
+                    onChange={e => setBesoin(e.target.value)}
+                    required
+                    style={{ ...inputStyle, backgroundColor: "#FFFFFF" }}
+                  >
+                    <option value="" disabled>Choisissez une option</option>
+                    <option value="Automatisation de tâches répétitives">Automatisation de tâches répétitives</option>
+                    <option value="Relance automatique clients">Relance automatique clients</option>
+                    <option value="Prise de rendez-vous automatisée">Prise de rendez-vous automatisée</option>
+                    <option value="Réponse aux avis clients">Réponse aux avis clients</option>
+                    <option value="Je ne sais pas encore, je veux en discuter">Je ne sais pas encore, je veux en discuter</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="guide-taille"
+                    className="block mb-2 text-sm font-medium"
+                    style={{ color: "var(--noir)" }}
+                  >
+                    Taille de votre structure<span style={{ color: "#c0392b" }}> *</span>
+                  </label>
+                  <select
+                    id="guide-taille"
+                    value={taille}
+                    onChange={e => setTaille(e.target.value)}
+                    required
+                    style={{ ...inputStyle, backgroundColor: "#FFFFFF" }}
+                  >
+                    <option value="" disabled>Choisissez une option</option>
+                    <option value="Indépendant">Indépendant</option>
+                    <option value="TPE (2 à 10 personnes)">TPE (2 à 10 personnes)</option>
+                    <option value="PME (10 personnes et plus)">PME (10 personnes et plus)</option>
+                  </select>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    style={{
+                      width: "100%",
+                      backgroundColor: "var(--noir)",
+                      color: "#FFFFFF",
+                      padding: "1rem",
+                      borderRadius: "2px",
+                      border: "none",
+                      fontSize: "0.9375rem",
+                      fontWeight: 500,
+                      cursor: status === "loading" ? "not-allowed" : "pointer",
+                      opacity: status === "loading" ? 0.65 : 1,
+                      transition: "opacity 0.2s ease",
+                    }}
+                  >
+                    {status === "loading" ? "Envoi en cours…" : "Obtenir mon lien de réservation →"}
+                  </button>
+
+                  {status === "error" && (
+                    <p style={{ color: "#c0392b", fontSize: "0.875rem", textAlign: "center" }}>
+                      Une erreur est survenue. Réessayez ou contactez-moi directement.
+                    </p>
+                  )}
+                </div>
+              </form>
+            )}
 
             <div className="mt-10">
               <Link
