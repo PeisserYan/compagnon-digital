@@ -1,0 +1,50 @@
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { eur, dateFr } from "@/lib/admin/format";
+import { Badge, btn, btnStyle, card } from "../ui";
+import type { Doc } from "@/lib/admin/types";
+
+export const dynamic = "force-dynamic";
+
+export default async function Factures({ searchParams }: { searchParams: { type?: string } }) {
+  const db = createClient();
+  let q = db.from("documents").select("*, clients(societe)").order("created_at", { ascending: false });
+  if (searchParams.type) q = q.eq("type", searchParams.type);
+  const { data } = await q;
+  const docs = (data ?? []) as unknown as Doc[];
+  const today = new Date().toISOString().slice(0, 10);
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Devis & factures</h1>
+        <Link href="/admin/factures/nouveau" className={btn} style={btnStyle}>Nouveau</Link>
+      </div>
+      <div className="flex gap-3 text-sm">
+        {[["", "Tous"], ["facture", "Factures"], ["devis", "Devis"], ["avoir", "Avoirs"]].map(([v, l]) => (
+          <Link key={v} href={v ? `/admin/factures?type=${v}` : "/admin/factures"} className={(searchParams.type ?? "") === v ? "font-semibold underline" : ""}>{l}</Link>
+        ))}
+      </div>
+      <div className="rounded-xl overflow-hidden" style={card}>
+        <table className="w-full text-sm">
+          <thead style={{ background: "var(--gris-clair)", color: "var(--gris-texte)" }}>
+            <tr className="text-left"><th className="p-3">N°</th><th>Client</th><th>Date</th><th>Échéance</th><th className="text-right">Total</th><th className="p-3">Statut</th></tr>
+          </thead>
+          <tbody>
+            {docs.map((d) => (
+              <tr key={d.id} className="border-t" style={{ borderColor: "var(--gris-border)" }}>
+                <td className="p-3"><Link href={`/admin/factures/${d.id}`} className="underline">{d.numero ?? `Brouillon (${d.type})`}</Link></td>
+                <td>{d.clients?.societe ?? "—"}</td>
+                <td>{dateFr(d.date_emission)}</td>
+                <td>{dateFr(d.date_echeance)}</td>
+                <td className="text-right">{eur(d.total_ht)}</td>
+                <td className="p-3">{d.statut === "emis" && d.type === "facture" && d.date_echeance && d.date_echeance < today ? <Badge k="retard" /> : <Badge k={d.statut} />}</td>
+              </tr>
+            ))}
+            {docs.length === 0 && <tr><td colSpan={6} className="p-6 text-center" style={{ color: "var(--gris-texte)" }}>Aucun document.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
