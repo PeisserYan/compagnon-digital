@@ -105,6 +105,37 @@ export async function enregistrerPaiement(formData: FormData) {
   revalidatePath("/admin", "layout");
 }
 
+// Case « Payée » de la liste des factures : coche = paiement du solde restant, décoche = annule les paiements.
+export async function basculerPaiement(formData: FormData) {
+  const db = createClient();
+  const id = s(formData, "id");
+  const payee = formData.get("payee") === "on";
+  const { data: doc, error } = await db.from("documents").select("id,type,statut,total_ht").eq("id", id).single();
+  if (error || !doc) fail("Facture introuvable");
+  if (doc.type !== "facture" || !["emis", "paye"].includes(doc.statut)) fail("Action impossible sur ce document");
+
+  if (!payee) {
+    const { error: e1 } = await db.from("paiements").delete().eq("document_id", id);
+    if (e1) fail(e1.message);
+    const { error: e2 } = await db.from("documents").update({ statut: "emis", paye_le: null }).eq("id", id);
+    if (e2) fail(e2.message);
+  } else {
+    const date = s(formData, "date") || todayISO();
+    const { data: pai } = await db.from("paiements").select("id,montant").eq("document_id", id);
+    const deja = (pai ?? []).reduce((acc, p) => acc + Number(p.montant), 0);
+    const reste = Number(doc.total_ht) - deja;
+    if (reste > 0) {
+      const { error: e3 } = await db.from("paiements").insert({ document_id: id, date, montant: reste, mode: "virement" });
+      if (e3) fail(e3.message);
+    } else {
+      // déjà payée : on ne fait que corriger la date d'encaissement
+      await db.from("paiements").update({ date }).eq("document_id", id);
+      await db.from("documents").update({ paye_le: date }).eq("id", id);
+    }
+  }
+  revalidatePath("/admin", "layout");
+}
+
 /* ───────── Clients ───────── */
 
 export async function creerClient(formData: FormData) {

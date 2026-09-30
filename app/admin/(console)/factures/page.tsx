@@ -2,13 +2,14 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { eur, dateFr } from "@/lib/admin/format";
 import { Badge, btn, btnStyle, card } from "../ui";
+import PayeToggle from "./PayeToggle";
 import type { Doc } from "@/lib/admin/types";
 
 export const dynamic = "force-dynamic";
 
 export default async function Factures({ searchParams }: { searchParams: { type?: string } }) {
   const db = createClient();
-  let q = db.from("documents").select("*, clients(societe)").order("created_at", { ascending: false });
+  let q = db.from("documents").select("*, clients(societe)").order("numero", { ascending: true, nullsFirst: false });
   if (searchParams.type) q = q.eq("type", searchParams.type);
   const { data } = await q;
   const docs = (data ?? []) as unknown as Doc[];
@@ -28,7 +29,7 @@ export default async function Factures({ searchParams }: { searchParams: { type?
       <div className="rounded-xl overflow-hidden" style={card}>
         <table className="w-full text-sm">
           <thead style={{ background: "var(--gris-clair)", color: "var(--gris-texte)" }}>
-            <tr className="text-left"><th className="p-3">N°</th><th>Client</th><th>Date</th><th>Échéance</th><th className="text-right">Total</th><th className="p-3">Statut</th></tr>
+            <tr className="text-left"><th className="p-3">N°</th><th>Client</th><th>Date</th><th>Échéance</th><th className="text-right">Total</th><th className="p-3">Statut</th><th className="p-3">Payée</th></tr>
           </thead>
           <tbody>
             {docs.map((d) => (
@@ -39,9 +40,14 @@ export default async function Factures({ searchParams }: { searchParams: { type?
                 <td>{dateFr(d.date_echeance)}</td>
                 <td className="text-right">{eur(d.total_ht)}</td>
                 <td className="p-3">{d.statut === "emis" && d.type === "facture" && d.date_echeance && d.date_echeance < today ? <Badge k="retard" /> : <Badge k={d.statut} />}</td>
+                <td className="p-3">
+                  {d.type === "facture" && ["emis", "paye"].includes(d.statut)
+                    ? <PayeToggle id={d.id} paye={d.statut === "paye"} payeLe={d.paye_le} defaultDate={d.date_echeance && d.date_echeance < today ? d.date_echeance : today} />
+                    : "—"}
+                </td>
               </tr>
             ))}
-            {docs.length === 0 && <tr><td colSpan={6} className="p-6 text-center" style={{ color: "var(--gris-texte)" }}>Aucun document.</td></tr>}
+            {docs.length === 0 && <tr><td colSpan={7} className="p-6 text-center" style={{ color: "var(--gris-texte)" }}>Aucun document.</td></tr>}
           </tbody>
         </table>
       </div>
