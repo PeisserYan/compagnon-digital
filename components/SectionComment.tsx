@@ -27,7 +27,7 @@ export default function SectionComment() {
         >
           <p
             className="mb-4 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             01 · Création et référencement
           </p>
@@ -50,7 +50,7 @@ export default function SectionComment() {
           <Link
             href="/site-web"
             className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             Découvrir l'offre Site Web →
           </Link>
@@ -65,7 +65,7 @@ export default function SectionComment() {
         >
           <p
             className="mb-4 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             02 · Intelligence artificielle
           </p>
@@ -88,7 +88,7 @@ export default function SectionComment() {
           <Link
             href="/ia"
             className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             En savoir plus →
           </Link>

@@ -157,7 +157,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "1.5rem" }}>
               <p
                 className="text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--terracotta)" }}
+                style={{ color: "var(--orange-texte)" }}
               >
                 {projet.tag}
               </p>
@@ -185,7 +185,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--terracotta)" }}
+                style={{ color: "var(--orange-texte)" }}
               >
                 Voir le site →
               </a>

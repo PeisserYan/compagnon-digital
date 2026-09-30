@@ -16,7 +16,7 @@ export default function MentionsLegales() {
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
           <p
             className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             Informations légales
           </p>
@@ -48,7 +48,7 @@ export default function MentionsLegales() {
                 Email :{" "}
                 <a
                   href="mailto:yan@compagnondigital.fr"
-                  style={{ color: "var(--terracotta)" }}
+                  style={{ color: "var(--orange-texte)" }}
                 >
                   yan@compagnondigital.fr
                 </a>
@@ -70,7 +70,7 @@ export default function MentionsLegales() {
                   href="https://vercel.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "var(--terracotta)" }}
+                  style={{ color: "var(--orange-texte)" }}
                 >
                   https://vercel.com
                 </a>

@@ -71,7 +71,7 @@ export default function IA() {
               animate={introInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="mb-6 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--terracotta)" }}
+              style={{ color: "var(--orange-texte)" }}
             >
               Automatisation IA
             </motion.p>
@@ -127,14 +127,14 @@ export default function IA() {
               style={{
                 backgroundColor: "#FFFFFF",
                 border: "1px solid var(--gris-border)",
-                borderTop: "3px solid var(--terracotta)",
+                borderTop: "3px solid var(--orange)",
                 borderRadius: "4px",
                 padding: "2.5rem",
               }}
             >
               {usages.map((usage) => (
                 <li key={usage} className="flex items-center gap-3 text-base">
-                  <span style={{ color: "var(--terracotta)", fontSize: "1.125rem" }}>✓</span>
+                  <span style={{ color: "var(--orange-texte)", fontSize: "1.125rem" }}>✓</span>
                   <span style={{ color: "var(--noir)" }}>{usage}</span>
                 </li>
               ))}
@@ -205,7 +205,7 @@ export default function IA() {
                     textDecoration: "none",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
@@ -348,7 +348,7 @@ export default function IA() {
           <Link
             href="/ia/guide"
             className="text-sm font-medium border-b border-transparent hover:border-current transition-colors"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             Envie de comprendre où l'IA peut vraiment vous aider avant de vous lancer ? Consulter le guide →
           </Link>

@@ -36,7 +36,7 @@ export default function SectionProbleme() {
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
         <p
           className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--terracotta)" }}
+          style={{ color: "var(--orange-texte)" }}
         >
           Le constat
         </p>
@@ -86,7 +86,7 @@ export default function SectionProbleme() {
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: (i + 1) * 0.1, ease: "easeOut" }}
               style={{
-                borderLeft: "3px solid var(--terracotta)",
+                borderLeft: "3px solid var(--orange)",
                 paddingLeft: "1.25rem",
               }}
             >
@@ -95,7 +95,7 @@ export default function SectionProbleme() {
                 style={{
                   fontFamily: "var(--font-playfair)",
                   fontSize: "clamp(2rem, 4vw, 2.75rem)",
-                  color: "var(--terracotta)",
+                  color: "var(--orange-texte)",
                 }}
               >
                 {item.chiffre}

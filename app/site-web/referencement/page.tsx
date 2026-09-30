@@ -103,7 +103,7 @@ export default function Referencement() {
           {/* Header */}
           <p
             className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             RÉFÉRENCEMENT
           </p>
@@ -122,7 +122,7 @@ export default function Referencement() {
             style={{
               width: "50px",
               height: "2px",
-              backgroundColor: "var(--terracotta)",
+              backgroundColor: "var(--orange)",
               margin: "1.5rem 0",
             }}
           />
@@ -167,7 +167,7 @@ export default function Referencement() {
 
               <p
                 className="mb-2 text-xs uppercase tracking-widest"
-                style={{ color: "var(--terracotta)" }}
+                style={{ color: "var(--orange-texte)" }}
               >
                 {approche.surtitre}
               </p>
@@ -201,7 +201,7 @@ export default function Referencement() {
                       padding: "1.25rem",
                       backgroundColor: "var(--gris-clair)",
                       borderRadius: "4px",
-                      borderLeft: "2px solid var(--terracotta)",
+                      borderLeft: "2px solid var(--orange)",
                     }}
                   >
                     <p className="mb-1 text-sm font-semibold" style={{ color: "var(--noir)" }}>
@@ -227,7 +227,7 @@ export default function Referencement() {
           <section style={{ paddingTop: "80px", paddingBottom: "80px" }}>
             <p
               className="text-xs font-medium uppercase tracking-widest"
-              style={{ color: "var(--terracotta)" }}
+              style={{ color: "var(--orange-texte)" }}
             >
               QUE CHOISIR ?
             </p>
@@ -261,7 +261,7 @@ export default function Referencement() {
                     padding: "2rem",
                     borderRadius: "4px",
                     backgroundColor: "var(--gris-clair)",
-                    borderTop: "3px solid var(--terracotta)",
+                    borderTop: "3px solid var(--orange)",
                   }}
                 >
                   <h3
@@ -294,7 +294,7 @@ export default function Referencement() {
                 borderRadius: "2px",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";

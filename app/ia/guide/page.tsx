@@ -104,7 +104,7 @@ export default function Guide() {
               animate={introInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="mb-6 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--terracotta)" }}
+              style={{ color: "var(--orange-texte)" }}
             >
               Guide · Automatisation IA
             </motion.p>
@@ -171,14 +171,14 @@ export default function Guide() {
                   style={{
                     backgroundColor: "#FFFFFF",
                     border: "1px solid var(--gris-border)",
-                    borderTop: "3px solid var(--terracotta)",
+                    borderTop: "3px solid var(--orange)",
                     borderRadius: "4px",
                     padding: "2rem",
                   }}
                 >
                   <p
                     className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--terracotta)" }}
+                    style={{ color: "var(--orange-texte)" }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </p>
@@ -231,7 +231,7 @@ export default function Guide() {
                     paddingBottom: "1.5rem",
                   }}
                 >
-                  <span style={{ color: "var(--terracotta)", fontSize: "1.125rem", flexShrink: 0 }}>✓</span>
+                  <span style={{ color: "var(--orange-texte)", fontSize: "1.125rem", flexShrink: 0 }}>✓</span>
                   <div>
                     <p className="mb-1 font-semibold" style={{ color: "var(--noir)" }}>
                       {usage.titre}
@@ -257,7 +257,7 @@ export default function Guide() {
           >
             <p
               className="mb-4 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--terracotta)" }}
+              style={{ color: "var(--orange-texte)" }}
             >
               Ce dont il faut se méfier
             </p>
@@ -320,7 +320,7 @@ export default function Guide() {
                 >
                   <p
                     className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--terracotta)" }}
+                    style={{ color: "var(--orange-texte)" }}
                   >
                     {etape.n}
                   </p>
@@ -355,14 +355,14 @@ export default function Guide() {
               margin: "0 auto",
               backgroundColor: "#FFFFFF",
               border: "1px solid var(--gris-border)",
-              borderLeft: "3px solid var(--terracotta)",
+              borderLeft: "3px solid var(--orange)",
               borderRadius: "4px",
               padding: "2.5rem",
             }}
           >
             <p
               className="mb-4 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--terracotta)" }}
+              style={{ color: "var(--orange-texte)" }}
             >
               Ce que j'ai déjà mis en place
             </p>
@@ -424,7 +424,7 @@ export default function Guide() {
                     textDecoration: "none",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
@@ -564,7 +564,7 @@ export default function Guide() {
               <Link
                 href="/ia"
                 className="text-sm font-medium border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--terracotta)" }}
+                style={{ color: "var(--orange-texte)" }}
               >
                 ← Retour à l'offre Automatisation IA
               </Link>

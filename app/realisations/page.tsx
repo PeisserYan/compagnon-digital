@@ -78,7 +78,7 @@ export default function RealisationsPage() {
 
         <p
           className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--terracotta)" }}
+          style={{ color: "var(--orange-texte)" }}
         >
           Réalisations
         </p>

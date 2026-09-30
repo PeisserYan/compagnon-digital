@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --terracotta: #D26D50;
+  --orange: #F2994A;        /* orange du héros : fonds, bordures, éléments décoratifs */
+  --orange-texte: #B85C0F;  /* même orange, assombri : petit texte sur blanc et fonds avec texte blanc (contraste 4.6:1) */
   --blanc: #FFFFFF;
   --gris-clair: #F7F7F5;
   --gris-border: #E8E8E4;

@@ -28,7 +28,7 @@ export default function SectionAPropos() {
         >
           <p
             className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             À propos
           </p>
@@ -48,7 +48,7 @@ export default function SectionAPropos() {
             style={{
               width: "40px",
               height: "2px",
-              backgroundColor: "var(--terracotta)",
+              backgroundColor: "var(--orange)",
               marginBottom: "2rem",
               marginTop: "0.5rem",
             }}

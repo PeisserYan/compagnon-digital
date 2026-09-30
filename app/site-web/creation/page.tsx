@@ -53,7 +53,7 @@ export default function Creation() {
                 animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, ease: "easeOut" }}
                 className="mb-6 text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--terracotta)" }}
+                style={{ color: "var(--orange-texte)" }}
               >
                 Création de site web
               </motion.p>
@@ -79,7 +79,7 @@ export default function Creation() {
                 style={{
                   width: "50px",
                   height: "2px",
-                  backgroundColor: "var(--terracotta)",
+                  backgroundColor: "var(--orange)",
                   margin: "1.5rem auto",
                 }}
               />
@@ -107,12 +107,12 @@ export default function Creation() {
                     borderRadius: "4px",
                     padding: "2.5rem",
                     border: "1px solid var(--gris-border)",
-                    borderTop: "3px solid var(--terracotta)",
+                    borderTop: "3px solid var(--orange)",
                   }}
                 >
                   <p
                     className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--terracotta)" }}
+                    style={{ color: "var(--orange-texte)" }}
                   >
                     {service.tag}
                   </p>
@@ -149,7 +149,7 @@ export default function Creation() {
                   <ul className="space-y-2">
                     {service.items.map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm">
-                        <span style={{ color: "var(--terracotta)", fontSize: "1rem" }}>✓</span>
+                        <span style={{ color: "var(--orange-texte)", fontSize: "1rem" }}>✓</span>
                         <span style={{ color: "var(--noir)" }}>{item}</span>
                       </li>
                     ))}
@@ -175,7 +175,7 @@ export default function Creation() {
                   borderRadius: "2px",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";

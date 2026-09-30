@@ -16,7 +16,7 @@ export default function PolitiqueDeConfidentialite() {
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
           <p
             className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--terracotta)" }}
+            style={{ color: "var(--orange-texte)" }}
           >
             Confidentialité
           </p>
@@ -44,7 +44,7 @@ export default function PolitiqueDeConfidentialite() {
                 Yan Peisser —{" "}
                 <a
                   href="mailto:yan@compagnondigital.fr"
-                  style={{ color: "var(--terracotta)" }}
+                  style={{ color: "var(--orange-texte)" }}
                 >
                   yan@compagnondigital.fr
                 </a>
@@ -86,7 +86,7 @@ export default function PolitiqueDeConfidentialite() {
                 Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Contactez :{" "}
                 <a
                   href="mailto:yan@compagnondigital.fr"
-                  style={{ color: "var(--terracotta)" }}
+                  style={{ color: "var(--orange-texte)" }}
                 >
                   yan@compagnondigital.fr
                 </a>
