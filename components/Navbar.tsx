@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
@@ -17,8 +18,8 @@ const SERVICES_LINKS = [
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -36,9 +37,6 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(docHeight > 0 ? (scrollY / docHeight) * 100 : 0);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -65,29 +63,20 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: scrolled || mobileMenuOpen ? "#FFFFFF" : "transparent",
         borderBottom: scrolled ? "1px solid var(--gris-border)" : "1px solid transparent",
         boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
-        transition: "padding 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+        transition: "padding 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
       }}
     >
       <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
         <Image
-          src="/icon-navbar.png"
+          src={pathname === "/" && !scrolled && !mobileMenuOpen ? "/logo-compagnon-digital-encre.svg" : "/logo-compagnon-digital.svg"}
           alt="Compagnon Digital"
-          width={62}
-          height={62}
-          style={{ borderRadius: "50%" }}
+          width={143}
+          height={48}
+          priority
         />
-        <span style={{
-          fontFamily: "var(--font-playfair)",
-          fontSize: "1.1rem",
-          fontWeight: 700,
-          color: "#111111",
-          letterSpacing: "0.01em",
-        }}>
-          Compagnon Digital
-        </span>
       </Link>
 
       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -158,7 +147,7 @@ export default function Navbar() {
           textDecoration: "none",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--terracotta)";
+          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
@@ -343,19 +332,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-
-      {/* Barre de progression */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          height: "2px",
-          width: `${scrollProgress}%`,
-          backgroundColor: "var(--terracotta)",
-          transition: "width 0.1s linear",
-        }}
-      />
     </nav>
   );
 }

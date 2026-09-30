@@ -44,13 +44,13 @@ export default function SectionContact() {
     <section
       id="contact"
       className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "var(--blanc)" }}
+      style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, #FFEBD6 30%, #F7A04F 100%)" }}
     >
       <div style={{ maxWidth: "560px", margin: "0 auto", textAlign: "center" }}>
 
         <p
           className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--terracotta)" }}
+          style={{ color: "var(--orange-texte)" }}
         >
           Contact
         </p>
@@ -238,13 +238,13 @@ export default function SectionContact() {
           </form>
         )}
 
-        <p style={{ color: "var(--gris-texte)", fontSize: "0.875rem", marginTop: "2rem" }}>
+        <p style={{ color: "var(--noir)", fontSize: "0.875rem", marginTop: "2rem" }}>
           Vous préférez appeler ?{" "}
-          <a href="tel:+33673401475" style={{ color: "var(--terracotta)", fontWeight: 500 }}>
+          <a href="tel:+33673401475" style={{ color: "var(--noir)", fontWeight: 600, textDecoration: "underline" }}>
             06 73 40 14 75
           </a>
           {" · "}
-          <a href="mailto:yan@compagnondigital.fr" style={{ color: "var(--terracotta)", fontWeight: 500 }}>
+          <a href="mailto:yan@compagnondigital.fr" style={{ color: "var(--noir)", fontWeight: 600, textDecoration: "underline" }}>
             yan@compagnondigital.fr
           </a>
         </p>
