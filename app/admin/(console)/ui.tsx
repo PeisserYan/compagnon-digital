@@ -3,24 +3,24 @@ import type { ReactNode } from "react";
 export const card = { background: "#fff", border: "1px solid var(--gris-border)" } as const;
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-xl p-5 ${className}`} style={card}>{children}</div>;
+  return <div className={`rounded-xl p-4 md:p-5 ${className}`} style={card}>{children}</div>;
 }
 
 export function Stat({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: "warn" | "ok" }) {
   return (
     <Card>
       <p className="text-xs uppercase tracking-wide" style={{ color: "var(--gris-texte)" }}>{label}</p>
-      <p className="mt-1 text-2xl font-semibold" style={{ color: tone === "warn" ? "#b42318" : undefined }}>{value}</p>
+      <p className="mt-1 text-xl md:text-2xl font-semibold" style={{ color: tone === "warn" ? "#b42318" : undefined }}>{value}</p>
       {sub && <p className="mt-1 text-xs" style={{ color: "var(--gris-texte)" }}>{sub}</p>}
     </Card>
   );
 }
 
-export const inputCls = "w-full rounded-md px-3 py-2 border text-sm bg-white";
+export const inputCls = "w-full rounded-md px-3 py-2.5 md:py-2 border text-base md:text-sm bg-white";
 export const inputStyle = { borderColor: "var(--gris-border)" } as const;
-export const btn = "rounded-md px-3 py-2 text-sm font-medium text-white";
+export const btn = "rounded-md px-3 py-2.5 md:py-2 text-sm font-medium text-white text-center";
 export const btnStyle = { background: "var(--orange-texte)" } as const;
-export const btnGhost = "rounded-md px-3 py-2 text-sm border";
+export const btnGhost = "rounded-md px-3 py-2.5 md:py-2 text-sm border text-center";
 
 const BADGES: Record<string, [string, string]> = {
   brouillon: ["Brouillon", "#6b6b6b"],

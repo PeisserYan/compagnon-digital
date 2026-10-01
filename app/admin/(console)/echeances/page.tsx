@@ -30,7 +30,7 @@ export default async function Echeances({ searchParams }: { searchParams: { m?: 
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Échéances</h1>
+      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Échéances</h1>
 
       <Card>
         <div className="flex justify-between mb-3 text-sm">
@@ -44,12 +44,12 @@ export default async function Echeances({ searchParams }: { searchParams: { m?: 
             const iso = d >= 1 && d <= nbJours ? `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}` : "";
             const items = iso ? ech.filter((e) => e.date_echeance === iso) : [];
             return (
-              <div key={i} className="bg-white min-h-[64px] p-1" style={iso === today ? { outline: "2px solid var(--orange)" } : undefined}>
+              <div key={i} className="bg-white min-h-[44px] md:min-h-[64px] p-0.5 md:p-1" style={iso === today ? { outline: "2px solid var(--orange)" } : undefined}>
                 {iso && <span style={{ color: "var(--gris-texte)" }}>{d}</span>}
                 {items.map((e) => (
-                  <div key={e.id} className="mt-0.5 rounded px-1 truncate" title={`${e.clients?.societe ?? ""} · ${e.titre} · ${eur(e.montant)}`}
+                  <div key={e.id} className="mt-0.5 rounded px-1 truncate h-1.5 md:h-auto" title={`${e.clients?.societe ?? ""} · ${e.titre} · ${eur(e.montant)}`}
                     style={{ background: e.statut === "payee" ? "#15803d1a" : e.date_echeance < today ? "#b423181a" : "#F2994A33" }}>
-                    {e.clients?.societe ?? e.titre}
+                    <span className="hidden md:inline">{e.clients?.societe ?? e.titre}</span>
                   </div>
                 ))}
               </div>
@@ -62,9 +62,9 @@ export default async function Echeances({ searchParams }: { searchParams: { m?: 
         <p className="text-sm font-medium mb-3">À traiter ({ouvertes.length})</p>
         <ul className="divide-y" style={{ borderColor: "var(--gris-border)" }}>
           {ouvertes.map((e) => (
-            <li key={e.id} className="py-3 flex flex-wrap items-center gap-3 text-sm">
-              <span className="w-24">{dateFr(e.date_echeance)}</span>
-              <span className="flex-1 min-w-[180px]">{e.clients?.societe ?? "—"} · {e.titre} <span style={{ color: "var(--gris-texte)" }}>({e.recurrence}, {e.mode_paiement})</span></span>
+            <li key={e.id} className="py-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+              <span className="md:w-24 font-medium md:font-normal">{dateFr(e.date_echeance)}</span>
+              <span className="basis-full md:basis-auto md:flex-1 md:min-w-[180px]">{e.clients?.societe ?? "—"} · {e.titre} <span style={{ color: "var(--gris-texte)" }}>({e.recurrence}, {e.mode_paiement})</span></span>
               <span>{eur(e.montant)}</span>
               {e.date_echeance < today ? <Badge k="retard" /> : <Badge k={e.statut} />}
               {e.statut === "a_venir" && e.mode_paiement === "virement" && (

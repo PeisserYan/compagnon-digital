@@ -11,7 +11,7 @@ export default async function Clients() {
   const clients = (data ?? []) as Client[];
   return (
     <div className="space-y-5">
-      <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Clients</h1>
+      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Clients</h1>
       <p className="text-sm" style={{ color: "var(--gris-texte)" }}>Fiche minimale nécessaire à la facturation. Le CRM complet (pipeline, notes, historique) reste dans Notion : colle le lien de la fiche Notion pour y accéder d&apos;ici.</p>
       <Card>
         <form action={creerClient} className="grid grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
@@ -30,9 +30,10 @@ export default async function Clients() {
           <tbody>
             {clients.map((c) => (
               <tr key={c.id} className="border-t first:border-t-0" style={{ borderColor: "var(--gris-border)" }}>
-                <td className="p-3 font-medium">{c.societe}</td><td>{c.nom}</td><td>{c.email}</td><td>{c.siret}</td>
-                <td>{c.notion_url && <a href={c.notion_url} target="_blank" rel="noreferrer" className="underline">Notion</a>}</td>
-                <td className="p-3 text-right"><form action={supprimerClient}><input type="hidden" name="id" value={c.id} /><button className="text-xs underline">Supprimer</button></form></td>
+                <td className="p-3 font-medium align-top">{c.societe}<span className="block text-xs font-normal md:hidden" style={{ color: "var(--gris-texte)" }}>{[c.nom, c.email].filter(Boolean).join(" · ")}</span></td>
+                <td className="hidden md:table-cell">{c.nom}</td><td className="hidden md:table-cell">{c.email}</td><td className="hidden lg:table-cell">{c.siret}</td>
+                <td className="align-top py-3">{c.notion_url && <a href={c.notion_url} target="_blank" rel="noreferrer" className="underline">Notion</a>}</td>
+                <td className="p-3 text-right align-top"><form action={supprimerClient}><input type="hidden" name="id" value={c.id} /><button className="text-xs underline">Supprimer</button></form></td>
               </tr>
             ))}
             {clients.length === 0 && <tr><td className="p-6 text-center" style={{ color: "var(--gris-texte)" }}>Aucun client.</td></tr>}

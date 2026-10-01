@@ -170,13 +170,23 @@ export default function Hero() {
       {/* Photo principale, toujours visible */}
       {/* Sur grand écran, l'image est élargie et calée à gauche : l'oiseau finit à droite, hors du texte */}
       <div className="absolute inset-y-0 left-0 w-full lg:w-[180%]">
+        {/* Mobile / tablette : version sans l'oiseau (il passerait derrière le texte) */}
+        <Image
+          src="/hero/hero-base-mobile.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover lg:hidden"
+          style={{ objectPosition: BASE_POSITION }}
+        />
+        {/* Grand écran : photo d'origine avec l'oiseau */}
         <Image
           src="/hero/hero-base.webp"
           alt=""
           fill
-          priority
-          sizes="(min-width: 1024px) 180vw, 100vw"
-          className="object-cover"
+          sizes="180vw"
+          className="hidden lg:block object-cover"
           style={{ objectPosition: BASE_POSITION }}
         />
       </div>

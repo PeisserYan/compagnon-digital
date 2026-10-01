@@ -12,7 +12,7 @@ export default async function Depenses() {
   const deps = (data ?? []) as Depense[];
   return (
     <div className="space-y-5">
-      <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Dépenses</h1>
+      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Dépenses</h1>
       <Card>
         <form action={creerDepense} className="grid grid-cols-2 lg:grid-cols-5 gap-3 items-end text-sm">
           <label>Date<input type="date" name="date" defaultValue={todayISO()} className={inputCls} style={inputStyle} /></label>
@@ -27,9 +27,11 @@ export default async function Depenses() {
           <tbody>
             {deps.map((d) => (
               <tr key={d.id} className="border-t first:border-t-0" style={{ borderColor: "var(--gris-border)" }}>
-                <td className="p-3 w-28">{dateFr(d.date)}</td><td>{d.libelle}</td><td style={{ color: "var(--gris-texte)" }}>{d.categorie}</td>
-                <td className="text-right">{eur(d.montant)}</td>
-                <td className="p-3 text-right"><form action={supprimerDepense}><input type="hidden" name="id" value={d.id} /><button className="text-xs underline">Supprimer</button></form></td>
+                <td className="p-3 w-20 md:w-28 align-top">{dateFr(d.date)}</td>
+                <td className="py-3 align-top">{d.libelle}<span className="block text-xs md:hidden" style={{ color: "var(--gris-texte)" }}>{d.categorie}</span></td>
+                <td className="hidden md:table-cell" style={{ color: "var(--gris-texte)" }}>{d.categorie}</td>
+                <td className="text-right align-top py-3 whitespace-nowrap">{eur(d.montant)}</td>
+                <td className="p-3 text-right align-top"><form action={supprimerDepense}><input type="hidden" name="id" value={d.id} /><button className="text-xs underline py-1">Supprimer</button></form></td>
               </tr>
             ))}
             {deps.length === 0 && <tr><td className="p-6 text-center" style={{ color: "var(--gris-texte)" }}>Aucune dépense.</td></tr>}

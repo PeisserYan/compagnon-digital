@@ -41,15 +41,15 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
 
   return (
     <div className="space-y-6">
-      <div className="flex items-baseline justify-between">
-        <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Tableau de bord {annee}</h1>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Tableau de bord {annee}</h1>
         <div className="flex gap-3 text-sm">
           <Link href={`/admin?annee=${annee - 1}`}>← {annee - 1}</Link>
           {annee < now.getFullYear() && <Link href={`/admin?annee=${annee + 1}`}>{annee + 1} →</Link>}
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         <Stat label="CA encaissé (année)" value={eur(caAnnuel)} sub="Base encaissements (micro-entreprise)" />
         <Stat label="CA du mois" value={eur(caMois)} />
         <Stat label="Résultat net estimé" value={eur(net)} sub={taux === 0 ? "⚠ Taux de cotisations non renseigné" : `CA − dépenses − ${(taux * 100).toFixed(1)} % de cotisations`} tone={taux === 0 ? "warn" : undefined} />
@@ -58,12 +58,12 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
 
       <Card>
         <p className="text-sm font-medium mb-4">CA encaissé par mois</p>
-        <div className="flex items-end gap-2 h-40">
+        <div className="flex items-end gap-1 md:gap-2 h-40">
           {parMois.map((v, i) => (
             <div key={i} className="flex-1 flex flex-col items-center justify-end h-full">
-              <span className="text-[10px] mb-1" style={{ color: "var(--gris-texte)" }}>{v ? Math.round(v) : ""}</span>
+              <span className="text-[9px] md:text-[10px] mb-1" style={{ color: "var(--gris-texte)" }}>{v ? Math.round(v) : ""}</span>
               <div className="w-full rounded-t" style={{ height: `${(v / max) * 100}%`, minHeight: v ? 2 : 0, background: "var(--orange)" }} />
-              <span className="text-[11px] mt-1" style={{ color: "var(--gris-texte)" }}>{MOIS[i]}</span>
+              <span className="text-[9px] md:text-[11px] mt-1" style={{ color: "var(--gris-texte)" }}>{MOIS[i]}</span>
             </div>
           ))}
         </div>
@@ -76,9 +76,9 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
             <div className="h-2 rounded-full" style={{ width: `${Math.min(100, (caAnnuel / (plafond || 1)) * 100)}%`, background: caAnnuel / (plafond || 1) > 0.8 ? "#b42318" : "var(--orange)" }} />
           </div>
           <p className="text-xs mt-2" style={{ color: "var(--gris-texte)" }}>{eur(caAnnuel)} / {eur(plafond)} ({((caAnnuel / (plafond || 1)) * 100).toFixed(0)} %)</p>
-          <form action={majParametres} className="mt-4 flex gap-2 items-end text-xs">
-            <label className="flex-1">Plafond (€)<input name="plafond_ca" defaultValue={plafond} className={inputCls} style={inputStyle} /></label>
-            <label className="flex-1">Cotisations (%)<input name="taux_cotisations" defaultValue={(taux * 100).toString()} className={inputCls} style={inputStyle} /></label>
+          <form action={majParametres} className="mt-4 flex flex-wrap gap-2 items-end text-xs">
+            <label className="flex-1 min-w-[120px]">Plafond (€)<input name="plafond_ca" defaultValue={plafond} className={inputCls} style={inputStyle} /></label>
+            <label className="flex-1 min-w-[120px]">Cotisations (%)<input name="taux_cotisations" defaultValue={(taux * 100).toString()} className={inputCls} style={inputStyle} /></label>
             <button className={btn} style={btnStyle}>OK</button>
           </form>
           <p className="text-[11px] mt-2" style={{ color: "var(--gris-texte)" }}>À vérifier sur ton espace URSSAF / impots.gouv : plafond et taux dépendent de ta catégorie d&apos;activité et d&apos;éventuelles aides.</p>
@@ -88,8 +88,8 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
           <div className="flex justify-between mb-2"><p className="text-sm font-medium">Prochaines échéances</p><Link href="/admin/echeances" className="text-xs underline">Tout voir</Link></div>
           <ul className="divide-y" style={{ borderColor: "var(--gris-border)" }}>
             {((ech.data ?? []) as unknown as { id: string; titre: string; montant: number; date_echeance: string; statut: string; clients: { societe: string } | null }[]).map((e) => (
-              <li key={e.id} className="py-2 flex justify-between text-sm">
-                <span>{e.clients?.societe ?? "—"} · {e.titre}</span>
+              <li key={e.id} className="py-2 flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm">
+                <span className="min-w-0">{e.clients?.societe ?? "—"} · {e.titre}</span>
                 <span className="flex gap-3 items-center">{eur(e.montant)} <span style={{ color: "var(--gris-texte)" }}>{dateFr(e.date_echeance)}</span>{e.date_echeance < today && <Badge k="retard" />}</span>
               </li>
             ))}
