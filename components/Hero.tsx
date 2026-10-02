@@ -15,6 +15,7 @@ const SPACING = RADIUS * 0.3; // écart entre deux "tampons" le long du trajet
 const MAX_POINTS = 400;
 const NAV_FEATHER = 40; // fondu sous la navbar (px)
 const BASE_POSITION = "50% 43%"; // cadrage de la photo principale
+const TEXT_PADDING = 6; // marge autour du texte où l'effet est coupé (px)
 
 type Point = { x: number; y: number; t: number };
 
@@ -121,8 +122,41 @@ export default function Hero() {
       if (!raf) raf = requestAnimationFrame(draw);
     };
 
+    // Pas d'effet au survol du texte : on teste les vraies lignes de texte
+    // (pas le bloc entier), et la boîte complète pour les boutons.
+    const range = document.createRange();
+    const isOverText = (cx: number, cy: number) => {
+      const els = section.querySelectorAll<HTMLElement>("[data-no-reveal]");
+      for (const el of Array.from(els)) {
+        let rects: ArrayLike<DOMRect>;
+        if (el.dataset.noReveal === "box") {
+          rects = [el.getBoundingClientRect()];
+        } else {
+          range.selectNodeContents(el);
+          rects = range.getClientRects();
+        }
+        for (let i = 0; i < rects.length; i++) {
+          const r = rects[i];
+          if (
+            cx >= r.left - TEXT_PADDING &&
+            cx <= r.right + TEXT_PADDING &&
+            cy >= r.top - TEXT_PADDING &&
+            cy <= r.bottom + TEXT_PADDING
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      // Sur le texte : on n'ajoute rien, et on coupe la traînée pour ne pas la relier à travers
+      if (isOverText(e.clientX, e.clientY)) {
+        last = null;
+        return;
+      }
       const rect = section.getBoundingClientRect();
       const now = performance.now();
       const x = e.clientX - rect.left;
@@ -206,6 +240,7 @@ export default function Hero() {
 
       <div className="relative z-10" style={{ maxWidth: "780px", width: "100%" }}>
         <h1
+          data-no-reveal
           className="mb-8"
           style={{
             fontFamily: "var(--font-playfair)",
@@ -218,6 +253,7 @@ export default function Hero() {
         </h1>
 
         <motion.p
+          data-no-reveal
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease }}
@@ -238,6 +274,7 @@ export default function Hero() {
         >
           <Link
             href="/#diagnostic"
+            data-no-reveal="box"
             className="inline-block font-medium transition-colors"
             style={{
               backgroundColor: "var(--noir)",
@@ -255,7 +292,7 @@ export default function Hero() {
           >
             Faire le diagnostic
           </Link>
-          <p className="mt-4 text-sm" style={{ color: "var(--noir)", opacity: 0.8 }}>
+          <p data-no-reveal className="mt-4 text-sm" style={{ color: "var(--noir)", opacity: 0.8 }}>
             Gratuit · 1 minute · Sans engagement
           </p>
         </motion.div>
