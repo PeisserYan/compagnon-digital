@@ -35,6 +35,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Overlay retiré du rendu (display: none) quand le menu est fermé : Safari 26 (iOS) détecte les
+  // éléments fixed qui touchent le bas de l'écran, même invisibles (opacity 0), et rend alors
+  // opaque la zone derrière sa barre d'adresse au lieu de laisser voir la page.
+  const [menuMounted, setMenuMounted] = useState(false);
+  // Passe à true une frame après l'affichage, pour que l'animation d'entrée se joue.
+  const [menuEntered, setMenuEntered] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
 
   // Hauteur réelle du header (88 px en haut de page, ~65 px une fois scrollé, padding animé) :
@@ -91,6 +97,24 @@ export default function Navbar() {
       document.removeEventListener("keydown", onKeyDown);
       desktopQuery.removeEventListener("change", onBreakpointChange);
     };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setMenuMounted(true);
+      let innerFrame = 0;
+      const outerFrame = requestAnimationFrame(() => {
+        innerFrame = requestAnimationFrame(() => setMenuEntered(true));
+      });
+      return () => {
+        cancelAnimationFrame(outerFrame);
+        cancelAnimationFrame(innerFrame);
+      };
+    }
+    setMenuEntered(false);
+    // Démonte après la plus longue transition de fermeture (trait orange : 500 ms).
+    const timeout = window.setTimeout(() => setMenuMounted(false), 550);
+    return () => window.clearTimeout(timeout);
   }, [mobileMenuOpen]);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -211,8 +235,7 @@ export default function Navbar() {
           justifyContent: "center",
           padding: "0.625rem",
           background: "none",
-          border: "1px solid var(--gris-border)",
-          borderRadius: "2px",
+          border: "none",
           color: "var(--noir)",
           cursor: "pointer",
         }}
@@ -272,6 +295,7 @@ export default function Navbar() {
           bottom: 0,
           zIndex: 40,
           overflow: "hidden",
+          display: menuMounted ? "block" : "none",
           pointerEvents: mobileMenuOpen ? "auto" : "none",
         }}
       >
@@ -281,8 +305,8 @@ export default function Navbar() {
             position: "absolute",
             inset: 0,
             backgroundColor: "var(--blanc)",
-            opacity: mobileMenuOpen ? 1 : 0,
-            transform: mobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
+            opacity: menuEntered ? 1 : 0,
+            transform: menuEntered ? "translateY(0)" : "translateY(-8px)",
             transition: `opacity 400ms ${MENU_EASING}, transform 400ms ${MENU_EASING}`,
           }}
         />
@@ -297,9 +321,9 @@ export default function Navbar() {
             height: "1px",
             backgroundColor: "var(--orange)",
             transformOrigin: "left center",
-            transform: mobileMenuOpen ? "scaleX(1)" : "scaleX(0)",
+            transform: menuEntered ? "scaleX(1)" : "scaleX(0)",
             transition: `transform 500ms ${MENU_EASING}`,
-            transitionDelay: mobileMenuOpen ? "100ms" : "0ms",
+            transitionDelay: menuEntered ? "100ms" : "0ms",
           }}
         />
 
@@ -326,11 +350,11 @@ export default function Navbar() {
                   fontSize: "1.5rem",
                   lineHeight: "2rem",
                   letterSpacing: "0.08em",
-                  opacity: mobileMenuOpen ? 1 : 0,
-                  transform: mobileMenuOpen ? "translateY(0)" : "translateY(12px)",
+                  opacity: menuEntered ? 1 : 0,
+                  transform: menuEntered ? "translateY(0)" : "translateY(12px)",
                   transition: `opacity 350ms ${MENU_EASING}, transform 350ms ${MENU_EASING}, color 200ms ease`,
                   // Délai sur opacity/transform seulement : la couleur au survol reste immédiate.
-                  transitionDelay: mobileMenuOpen ? `${100 + index * 50}ms, ${100 + index * 50}ms, 0ms` : "0ms",
+                  transitionDelay: menuEntered ? `${100 + index * 50}ms, ${100 + index * 50}ms, 0ms` : "0ms",
                 }}
               >
                 {label}
