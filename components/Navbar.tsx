@@ -16,23 +16,37 @@ const SERVICES_LINKS = [
   { href: "/ia", label: "IA" },
 ];
 
+// Menu mobile : liste à plat (pas d'accordéon), même destinations que la nav desktop.
+const MOBILE_LINKS = [...SERVICES_LINKS, ...NAV_LINKS];
+
+// React 18 ne connaît pas `inert` : seule la chaîne vide fait écrire l'attribut dans le DOM
+// (true serait ignoré), alors que @types/react 18.3 le type en boolean, d'où le cast.
+// En passant à React 19 : remplacer par inert={!mobileMenuOpen} (sinon "" vaudra false).
+const INERT_REACT_18 = { inert: "" } as unknown as { inert: boolean };
+
+// Courbe partagée par les deux panneaux du menu mobile.
+const PANEL_EASING = "cubic-bezier(0.65, 0, 0.35, 1)";
+
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
 
+  // Hauteur réelle du header (88 px en haut de page, ~65 px une fois scrollé, padding animé) :
+  // le menu mobile démarre juste en dessous. border-box pour capter les changements de padding.
   useEffect(() => {
-    const updateNavHeight = () => {
-      if (navRef.current) setNavHeight(navRef.current.getBoundingClientRect().height);
-    };
+    const nav = navRef.current;
+    if (!nav) return;
+    const updateNavHeight = () => setNavHeight(nav.getBoundingClientRect().height);
     updateNavHeight();
-    window.addEventListener("resize", updateNavHeight);
-    return () => window.removeEventListener("resize", updateNavHeight);
-  }, [scrolled]);
+    const observer = new ResizeObserver(updateNavHeight);
+    observer.observe(nav, { box: "border-box" });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,19 +57,42 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Bloque le scroll tant que le menu mobile est ouvert. Sur <html> ET <body> : globals.css met
+  // overflow-x: hidden sur html, donc c'est html qui scrolle et body seul ne suffit pas.
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    }
+    if (!mobileMenuOpen) return;
+    const { documentElement: html, body } = document;
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "";
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
     };
   }, [mobileMenuOpen]);
 
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-    setMobileServicesOpen(false);
-  };
+  // Échap ferme le menu et rend le focus au bouton ; repasser au-dessus de md (768 px) le ferme aussi.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMobileMenuOpen(false);
+      burgerRef.current?.focus();
+    };
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+    const onBreakpointChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setMobileMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    desktopQuery.addEventListener("change", onBreakpointChange);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      desktopQuery.removeEventListener("change", onBreakpointChange);
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <nav
@@ -63,15 +100,22 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
-        backgroundColor: scrolled || mobileMenuOpen ? "#FFFFFF" : "transparent",
-        borderBottom: scrolled ? "1px solid var(--gris-border)" : "1px solid transparent",
-        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
+        // Menu mobile ouvert : le header passe en noir pour ne faire qu'un avec les panneaux.
+        backgroundColor: mobileMenuOpen ? "var(--noir)" : scrolled ? "#FFFFFF" : "transparent",
+        borderBottom: scrolled && !mobileMenuOpen ? "1px solid var(--gris-border)" : "1px solid transparent",
+        boxShadow: scrolled && !mobileMenuOpen ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
         transition: "padding 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
       }}
     >
       <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
         <Image
-          src={pathname === "/" && !scrolled && !mobileMenuOpen ? "/logo-compagnon-digital-encre.svg" : "/logo-compagnon-digital.svg"}
+          src={
+            mobileMenuOpen
+              ? "/logo-compagnon-digital-sombre.svg" // même logo que le footer (blanc + orange sur noir)
+              : pathname === "/" && !scrolled
+                ? "/logo-compagnon-digital-encre.svg"
+                : "/logo-compagnon-digital.svg"
+          }
           alt="Compagnon Digital"
           width={143}
           height={48}
@@ -157,179 +201,168 @@ export default function Navbar() {
       </Link>
 
       <button
+        ref={burgerRef}
         type="button"
-        className="md:hidden"
+        className="mobile-nav md:hidden"
         onClick={() => setMobileMenuOpen((open) => !open)}
         aria-expanded={mobileMenuOpen}
-        aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        aria-controls="menu-mobile"
+        aria-label={mobileMenuOpen ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
         style={{
           position: "relative",
-          width: "26px",
-          height: "20px",
-          background: "none",
-          border: "none",
-          padding: 0,
-          cursor: "pointer",
           zIndex: 60,
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "0.625rem",
+          background: "none",
+          border: `1px solid ${mobileMenuOpen ? "rgba(255, 255, 255, 0.25)" : "var(--gris-border)"}`,
+          borderRadius: "2px",
+          color: mobileMenuOpen ? "var(--blanc)" : "var(--noir)",
+          cursor: "pointer",
+          transition: "color 0.3s ease, border-color 0.3s ease",
         }}
       >
-        <span
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "0px",
-            width: "100%",
-            height: "2px",
-            borderRadius: "1px",
-            backgroundColor: "var(--noir)",
-            transition: "transform 0.28s ease",
-            transform: mobileMenuOpen ? "translateY(9px) rotate(45deg)" : "translateY(0) rotate(0deg)",
-          }}
-        />
-        <span
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "9px",
-            width: "100%",
-            height: "2px",
-            borderRadius: "1px",
-            backgroundColor: "var(--noir)",
-            transition: "opacity 0.2s ease",
-            opacity: mobileMenuOpen ? 0 : 1,
-          }}
-        />
-        <span
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "18px",
-            width: "100%",
-            height: "2px",
-            borderRadius: "1px",
-            backgroundColor: "var(--noir)",
-            transition: "transform 0.28s ease",
-            transform: mobileMenuOpen ? "translateY(-9px) rotate(-45deg)" : "translateY(0) rotate(0deg)",
-          }}
-        />
+        <span style={{ position: "relative", display: "block", width: "20px", height: "16px" }}>
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: "20px",
+              height: "2px",
+              backgroundColor: "currentColor",
+              transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+              transform: mobileMenuOpen ? "translateY(7px) rotate(45deg)" : "none",
+            }}
+          />
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              top: "7px",
+              width: "20px",
+              height: "2px",
+              backgroundColor: "currentColor",
+              transition: "opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)",
+              opacity: mobileMenuOpen ? 0 : 1,
+            }}
+          />
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: 0,
+              width: "20px",
+              height: "2px",
+              backgroundColor: "currentColor",
+              transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+              transform: mobileMenuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+            }}
+          />
+        </span>
       </button>
 
-      {/* Menu mobile */}
+      {/* Menu plein écran sous le header (logo + burger restent visibles au-dessus). */}
       <div
-        className="md:hidden"
+        id="menu-mobile"
+        className="mobile-nav md:hidden"
+        aria-hidden={!mobileMenuOpen}
+        // Fermé : invisible ET hors de portée du clavier (Tab) et des lecteurs d'écran.
+        {...(mobileMenuOpen ? {} : INERT_REACT_18)}
         style={{
-          position: "absolute",
-          top: "100%",
+          position: "fixed",
           left: 0,
           right: 0,
-          marginLeft: "calc(-1 * clamp(1rem, 4vw, 3rem))",
-          marginRight: "calc(-1 * clamp(1rem, 4vw, 3rem))",
-          backgroundColor: "#FFFFFF",
-          borderBottom: "1px solid var(--gris-border)",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-          overflowY: "auto",
-          overflowX: "hidden",
-          maxHeight: mobileMenuOpen ? `calc(100dvh - ${navHeight}px)` : "0px",
-          opacity: mobileMenuOpen ? 1 : 0,
-          transform: mobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
-          transition: "max-height 0.32s ease, opacity 0.25s ease, transform 0.25s ease",
+          top: `${navHeight}px`,
+          bottom: 0,
+          zIndex: 40,
+          overflow: "hidden",
+          pointerEvents: mobileMenuOpen ? "auto" : "none",
         }}
       >
-        <ul
+        {/* Moitié haute, glisse depuis le haut */}
+        <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: "1rem clamp(1.5rem, 8vw, 4rem) 2rem",
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "var(--noir)",
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 40%, 0% 60%)",
+            transform: mobileMenuOpen ? "translateY(0)" : "translateY(-100%)",
+            transition: `transform 600ms ${PANEL_EASING}`,
+          }}
+        />
+        {/* Moitié basse, glisse depuis le bas */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "var(--noir)",
+            clipPath: "polygon(100% 40%, 100% 100%, 0% 100%, 0% 60%)",
+            transform: mobileMenuOpen ? "translateY(0)" : "translateY(100%)",
+            transition: `transform 600ms ${PANEL_EASING}`,
+          }}
+        />
+
+        {/* Trait diagonal à la jonction des deux moitiés */}
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            opacity: mobileMenuOpen ? 1 : 0,
+            transition: "opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+            transitionDelay: mobileMenuOpen ? "500ms" : "0ms",
           }}
         >
-          <li>
-            <button
-              type="button"
-              onClick={() => setMobileServicesOpen((open) => !open)}
-              aria-expanded={mobileServicesOpen}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-                background: "none",
-                border: "none",
-                padding: "1.35rem 0",
-                font: "inherit",
-                fontSize: "1.2rem",
-                fontWeight: 600,
-                color: "var(--noir)",
-                cursor: "pointer",
-                borderBottom: "1px solid var(--gris-border)",
-              }}
-            >
-              Services
-              <span
-                aria-hidden="true"
-                style={{
-                  display: "inline-block",
-                  transition: "transform 0.25s ease",
-                  transform: mobileServicesOpen ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              >
-                ⌄
-              </span>
-            </button>
-            <div
-              style={{
-                overflow: "hidden",
-                maxHeight: mobileServicesOpen ? "10rem" : "0px",
-                opacity: mobileServicesOpen ? 1 : 0,
-                transition: "max-height 0.25s ease, opacity 0.2s ease",
-              }}
-            >
-              <ul style={{ display: "flex", flexDirection: "column", paddingLeft: "1rem" }}>
-                {SERVICES_LINKS.map(({ href, label }) => (
-                  <li key={href}>
-                    <Link
-                      href={href}
-                      className="block"
-                      style={{ color: "var(--noir)", padding: "0.85rem 0", fontSize: "1rem", fontWeight: 400 }}
-                      onClick={closeMobileMenu}
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href} style={{ borderBottom: "1px solid var(--gris-border)" }}>
+          <line
+            x1="0"
+            y1="60"
+            x2="100"
+            y2="40"
+            stroke="var(--orange)"
+            strokeWidth="0.25"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+
+        <ul
+          aria-label="Navigation principale (mobile)"
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "2rem",
+          }}
+        >
+          {MOBILE_LINKS.map(({ href, label }, index) => (
+            <li key={href}>
               <Link
                 href={href}
-                className="block"
-                style={{ padding: "1.35rem 0", color: "var(--noir)", fontSize: "1.2rem", fontWeight: 600 }}
                 onClick={closeMobileMenu}
+                className="block uppercase text-[color:var(--blanc)] hover:text-[color:var(--orange)]"
+                style={{
+                  fontFamily: "var(--font-playfair)",
+                  fontSize: "1.5rem",
+                  lineHeight: "2rem",
+                  letterSpacing: "0.08em",
+                  opacity: mobileMenuOpen ? 1 : 0,
+                  transform: mobileMenuOpen ? "translateY(0)" : "translateY(12px)",
+                  transition: "all 300ms cubic-bezier(0, 0, 0.2, 1)",
+                  transitionDelay: mobileMenuOpen ? `${300 + index * 60}ms` : "0ms",
+                }}
               >
                 {label}
               </Link>
             </li>
           ))}
-          <li style={{ marginTop: "2rem" }}>
-            <Link
-              href="/#contact"
-              className="block"
-              style={{
-                textAlign: "center",
-                backgroundColor: "var(--noir)",
-                color: "#FFFFFF",
-                padding: "1.1rem 1.25rem",
-                borderRadius: "2px",
-                textDecoration: "none",
-                fontSize: "0.9rem",
-                fontWeight: 500,
-              }}
-              onClick={closeMobileMenu}
-            >
-              Parlons de votre projet
-            </Link>
-          </li>
         </ul>
       </div>
     </nav>

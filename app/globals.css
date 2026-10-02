@@ -22,3 +22,13 @@ html, body {
     text-wrap: balance;
   }
 }
+
+/* Menu burger mobile (Navbar) : sans animation si l'utilisateur la refuse. !important pour
+   passer devant les transitions/délais posés en style inline. */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav,
+  .mobile-nav * {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
