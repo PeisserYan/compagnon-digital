@@ -222,7 +222,8 @@ export default function Navbar() {
       <button
         ref={burgerRef}
         type="button"
-        className="mobile-nav md:hidden"
+        // display géré en classes (inline-flex / md:hidden) : un display en style inline écraserait md:hidden.
+        className="mobile-nav inline-flex md:hidden"
         onClick={() => setMobileMenuOpen((open) => !open)}
         aria-expanded={mobileMenuOpen}
         aria-controls="menu-mobile"
@@ -230,7 +231,6 @@ export default function Navbar() {
         style={{
           position: "relative",
           zIndex: 60,
-          display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
           padding: "0.625rem",
@@ -283,7 +283,7 @@ export default function Navbar() {
       {/* Menu plein écran sous le header (logo + burger restent visibles au-dessus). */}
       <div
         id="menu-mobile"
-        className="mobile-nav md:hidden"
+        className={`mobile-nav ${menuMounted ? "block" : "hidden"} md:hidden`}
         aria-hidden={!mobileMenuOpen}
         // Fermé : invisible ET hors de portée du clavier (Tab) et des lecteurs d'écran.
         {...(mobileMenuOpen ? {} : INERT_REACT_18)}
@@ -295,7 +295,6 @@ export default function Navbar() {
           bottom: 0,
           zIndex: 40,
           overflow: "hidden",
-          display: menuMounted ? "block" : "none",
           pointerEvents: mobileMenuOpen ? "auto" : "none",
         }}
       >
