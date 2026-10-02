@@ -12,7 +12,7 @@ export default function SectionAPropos() {
     <section
       id="apropos"
       className="pt-24 pb-24 px-6 md:px-12 overflow-hidden mt-0"
-      style={{ backgroundColor: "var(--gris-clair)" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div
         className="flex flex-col md:flex-row gap-12 md:gap-16 items-start"
@@ -62,7 +62,7 @@ export default function SectionAPropos() {
               Ce qui m'intéresse, c'est comprendre comment une activité fonctionne et comment elle se vend, que ce soit celle d'un auto-entrepreneur ou d'une structure plus grande. Diplômé en marketing et finance d'HEC Montréal, il était logique de mettre ces compétences à leur service : aider les indépendants et les entreprises à être trouvés par les bons clients, avec un site qui travaille vraiment pour eux.
             </p>
             <p>
-              En finance, je me suis intéressé aux investissements massifs des grandes entreprises technologiques dans l'intelligence artificielle. J'ai vu la puissance des outils qu'elles développaient et compris qu'un écart allait se creuser entre les entreprises qui les adoptent et les autres. Je veux me positionner entre ces outils et les petites structures, pour les aider à les mettre en place concrètement.
+              Un site n'est qu'un maillon. Ce qui compte, c'est toute la chaîne : être trouvé, convaincre, être contacté. C'est cette chaîne que je regarde en premier, avant de toucher à quoi que ce soit.
             </p>
           </div>
         </motion.div>

@@ -6,6 +6,7 @@ import SectionPortfolio from "@/components/SectionPortfolio";
 import SectionAvis from "@/components/SectionAvis";
 import SectionAPropos from "@/components/SectionAPropos";
 import SectionDiagnostic from "@/components/SectionDiagnostic";
+import SectionFAQ from "@/components/SectionFAQ";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -15,11 +16,12 @@ export default function Home() {
       <main>
         <Hero />
         <SectionComment />
-        <SectionConfiance />
         <SectionPortfolio />
         <SectionAvis />
-        <SectionAPropos />
         <SectionDiagnostic />
+        <SectionConfiance />
+        <SectionAPropos />
+        <SectionFAQ />
       </main>
       <Footer />
     </>

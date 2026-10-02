@@ -9,6 +9,28 @@ export default function Footer() {
       className="py-8 px-6 md:px-12"
       style={{ backgroundColor: "#111111", borderTop: "3px solid var(--orange)" }}
     >
+      {/* Bandeau CTA : relance pour ceux qui lisent jusqu'en bas (le diagnostic est plus haut sur l'accueil). */}
+      <div
+        className="flex flex-col items-center gap-4 pb-8 mb-8 text-center md:flex-row md:justify-between md:text-left"
+        style={{ maxWidth: "1100px", margin: "0 auto 2rem", borderBottom: "1px solid rgba(255,255,255,0.12)" }}
+      >
+        <p style={{ color: "#FFFFFF", fontFamily: "var(--font-playfair)", fontSize: "1.35rem", lineHeight: 1.3 }}>
+          Où votre activité perd-elle des clients&nbsp;?
+        </p>
+        <div className="flex flex-col items-center gap-2 md:items-end">
+          <Link
+            href="/#diagnostic"
+            className="inline-block text-sm font-medium transition-opacity hover:opacity-85"
+            style={{ backgroundColor: "var(--orange)", color: "var(--noir)", padding: "0.85rem 1.75rem", borderRadius: "999px", textDecoration: "none" }}
+          >
+            Faire le diagnostic
+          </Link>
+          <a href="tel:+33673401475" className="text-sm" style={{ color: "#FFFFFF", opacity: 0.85, textDecoration: "none" }}>
+            ou appelez-moi au <span style={{ whiteSpace: "nowrap", fontWeight: 500 }}>06 73 40 14 75</span>
+          </a>
+        </div>
+      </div>
+
       <div
         className="flex flex-col items-center gap-4 text-sm md:flex-row md:justify-between"
         style={{ maxWidth: "1100px", margin: "0 auto" }}

@@ -10,7 +10,7 @@ const services = [
   {
     tag: "01 · L'ESSENTIEL",
     titre: "Vous voulez exister proprement.",
-    prix: "Site vitrine · à partir de 500€",
+    prix: "One page dès 500€ · site vitrine dès 800€",
     description:
       "Un site vitrine qui vous ressemble. Mobile, propre, RGPD en règle. Le client vous trouve, vous appelle, ou vous laisse un message.",
     items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],

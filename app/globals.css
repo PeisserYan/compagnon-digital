@@ -32,3 +32,8 @@ html, body {
     transition-delay: 0s !important;
   }
 }
+
+/* FAQ : marqueur natif masqué (Safari compris), "+" qui pivote en "×" à l'ouverture */
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item .faq-icon { transition: transform 0.25s ease; }
+.faq-item[open] .faq-icon { transform: rotate(45deg); }
