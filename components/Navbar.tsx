@@ -24,8 +24,9 @@ const MOBILE_LINKS = [...SERVICES_LINKS, ...NAV_LINKS];
 // En passant à React 19 : remplacer par inert={!mobileMenuOpen} (sinon "" vaudra false).
 const INERT_REACT_18 = { inert: "" } as unknown as { inert: boolean };
 
-// Courbe partagée par les deux panneaux du menu mobile.
-const PANEL_EASING = "cubic-bezier(0.65, 0, 0.35, 1)";
+// Menu mobile : courbe de décélération douce, volontairement un peu plus lente que les standards
+// (≈ 250 ms chez Apple/Vercel) pour le côté design. Dernier lien visible vers 650 ms.
+const MENU_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
@@ -100,8 +101,8 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
-        // Menu mobile ouvert : le header passe en noir pour ne faire qu'un avec les panneaux.
-        backgroundColor: mobileMenuOpen ? "var(--noir)" : scrolled ? "#FFFFFF" : "transparent",
+        // Menu mobile ouvert : header blanc, dans la continuité du menu.
+        backgroundColor: scrolled || mobileMenuOpen ? "#FFFFFF" : "transparent",
         borderBottom: scrolled && !mobileMenuOpen ? "1px solid var(--gris-border)" : "1px solid transparent",
         boxShadow: scrolled && !mobileMenuOpen ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
         transition: "padding 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
@@ -109,13 +110,7 @@ export default function Navbar() {
     >
       <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
         <Image
-          src={
-            mobileMenuOpen
-              ? "/logo-compagnon-digital-sombre.svg" // même logo que le footer (blanc + orange sur noir)
-              : pathname === "/" && !scrolled
-                ? "/logo-compagnon-digital-encre.svg"
-                : "/logo-compagnon-digital.svg"
-          }
+          src={pathname === "/" && !scrolled && !mobileMenuOpen ? "/logo-compagnon-digital-encre.svg" : "/logo-compagnon-digital.svg"}
           alt="Compagnon Digital"
           width={143}
           height={48}
@@ -216,11 +211,10 @@ export default function Navbar() {
           justifyContent: "center",
           padding: "0.625rem",
           background: "none",
-          border: `1px solid ${mobileMenuOpen ? "rgba(255, 255, 255, 0.25)" : "var(--gris-border)"}`,
+          border: "1px solid var(--gris-border)",
           borderRadius: "2px",
-          color: mobileMenuOpen ? "var(--blanc)" : "var(--noir)",
+          color: "var(--noir)",
           cursor: "pointer",
-          transition: "color 0.3s ease, border-color 0.3s ease",
         }}
       >
         <span style={{ position: "relative", display: "block", width: "20px", height: "16px" }}>
@@ -281,54 +275,33 @@ export default function Navbar() {
           pointerEvents: mobileMenuOpen ? "auto" : "none",
         }}
       >
-        {/* Moitié haute, glisse depuis le haut */}
+        {/* Fond blanc : fondu + léger glissement vers le bas */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            backgroundColor: "var(--noir)",
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 40%, 0% 60%)",
-            transform: mobileMenuOpen ? "translateY(0)" : "translateY(-100%)",
-            transition: `transform 600ms ${PANEL_EASING}`,
+            backgroundColor: "var(--blanc)",
+            opacity: mobileMenuOpen ? 1 : 0,
+            transform: mobileMenuOpen ? "translateY(0)" : "translateY(-8px)",
+            transition: `opacity 400ms ${MENU_EASING}, transform 400ms ${MENU_EASING}`,
           }}
         />
-        {/* Moitié basse, glisse depuis le bas */}
+        {/* Fin trait orange sous le header, qui se trace de gauche à droite */}
         <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "var(--noir)",
-            clipPath: "polygon(100% 40%, 100% 100%, 0% 100%, 0% 60%)",
-            transform: mobileMenuOpen ? "translateY(0)" : "translateY(100%)",
-            transition: `transform 600ms ${PANEL_EASING}`,
-          }}
-        />
-
-        {/* Trait diagonal à la jonction des deux moitiés */}
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
           aria-hidden="true"
           style={{
             position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            opacity: mobileMenuOpen ? 1 : 0,
-            transition: "opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-            transitionDelay: mobileMenuOpen ? "500ms" : "0ms",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "1px",
+            backgroundColor: "var(--orange)",
+            transformOrigin: "left center",
+            transform: mobileMenuOpen ? "scaleX(1)" : "scaleX(0)",
+            transition: `transform 500ms ${MENU_EASING}`,
+            transitionDelay: mobileMenuOpen ? "100ms" : "0ms",
           }}
-        >
-          <line
-            x1="0"
-            y1="60"
-            x2="100"
-            y2="40"
-            stroke="var(--orange)"
-            strokeWidth="0.25"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+        />
 
         <ul
           aria-label="Navigation principale (mobile)"
@@ -347,7 +320,7 @@ export default function Navbar() {
               <Link
                 href={href}
                 onClick={closeMobileMenu}
-                className="block uppercase text-[color:var(--blanc)] hover:text-[color:var(--orange)]"
+                className="block uppercase text-[color:var(--noir)] hover:text-[color:var(--orange-texte)]"
                 style={{
                   fontFamily: "var(--font-playfair)",
                   fontSize: "1.5rem",
@@ -355,8 +328,9 @@ export default function Navbar() {
                   letterSpacing: "0.08em",
                   opacity: mobileMenuOpen ? 1 : 0,
                   transform: mobileMenuOpen ? "translateY(0)" : "translateY(12px)",
-                  transition: "all 300ms cubic-bezier(0, 0, 0.2, 1)",
-                  transitionDelay: mobileMenuOpen ? `${300 + index * 60}ms` : "0ms",
+                  transition: `opacity 350ms ${MENU_EASING}, transform 350ms ${MENU_EASING}, color 200ms ease`,
+                  // Délai sur opacity/transform seulement : la couleur au survol reste immédiate.
+                  transitionDelay: mobileMenuOpen ? `${100 + index * 50}ms, ${100 + index * 50}ms, 0ms` : "0ms",
                 }}
               >
                 {label}
