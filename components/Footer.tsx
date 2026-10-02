@@ -2,13 +2,33 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
     <footer
       className="py-8 px-6 md:px-12"
       style={{ backgroundColor: "#111111", borderTop: "3px solid var(--orange)" }}
     >
+      {pathname !== "/" && (
+        <div
+          className="flex flex-col items-center gap-4 pb-8 mb-8 text-center md:flex-row md:justify-between md:text-left"
+          style={{ maxWidth: "1100px", margin: "0 auto 2rem", borderBottom: "1px solid rgba(255,255,255,0.12)" }}
+        >
+          <p style={{ color: "#FFFFFF", fontFamily: "var(--font-playfair)", fontSize: "1.35rem", lineHeight: 1.3 }}>
+            Où votre activité perd-elle des clients ?
+          </p>
+          <Link
+            href="/#diagnostic"
+            className="inline-block text-sm font-medium transition-opacity hover:opacity-85"
+            style={{ backgroundColor: "var(--orange)", color: "var(--noir)", padding: "0.85rem 1.75rem", borderRadius: "2px", textDecoration: "none" }}
+          >
+            Faire le diagnostic
+          </Link>
+        </div>
+      )}
+
       <div
         className="flex flex-col items-center gap-4 text-sm md:flex-row md:justify-between"
         style={{ maxWidth: "1100px", margin: "0 auto" }}

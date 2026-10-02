@@ -59,7 +59,7 @@ export default function PolitiqueDeConfidentialite() {
                 Données collectées
               </h2>
               <p>
-                Via le formulaire de contact : prénom, métier, ville, message. Ces données sont utilisées uniquement pour répondre à votre demande et ne sont jamais transmises à des tiers.
+                Via le diagnostic : vos réponses au questionnaire (taille de structure, tranche de chiffre d'affaires, origine de vos clients, site internet, objectif), votre prénom, votre téléphone et votre email. Ces données servent uniquement à vous envoyer votre diagnostic et à vous recontacter à son sujet. Elles ne sont ni vendues ni cédées. Les emails sont envoyés via Brevo, qui agit comme sous-traitant technique.
               </p>
             </section>
 

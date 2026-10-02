@@ -5,7 +5,7 @@ import SectionConfiance from "@/components/SectionConfiance";
 import SectionPortfolio from "@/components/SectionPortfolio";
 import SectionAvis from "@/components/SectionAvis";
 import SectionAPropos from "@/components/SectionAPropos";
-import SectionContact from "@/components/SectionContact";
+import SectionDiagnostic from "@/components/SectionDiagnostic";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
         <SectionPortfolio />
         <SectionAvis />
         <SectionAPropos />
-        <SectionContact />
+        <SectionDiagnostic />
       </main>
       <Footer />
     </>

@@ -285,7 +285,7 @@ export default function Referencement() {
             </p>
 
             <Link
-              href="/#contact"
+              href="/#diagnostic"
               className="inline-block font-medium transition-colors"
               style={{
                 backgroundColor: "var(--noir)",
@@ -300,7 +300,7 @@ export default function Referencement() {
                 (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
               }}
             >
-              Demander un audit gratuit →
+              Faire le diagnostic
             </Link>
           </section>
         </div>

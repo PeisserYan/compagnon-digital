@@ -8,12 +8,12 @@ import { useEffect, useRef, useState } from "react";
 const NAV_LINKS = [
   { href: "/realisations", label: "Réalisations" },
   { href: "/#apropos", label: "À propos" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#diagnostic", label: "Contact" },
 ];
 
 const SERVICES_LINKS = [
-  { href: "/site-web#services", label: "Site Web" },
-  { href: "/ia", label: "IA" },
+  { href: "/site-web/creation", label: "Création de site" },
+  { href: "/site-web/referencement", label: "Référencement" },
 ];
 
 // Menu mobile : liste à plat (pas d'accordéon), même destinations que la nav desktop.
@@ -167,7 +167,7 @@ export default function Navbar() {
                 border: "1px solid var(--gris-border)",
                 borderRadius: "2px",
                 boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-                minWidth: "160px",
+                minWidth: "190px",
                 padding: "1.25rem 0 0.5rem",
               }}
             >
@@ -200,8 +200,8 @@ export default function Navbar() {
       </ul>
 
       <Link
-        href="/#contact"
-        className="hidden md:inline-block text-sm font-medium transition-colors"
+        href="/#diagnostic"
+        className={`hidden md:inline-block text-sm font-medium transition-colors`}
         style={{
           backgroundColor: "var(--noir)",
           color: "#FFFFFF",
@@ -216,7 +216,7 @@ export default function Navbar() {
           (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
         }}
       >
-        Parlons de votre projet
+        Faire le diagnostic
       </Link>
 
       <button
@@ -360,6 +360,26 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href="/#diagnostic"
+              onClick={closeMobileMenu}
+              className="block font-medium"
+              style={{
+                marginTop: "0.5rem",
+                backgroundColor: "var(--noir)",
+                color: "#FFFFFF",
+                padding: "0.95rem 2rem",
+                borderRadius: "2px",
+                opacity: menuEntered ? 1 : 0,
+                transform: menuEntered ? "translateY(0)" : "translateY(12px)",
+                transition: `opacity 350ms ${MENU_EASING}, transform 350ms ${MENU_EASING}`,
+                transitionDelay: menuEntered ? `${100 + MOBILE_LINKS.length * 50}ms` : "0ms",
+              }}
+            >
+              Faire le diagnostic
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

@@ -166,7 +166,7 @@ export default function Creation() {
               className="mt-14 text-center"
             >
               <Link
-                href="/#contact"
+                href="/#diagnostic"
                 className="inline-block font-medium transition-colors"
                 style={{
                   backgroundColor: "var(--noir)",
@@ -181,7 +181,7 @@ export default function Creation() {
                   (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
                 }}
               >
-                Parlons de votre projet →
+                Faire le diagnostic
               </Link>
             </motion.div>
           </div>

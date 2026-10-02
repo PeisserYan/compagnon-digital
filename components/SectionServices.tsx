@@ -12,8 +12,8 @@ const blocs = [
     tag: "01 · CRÉATION",
     titre: "Site web qui convertit.",
     description:
-      "Site vitrine, outil métier, e-commerce. Un site conçu pour ramener des clients — pas juste pour exister.",
-    items: ["Site vitrine", "Mobile & RGPD", "Hébergement inclus", "Sur mesure"],
+      "Site one page, site vitrine, site marchand. Un site conçu pour ramener des clients, pas juste pour exister.",
+    items: ["Site one page", "Site vitrine", "Site marchand", "Mobile, RGPD & hébergement inclus"],
     cta: "Voir les formules →",
   },
   {
@@ -136,7 +136,7 @@ export default function SectionServices() {
           className="mt-14 text-center"
         >
           <Link
-            href="/#contact"
+            href="/#diagnostic"
             className="inline-block font-medium transition-colors"
             style={{
               backgroundColor: "var(--noir)",
@@ -151,7 +151,7 @@ export default function SectionServices() {
               (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
             }}
           >
-            → Parlons de votre projet
+            Faire le diagnostic
           </Link>
         </motion.div>
       </div>

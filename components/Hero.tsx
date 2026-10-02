@@ -205,16 +205,6 @@ export default function Hero() {
       />
 
       <div className="relative z-10" style={{ maxWidth: "780px", width: "100%" }}>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease }}
-          className="mb-8 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--noir)" }}
-        >
-          Savoie & Haute-Savoie
-        </motion.p>
-
         <h1
           className="mb-8"
           style={{
@@ -224,7 +214,7 @@ export default function Hero() {
             color: "var(--noir)",
           }}
         >
-          J'aide les indépendants et entreprises à être trouvés par leurs clients en ligne.
+          J'aide les indépendants et les entreprises à trouver plus de clients.
         </h1>
 
         <motion.p
@@ -238,7 +228,7 @@ export default function Hero() {
             color: "var(--noir)",
           }}
         >
-          Sites web, référencement local et automatisation — je m'occupe de la technique pour que vous restiez concentré sur votre métier.
+          Site web, référencement, publicité Google : je repère où votre activité perd des clients, puis je construis ce qui manque.
         </motion.p>
 
         <motion.div
@@ -247,7 +237,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.6, ease }}
         >
           <Link
-            href="#contact"
+            href="/#diagnostic"
             className="inline-block font-medium transition-colors"
             style={{
               backgroundColor: "var(--noir)",
@@ -263,8 +253,11 @@ export default function Hero() {
               (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
             }}
           >
-            Parlons de votre projet
+            Faire le diagnostic
           </Link>
+          <p className="mt-4 text-sm" style={{ color: "var(--noir)", opacity: 0.8 }}>
+            Gratuit · 1 minute · Sans engagement
+          </p>
         </motion.div>
       </div>
     </section>

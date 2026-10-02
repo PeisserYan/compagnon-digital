@@ -17,8 +17,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Compagnon Digital | Sites web pour indépendants et petites entreprises",
-  description: "Indépendant, freelance ou petite entreprise ? Compagnon Digital crée votre site web professionnel pour attirer plus de clients. Basé en Savoie, j'interviens partout en France.",
+  title: "Création de site web et référencement | Compagnon Digital",
+  description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 3 minutes, voyez où vous perdez des clients.",
   keywords: ["création site web indépendant", "site web petite entreprise", "web designer freelance", "création site web TPE", "site web artisan Savoie", "création site web Chambéry", "création site web Aix-les-Bains"],
   authors: [{ name: "Yan Peisser", url: "https://compagnondigital.fr" }],
   creator: "Yan Peisser",
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Compagnon Digital | Sites web pour indépendants et petites entreprises",
-    description: "Création de sites web professionnels pour indépendants et petites entreprises, basé en Savoie. Je m'occupe de tout, vous continuez à travailler.",
+    title: "Création de site web et référencement | Compagnon Digital",
+    description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 3 minutes, voyez où vous perdez des clients.",
     url: "https://compagnondigital.fr",
     siteName: "Compagnon Digital",
     locale: "fr_FR",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Compagnon Digital | Sites web pour indépendants et petites entreprises",
-    description: "Création de sites web professionnels pour indépendants et petites entreprises, basé en Savoie.",
+    title: "Création de site web et référencement | Compagnon Digital",
+    description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 3 minutes, voyez où vous perdez des clients.",
   },
   robots: {
     index: true,
@@ -66,7 +66,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               "name": "Compagnon Digital",
-              "description": "Création de sites web professionnels pour indépendants et petites entreprises, basé en Savoie et intervenant partout en France.",
+              "description": "Création de site web et référencement pour indépendants et petites entreprises : plus de visibilité, plus de demandes de clients. Basé en Savoie, intervient partout en France.",
               "url": "https://compagnondigital.fr",
               "email": "yan@compagnondigital.fr",
               "telephone": "+33673401475",
@@ -92,7 +92,8 @@ export default function RootLayout({
                 "Site vitrine indépendant",
                 "Web design",
                 "Référencement local",
-                "Automatisation IA"
+                "Référencement naturel (SEO)",
+                "Publicité Google Ads (SEA)"
               ],
               "priceRange": "€€"
             })

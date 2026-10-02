@@ -6,7 +6,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function SectionComment() {
   const { ref: webRef, isInView: webInView } = useScrollAnimation();
-  const { ref: iaRef, isInView: iaInView } = useScrollAnimation();
+  const { ref: refRef, isInView: refInView } = useScrollAnimation();
 
   return (
     <section
@@ -16,7 +16,7 @@ export default function SectionComment() {
     >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
 
-        {/* Bloc Web */}
+        {/* Bloc Création */}
         <motion.div
           ref={webRef}
           initial={{ opacity: 0, y: 40 }}
@@ -29,7 +29,7 @@ export default function SectionComment() {
             className="mb-4 text-xs font-medium tracking-widest uppercase"
             style={{ color: "var(--orange-texte)" }}
           >
-            01 · Création et référencement
+            01 · Création
           </p>
           <h2
             className="mb-6 leading-snug"
@@ -39,58 +39,74 @@ export default function SectionComment() {
               color: "var(--noir)",
             }}
           >
-            Création de site web pour que vos clients vous trouvent.
+            Un site qui transforme vos visiteurs en clients.
           </h2>
           <p
-            className="mb-8 text-base leading-relaxed"
+            className="mb-6 text-base leading-relaxed"
             style={{ maxWidth: "600px", color: "var(--gris-texte)" }}
           >
-            Site vitrine, SEO local, SEA, GEO — je m'occupe de tout, de la conception à la mise en ligne, pour que votre activité apparaisse en tête de Google.
+            Un site pensé pour transformer vos visiteurs en demandes de devis, pas juste pour exister. Je m'occupe de tout, de la conception à la mise en ligne.
           </p>
+          <ul className="mb-8 space-y-2">
+            {["Site one page", "Site vitrine", "Site marchand"].map((item) => (
+              <li key={item} className="flex items-center gap-2 text-sm">
+                <span style={{ color: "var(--orange-texte)" }}>✓</span>
+                <span style={{ color: "var(--noir)" }}>{item}</span>
+              </li>
+            ))}
+          </ul>
           <Link
-            href="/site-web"
+            href="/site-web/creation"
             className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
             style={{ color: "var(--orange-texte)" }}
           >
-            Découvrir l'offre Site Web →
+            Découvrir la création de site →
           </Link>
         </motion.div>
 
-        {/* Bloc IA */}
+        {/* Bloc Référencement */}
         <motion.div
-          ref={iaRef}
+          ref={refRef}
           initial={{ opacity: 0, y: 40 }}
-          animate={iaInView ? { opacity: 1, y: 0 } : {}}
+          animate={refInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <p
             className="mb-4 text-xs font-medium tracking-widest uppercase"
             style={{ color: "var(--orange-texte)" }}
           >
-            02 · Intelligence artificielle
+            02 · Référencement
           </p>
           <h2
             className="mb-6 leading-snug"
             style={{
               fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.5rem, 3vw, 2rem)",
+              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
               color: "var(--noir)",
             }}
           >
-            Automatisation IA pour aller plus loin.
+            Être trouvé par les bons clients.
           </h2>
           <p
-            className="mb-8 text-base leading-relaxed"
+            className="mb-6 text-base leading-relaxed"
             style={{ maxWidth: "600px", color: "var(--gris-texte)" }}
           >
-            Une nouvelle offre en construction pour automatiser les tâches répétitives de votre entreprise.
+            Apparaître au moment où vos clients vous cherchent : dans les résultats Google, dans les annonces et dans les réponses des IA.
           </p>
+          <ul className="mb-8 space-y-2">
+            {["SEO : remonter dans Google, durablement", "SEA : des annonces Google Ads, des résultats immédiats", "GEO : être cité par ChatGPT et les autres IA"].map((item) => (
+              <li key={item} className="flex items-center gap-2 text-sm">
+                <span style={{ color: "var(--orange-texte)" }}>✓</span>
+                <span style={{ color: "var(--noir)" }}>{item}</span>
+              </li>
+            ))}
+          </ul>
           <Link
-            href="/ia"
+            href="/site-web/referencement"
             className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
             style={{ color: "var(--orange-texte)" }}
           >
-            En savoir plus →
+            Découvrir le référencement →
           </Link>
         </motion.div>
 
