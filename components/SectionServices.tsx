@@ -142,7 +142,7 @@ export default function SectionServices() {
               backgroundColor: "var(--noir)",
               color: "#FFFFFF",
               padding: "1rem 2.25rem",
-              borderRadius: "2px",
+              borderRadius: "999px",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";

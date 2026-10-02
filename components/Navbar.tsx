@@ -206,7 +206,7 @@ export default function Navbar() {
           backgroundColor: "var(--noir)",
           color: "#FFFFFF",
           padding: "0.625rem 1.375rem",
-          borderRadius: "2px",
+          borderRadius: "999px",
           textDecoration: "none",
         }}
         onMouseEnter={(e) => {
@@ -370,7 +370,7 @@ export default function Navbar() {
                 backgroundColor: "var(--noir)",
                 color: "#FFFFFF",
                 padding: "0.95rem 2rem",
-                borderRadius: "2px",
+                borderRadius: "999px",
                 opacity: menuEntered ? 1 : 0,
                 transform: menuEntered ? "translateY(0)" : "translateY(12px)",
                 transition: `opacity 350ms ${MENU_EASING}, transform 350ms ${MENU_EASING}`,

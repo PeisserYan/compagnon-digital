@@ -280,7 +280,7 @@ export default function Hero() {
               backgroundColor: "var(--noir)",
               color: "#FFFFFF",
               padding: "1rem 2.25rem",
-              borderRadius: "2px",
+              borderRadius: "999px",
               textDecoration: "none",
             }}
             onMouseEnter={(e) => {

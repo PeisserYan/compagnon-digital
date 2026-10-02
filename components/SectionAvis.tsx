@@ -188,7 +188,7 @@ export default function SectionAvis() {
               border: "1px solid var(--noir)",
               color: "var(--noir)",
               padding: "0.875rem 2rem",
-              borderRadius: "2px",
+              borderRadius: "999px",
               backgroundColor: "transparent",
               fontSize: "0.9375rem",
               fontWeight: 500,
