@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { eur, dateFr, todayISO } from "@/lib/admin/format";
 import { Badge, Card, btn, btnStyle, btnGhost, inputCls, inputStyle } from "../../ui";
 import { emettre, supprimerBrouillon, changerStatut, creerAvoir, enregistrerPaiement } from "../../actions";
+import { LIB_NATURE } from "@/lib/admin/crm";
 import type { Doc, Paiement } from "@/lib/admin/types";
 
 export const dynamic = "force-dynamic";
@@ -16,6 +17,9 @@ export default async function DocPage({ params }: { params: { id: string } }) {
   const c = doc.client_snapshot ?? doc.clients;
   const { data: pai } = await db.from("paiements").select("*").eq("document_id", doc.id).order("date");
   const paiements = (pai ?? []) as Paiement[];
+  const { data: affaire } = doc.affaire_id
+    ? await db.from("affaires").select("id, titre").eq("id", doc.affaire_id).single()
+    : { data: null };
   const paye = paiements.reduce((s, p) => s + Number(p.montant), 0);
   const brouillon = doc.statut === "brouillon";
   const hidden = <input type="hidden" name="id" value={doc.id} />;
@@ -31,6 +35,10 @@ export default async function DocPage({ params }: { params: { id: string } }) {
         <p className="font-medium">{c?.societe}</p>
         <p className="text-sm" style={{ color: "var(--gris-texte)" }}>{c?.nom} · {c?.email}</p>
         <p className="text-sm mt-2">Émission {dateFr(doc.date_emission)} · Échéance {dateFr(doc.date_echeance)}</p>
+        <p className="text-sm" style={{ color: "var(--gris-texte)" }}>
+          {doc.nature && <>{LIB_NATURE[doc.nature]} · </>}
+          {affaire ? <>Affaire : <Link href={`/admin/clients/affaires/${affaire.id}`} className="underline">{affaire.titre}</Link></> : "Sans affaire"}
+        </p>
         <table className="w-full text-sm mt-4">
           <tbody>
             {doc.lignes.map((l, i) => (
@@ -63,6 +71,17 @@ export default async function DocPage({ params }: { params: { id: string } }) {
           <form action={creerAvoir}>{hidden}<button className={btnGhost} style={inputStyle}>Créer un avoir</button></form>
         )}
       </div>
+      {doc.type === "devis" && ["emis", "accepte"].includes(doc.statut) && (
+        <Card>
+          <p className="text-sm font-medium mb-2">Facturer ce devis</p>
+          <div className="flex flex-wrap gap-2">
+            <Link href={`/admin/factures/nouveau?devis=${doc.id}&nature=acompte`} className={btnGhost} style={inputStyle}>Acompte 50 %</Link>
+            <Link href={`/admin/factures/nouveau?devis=${doc.id}&nature=solde`} className={btnGhost} style={inputStyle}>Solde</Link>
+            <Link href={`/admin/factures/nouveau?devis=${doc.id}&nature=unique`} className={btnGhost} style={inputStyle}>Facture unique (reprend les lignes)</Link>
+          </div>
+          <p className="text-xs mt-2" style={{ color: "var(--gris-texte)" }}>La facture est préremplie (client, affaire, lignes) : tout reste modifiable avant de créer le brouillon.</p>
+        </Card>
+      )}
       {!brouillon && <p className="text-xs" style={{ color: "var(--gris-texte)" }}>Document émis : immuable. Pour corriger une facture, crée un avoir puis une nouvelle facture.</p>}
 
       {doc.type === "facture" && !brouillon && (

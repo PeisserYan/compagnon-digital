@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { LIB_ETAPE } from "@/lib/admin/crm";
+import type { EtapeAffichee } from "@/lib/admin/types";
 
 export const card = { background: "#fff", border: "1px solid var(--gris-border)" } as const;
 
@@ -34,8 +36,25 @@ const BADGES: Record<string, [string, string]> = {
   payee: ["Payée", "#15803d"],
   annulee: ["Annulée", "#6b6b6b"],
   retard: ["En retard", "#b42318"],
+  prospect: ["Prospect", "#1d4ed8"],
+  client: ["Client", "#15803d"],
 };
 export function Badge({ k }: { k: string }) {
   const [label, color] = BADGES[k] ?? [k, "#6b6b6b"];
   return <span className="inline-block rounded-full px-2 py-0.5 text-xs font-medium" style={{ color, background: color + "1a" }}>{label}</span>;
+}
+
+// Étape d'une affaire : bleu tant qu'elle est ouverte, ambre pendant la facturation, vert une fois finalisée.
+const COULEUR_ETAPE: Partial<Record<EtapeAffichee, string>> = {
+  signe: "#15803d",
+  acompte_facture: "#b45309",
+  acompte_recu: "#b45309",
+  solde_facture: "#b45309",
+  finalise: "#15803d",
+  perdu: "#b42318",
+  en_veille: "#6b6b6b",
+};
+export function EtapeTag({ e }: { e: EtapeAffichee }) {
+  const color = COULEUR_ETAPE[e] ?? "#1d4ed8";
+  return <span className="inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium" style={{ color, background: color + "1a" }}>{LIB_ETAPE[e]}</span>;
 }

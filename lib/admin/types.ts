@@ -35,8 +35,12 @@ export type Doc = {
   avoir_de: string | null;
   emis_le: string | null;
   paye_le: string | null;
+  affaire_id: string | null;
+  nature: NatureFacture | null;
   clients?: Pick<Client, "societe"> | null;
 };
+
+export type NatureFacture = "acompte" | "solde" | "unique";
 
 export type Paiement = { id: string; document_id: string | null; echeance_id: string | null; date: string; montant: number; mode: string };
 
@@ -55,3 +59,34 @@ export type Echeance = {
 };
 
 export type Depense = { id: string; date: string; libelle: string; categorie: string; montant: number };
+
+/* ───────── CRM ───────── */
+
+export type EtapeManuelle = "lead_entrant" | "appel_diagnostic_fait" | "rdv_approfondi" | "devis_envoye" | "signe" | "perdu" | "en_veille";
+export type EtapeAffichee = EtapeManuelle | "acompte_facture" | "acompte_recu" | "solde_facture" | "finalise";
+export type Offre = "creation" | "referencement" | "maintenance" | "autre";
+export type Source = "diagnostic_site" | "recommandation" | "prospection" | "reseau" | "autre";
+
+// Ligne de la vue affaires_etat (table affaires + étape calculée).
+export type Affaire = {
+  id: string;
+  client_id: string;
+  titre: string;
+  offre: Offre;
+  montant_estime: number | null;
+  etape_manuelle: EtapeManuelle;
+  source: Source;
+  prochaine_action: string;
+  date_prochaine_action: string | null;
+  motif_perte: string;
+  date_relance: string | null;
+  notes: string;
+  created_at: string;
+  updated_at: string;
+  signee_le: string | null;
+  cloturee_le: string | null;
+  etape_affichee: EtapeAffichee;
+  nb_factures: number;
+};
+
+export type AffaireEvenement = { id: string; affaire_id: string; de_etape: EtapeManuelle | null; vers_etape: EtapeManuelle; created_at: string };

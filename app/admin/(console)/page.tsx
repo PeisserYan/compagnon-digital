@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { eur, dateFr } from "@/lib/admin/format";
-import { Card, Stat, Badge, inputCls, inputStyle, btn, btnStyle } from "./ui";
+import { Card, Stat, Badge, EtapeTag, inputCls, inputStyle, btn, btnStyle } from "./ui";
+import type { Affaire } from "@/lib/admin/types";
 import { majParametres } from "./actions";
 import Link from "next/link";
 
@@ -15,13 +16,20 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
   const fin = `${annee}-12-31`;
   const today = now.toISOString().slice(0, 10);
 
-  const [pai, dep, par, dus, ech] = await Promise.all([
+  const [pai, dep, par, dus, ech, act] = await Promise.all([
     db.from("paiements").select("date, montant").gte("date", debut).lte("date", fin),
     db.from("depenses").select("montant").gte("date", debut).lte("date", fin),
     db.from("parametres").select("*").eq("id", 1).single(),
     db.from("documents").select("id, numero, total_ht, date_echeance, clients(societe)").eq("type", "facture").eq("statut", "emis").order("date_echeance"),
     db.from("echeances").select("id, titre, montant, date_echeance, statut, clients(societe)").in("statut", ["a_venir", "facturee"]).order("date_echeance").limit(6),
+    db.from("affaires_etat").select("*").lte("date_prochaine_action", today).neq("etape_affichee", "perdu").order("date_prochaine_action"),
   ]);
+  const actions = (act.data ?? []) as Affaire[];
+  const nomsClients = new Map<string, string>();
+  if (actions.length) {
+    const { data: cl } = await db.from("clients").select("id, societe").in("id", Array.from(new Set(actions.map((a) => a.client_id))));
+    (cl ?? []).forEach((c) => nomsClients.set(c.id, c.societe));
+  }
 
   const paiements = (pai.data ?? []) as { date: string; montant: number }[];
   const parMois = Array<number>(12).fill(0);
@@ -55,6 +63,25 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
         <Stat label="Résultat net estimé" value={eur(net)} sub={taux === 0 ? "⚠ Taux de cotisations non renseigné" : `CA − dépenses − ${(taux * 100).toFixed(1)} % de cotisations`} tone={taux === 0 ? "warn" : undefined} />
         <Stat label="À encaisser" value={eur(totalAttente)} sub={retard.length ? `${retard.length} facture(s) en retard` : "Aucun retard"} tone={retard.length ? "warn" : undefined} />
       </div>
+
+      <Card>
+        <div className="flex justify-between mb-2"><p className="text-sm font-medium">Actions du jour</p><Link href="/admin/clients" className="text-xs underline">Pipeline</Link></div>
+        <ul className="divide-y" style={{ borderColor: "var(--gris-border)" }}>
+          {actions.map((a) => (
+            <li key={a.id} className="py-2 flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm">
+              <span className="min-w-0">
+                <Link href={`/admin/clients/affaires/${a.id}`} className="font-medium underline">{nomsClients.get(a.client_id) ?? "—"} · {a.titre}</Link>
+                <span className="block text-xs" style={{ color: "var(--gris-texte)" }}>→ {a.prochaine_action || "Action prévue"}</span>
+              </span>
+              <span className="flex gap-3 items-center">
+                <EtapeTag e={a.etape_affichee} />
+                <span style={{ color: "var(--orange-texte)", fontWeight: 600 }}>{a.date_prochaine_action === today ? "Aujourd'hui" : dateFr(a.date_prochaine_action)}</span>
+              </span>
+            </li>
+          ))}
+          {actions.length === 0 && <li className="py-2 text-sm" style={{ color: "var(--gris-texte)" }}>Rien d&apos;urgent : aucune action prévue aujourd&apos;hui ni en retard.</li>}
+        </ul>
+      </Card>
 
       <Card>
         <p className="text-sm font-medium mb-4">CA encaissé par mois</p>

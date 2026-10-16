@@ -8,6 +8,7 @@ import type { Ligne } from "@/lib/admin/types";
 
 const s = (f: FormData, k: string) => String(f.get(k) ?? "").trim();
 const n = (f: FormData, k: string) => Number(String(f.get(k) ?? "0").replace(",", ".")) || 0;
+const NATURES = ["acompte", "solde", "unique"];
 
 function fail(msg: string): never {
   throw new Error(msg);
@@ -25,11 +26,15 @@ export async function creerBrouillon(formData: FormData) {
     .filter((l) => l.description.trim())
     .map((l) => ({ ...l, quantite: Number(l.quantite) || 0, prixUnitaire: Number(l.prixUnitaire) || 0 }));
   if (lignes.length === 0) fail("Au moins une ligne");
+  const nature = type === "facture" ? s(formData, "nature") || "unique" : null;
+  if (nature && !NATURES.includes(nature)) fail("Nature de facture invalide");
 
   const { data, error } = await db
     .from("documents")
     .insert({
       type,
+      nature,
+      affaire_id: s(formData, "affaire_id") || null,
       client_id: clientId,
       date_emission: s(formData, "date_emission") || todayISO(),
       date_echeance: s(formData, "date_echeance") || null,
@@ -138,27 +143,40 @@ export async function basculerPaiement(formData: FormData) {
 
 /* ───────── Clients ───────── */
 
+const champsClient = (f: FormData) => {
+  if (!s(f, "societe")) fail("Société requise");
+  return {
+    societe: s(f, "societe"),
+    nom: s(f, "nom"),
+    siret: s(f, "siret"),
+    adresse: s(f, "adresse"),
+    email: s(f, "email"),
+    tel: s(f, "tel"),
+    notion_url: s(f, "notion_url"),
+  };
+};
+
 export async function creerClient(formData: FormData) {
   const db = createClient();
-  if (!s(formData, "societe")) fail("Société requise");
-  const { error } = await db.from("clients").insert({
-    societe: s(formData, "societe"),
-    nom: s(formData, "nom"),
-    siret: s(formData, "siret"),
-    adresse: s(formData, "adresse"),
-    email: s(formData, "email"),
-    tel: s(formData, "tel"),
-    notion_url: s(formData, "notion_url"),
-  });
+  const { data, error } = await db.from("clients").insert(champsClient(formData)).select("id").single();
   if (error) fail(error.message);
-  revalidatePath("/admin/clients");
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/clients/${data.id}`);
+}
+
+export async function majClient(formData: FormData) {
+  const db = createClient();
+  const { error } = await db.from("clients").update(champsClient(formData)).eq("id", s(formData, "id"));
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
 }
 
 export async function supprimerClient(formData: FormData) {
   const db = createClient();
   const { error } = await db.from("clients").delete().eq("id", s(formData, "id"));
-  if (error) fail("Suppression impossible : ce client a des documents ou des échéances.");
-  revalidatePath("/admin/clients");
+  if (error) fail("Suppression impossible : ce client a des affaires, des documents ou des échéances.");
+  revalidatePath("/admin", "layout");
+  redirect("/admin/clients?vue=base");
 }
 
 // Import depuis l'ancien outil : coller le JSON de localStorage['cd_clients'].
@@ -177,6 +195,123 @@ export async function importerClients(formData: FormData) {
   const { error } = await db.from("clients").insert(rows);
   if (error) fail(error.message);
   revalidatePath("/admin/clients");
+}
+
+/* ───────── CRM : affaires ───────── */
+
+const OFFRES = ["creation", "referencement", "maintenance", "autre"];
+const SOURCES = ["diagnostic_site", "recommandation", "prospection", "reseau", "autre"];
+const ETAPES_OUVERTES = ["lead_entrant", "appel_diagnostic_fait", "rdv_approfondi", "devis_envoye", "signe"];
+const ETAPES = [...ETAPES_OUVERTES, "perdu", "en_veille"];
+
+function montantOuNull(f: FormData, k: string): number | null {
+  const v = s(f, k).replace(/\s/g, "").replace(",", ".");
+  if (!v) return null;
+  const x = Number(v);
+  if (!Number.isFinite(x) || x < 0) fail("Montant invalide");
+  return x;
+}
+
+function champsAffaire(f: FormData) {
+  const titre = s(f, "titre");
+  if (!titre) fail("Titre requis");
+  const offre = s(f, "offre") || "creation";
+  const source = s(f, "source") || "autre";
+  if (!OFFRES.includes(offre)) fail("Offre invalide");
+  if (!SOURCES.includes(source)) fail("Source invalide");
+  return {
+    titre,
+    offre,
+    source,
+    montant_estime: montantOuNull(f, "montant_estime"),
+    prochaine_action: s(f, "prochaine_action"),
+    date_prochaine_action: s(f, "date_prochaine_action") || null,
+    notes: s(f, "notes"),
+  };
+}
+
+// Nouvelle affaire, sur un client existant ou un client créé à la volée (fiche minimale).
+export async function creerAffaire(formData: FormData) {
+  const db = createClient();
+  const champs = champsAffaire(formData);
+  const etape = s(formData, "etape_manuelle") || "lead_entrant";
+  if (!ETAPES_OUVERTES.includes(etape)) fail("Étape invalide");
+
+  let clientId = s(formData, "client_id");
+  if (s(formData, "client_mode") === "nouveau") {
+    const societe = s(formData, "societe");
+    if (!societe) fail("Société requise");
+    const { data: c, error: ec } = await db
+      .from("clients")
+      .insert({ societe, nom: s(formData, "nom"), email: s(formData, "email"), tel: s(formData, "tel") })
+      .select("id")
+      .single();
+    if (ec) fail(ec.message);
+    clientId = c.id;
+  }
+  if (!clientId) fail("Client requis");
+
+  const { error } = await db.from("affaires").insert({ ...champs, client_id: clientId, etape_manuelle: etape });
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
+  redirect("/admin/clients");
+}
+
+export async function majAffaire(formData: FormData) {
+  const db = createClient();
+  const { error } = await db.from("affaires").update(champsAffaire(formData)).eq("id", s(formData, "id"));
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
+}
+
+// Changement d'étape manuelle. Perdu exige un motif, En veille une date de relance
+// (qui devient la prochaine action, pour remonter dans « Actions du jour »).
+export async function changerEtape(formData: FormData) {
+  const db = createClient();
+  const etape = s(formData, "etape");
+  if (!ETAPES.includes(etape)) fail("Étape invalide");
+  const patch: Record<string, string | null> = { etape_manuelle: etape, motif_perte: "", date_relance: null };
+  if (etape === "perdu") {
+    patch.motif_perte = s(formData, "motif_perte");
+    if (!patch.motif_perte) fail("Motif de perte requis");
+  }
+  if (etape === "en_veille") {
+    const d = s(formData, "date_relance");
+    if (!d) fail("Date de relance requise");
+    patch.date_relance = d;
+    patch.date_prochaine_action = d;
+    patch.prochaine_action = "Relancer";
+  }
+  const { error } = await db.from("affaires").update(patch).eq("id", s(formData, "id"));
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
+}
+
+export async function supprimerAffaire(formData: FormData) {
+  const db = createClient();
+  const { error } = await db.from("affaires").delete().eq("id", s(formData, "id"));
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
+  redirect("/admin/clients");
+}
+
+// Rattacher / détacher un devis ou une facture existante (y compris émise : affaire_id échappe à l'immuabilité).
+export async function lierDocument(formData: FormData) {
+  const db = createClient();
+  const { error } = await db
+    .from("documents")
+    .update({ affaire_id: s(formData, "affaire_id") })
+    .eq("id", s(formData, "document_id"))
+    .is("affaire_id", null);
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
+}
+
+export async function delierDocument(formData: FormData) {
+  const db = createClient();
+  const { error } = await db.from("documents").update({ affaire_id: null }).eq("id", s(formData, "document_id"));
+  if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
 }
 
 /* ───────── Échéances ───────── */
@@ -205,7 +340,7 @@ export async function facturerEcheance(formData: FormData) {
   const lignes: Ligne[] = [{ description: e.titre, quantite: 1, prixUnitaire: Number(e.montant) }];
   const { data: d, error: e2 } = await db
     .from("documents")
-    .insert({ type: "facture", client_id: e.client_id, date_echeance: e.date_echeance, lignes, total_ht: totalHT(lignes) })
+    .insert({ type: "facture", nature: "unique", client_id: e.client_id, date_echeance: e.date_echeance, lignes, total_ht: totalHT(lignes) })
     .select("id")
     .single();
   if (e2) fail(e2.message);
