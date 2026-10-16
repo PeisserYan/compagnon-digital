@@ -86,7 +86,7 @@ export default async function Echeances({ searchParams }: { searchParams: { m?: 
           <label>Titre<input name="titre" required placeholder="Maintenance annuelle du site" className={inputCls} style={inputStyle} /></label>
           <label>Montant (€)<input name="montant" className={inputCls} style={inputStyle} /></label>
           <label>Date<input type="date" name="date_echeance" required className={inputCls} style={inputStyle} /></label>
-          <label>Récurrence<select name="recurrence" className={inputCls} style={inputStyle}><option value="annuelle">Annuelle</option><option value="mensuelle">Mensuelle</option><option value="aucune">Aucune</option></select></label>
+          <label>Récurrence<select name="recurrence" className={inputCls} style={inputStyle}><option value="annuelle">Annuelle</option><option value="semestrielle">Semestrielle</option><option value="mensuelle">Mensuelle</option><option value="aucune">Aucune</option></select></label>
           <label>Mode<select name="mode_paiement" className={inputCls} style={inputStyle}><option value="virement">Virement</option><option value="prelevement">Prélèvement</option></select></label>
           <label className="col-span-2 lg:col-span-3">Notes<input name="notes" className={inputCls} style={inputStyle} /></label>
           <div><button className={btn} style={btnStyle}>Ajouter</button></div>

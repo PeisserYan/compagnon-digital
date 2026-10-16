@@ -319,6 +319,7 @@ export async function delierDocument(formData: FormData) {
 export async function creerEcheance(formData: FormData) {
   const db = createClient();
   if (!s(formData, "titre") || !s(formData, "date_echeance")) fail("Titre et date requis");
+  if (!["aucune", "mensuelle", "semestrielle", "annuelle"].includes(s(formData, "recurrence") || "annuelle")) fail("Récurrence invalide");
   const { error } = await db.from("echeances").insert({
     client_id: s(formData, "client_id") || null,
     titre: s(formData, "titre"),

@@ -50,7 +50,7 @@ export type Echeance = {
   titre: string;
   montant: number;
   date_echeance: string;
-  recurrence: "aucune" | "mensuelle" | "annuelle";
+  recurrence: "aucune" | "mensuelle" | "semestrielle" | "annuelle";
   mode_paiement: "virement" | "prelevement";
   statut: "a_venir" | "facturee" | "payee" | "annulee";
   document_id: string | null;
