@@ -19,5 +19,12 @@ export function addToDate(iso: string, recurrence: keyof typeof MOIS_PAR_RECURRE
   return `${y}-${m}-${day}`;
 }
 
+// Jour précédent (AAAA-MM-JJ), pour borner une période : 01/12 → 30/11.
+export function veille(iso: string): string {
+  const [an, mois, jour] = iso.split("-").map(Number);
+  const d = new Date(an, mois - 1, jour - 1);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 export const totalHT = (lignes: { quantite: number; prixUnitaire: number }[]) =>
   Math.round(lignes.reduce((s, l) => s + Number(l.quantite) * Number(l.prixUnitaire), 0) * 100) / 100;

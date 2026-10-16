@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { addToDate, todayISO, totalHT } from "@/lib/admin/format";
-import type { Ligne } from "@/lib/admin/types";
+import { addToDate, dateFr, todayISO, totalHT, veille } from "@/lib/admin/format";
+import type { Echeance, Ligne } from "@/lib/admin/types";
 
 const s = (f: FormData, k: string) => String(f.get(k) ?? "").trim();
 const n = (f: FormData, k: string) => Number(String(f.get(k) ?? "0").replace(",", ".")) || 0;
@@ -59,8 +59,12 @@ export async function emettre(formData: FormData) {
 
 export async function supprimerBrouillon(formData: FormData) {
   const db = createClient();
-  const { error } = await db.from("documents").delete().eq("id", s(formData, "id")).eq("statut", "brouillon");
+  const id = s(formData, "id");
+  // Une échéance facturée avec ce brouillon redevient « à facturer » (sinon la clé étrangère bloque la suppression).
+  await db.from("echeances").update({ statut: "a_venir", document_id: null }).eq("document_id", id).eq("statut", "facturee");
+  const { error } = await db.from("documents").delete().eq("id", id).eq("statut", "brouillon");
   if (error) fail(error.message);
+  revalidatePath("/admin", "layout");
   redirect("/admin/factures");
 }
 
@@ -107,6 +111,7 @@ export async function enregistrerPaiement(formData: FormData) {
     mode: s(formData, "mode") || "virement",
   });
   if (error) fail(error.message);
+  await synchroniserEcheance(db, s(formData, "id"));
   revalidatePath("/admin", "layout");
 }
 
@@ -124,6 +129,7 @@ export async function basculerPaiement(formData: FormData) {
     if (e1) fail(e1.message);
     const { error: e2 } = await db.from("documents").update({ statut: "emis", paye_le: null }).eq("id", id);
     if (e2) fail(e2.message);
+    await db.from("echeances").update({ statut: "facturee" }).eq("document_id", id).eq("statut", "payee");
   } else {
     const date = s(formData, "date") || todayISO();
     const { data: pai } = await db.from("paiements").select("id,montant").eq("document_id", id);
@@ -137,6 +143,7 @@ export async function basculerPaiement(formData: FormData) {
       await db.from("paiements").update({ date }).eq("document_id", id);
       await db.from("documents").update({ paye_le: date }).eq("id", id);
     }
+    await synchroniserEcheance(db, id);
   }
   revalidatePath("/admin", "layout");
 }
@@ -338,7 +345,10 @@ export async function facturerEcheance(formData: FormData) {
   const { data: e, error } = await db.from("echeances").select("*").eq("id", s(formData, "id")).single();
   if (error || !e) fail("Échéance introuvable");
   if (!e.client_id) fail("Associer un client à l'échéance avant de facturer");
-  const lignes: Ligne[] = [{ description: e.titre, quantite: 1, prixUnitaire: Number(e.montant) }];
+  if (e.statut !== "a_venir") fail("Cette échéance est déjà facturée");
+  // Période couverte : de la date d'échéance à la veille de la suivante.
+  const periode = e.recurrence === "aucune" ? undefined : `Période du ${dateFr(e.date_echeance)} au ${dateFr(veille(addToDate(e.date_echeance, e.recurrence)))}`;
+  const lignes: Ligne[] = [{ description: e.titre, descriptionSecondaire: periode, quantite: 1, prixUnitaire: Number(e.montant) }];
   const { data: d, error: e2 } = await db
     .from("documents")
     .insert({ type: "facture", nature: "unique", client_id: e.client_id, date_echeance: e.date_echeance, lignes, total_ht: totalHT(lignes) })
@@ -349,33 +359,67 @@ export async function facturerEcheance(formData: FormData) {
   redirect(`/admin/factures/${d.id}`);
 }
 
+type Db = ReturnType<typeof createClient>;
+
+// Clôt une échéance payée et crée la suivante si elle est récurrente (sans doublon si on clôt deux fois).
+async function cloturerEcheance(db: Db, e: Echeance) {
+  await db.from("echeances").update({ statut: "payee" }).eq("id", e.id);
+  if (e.recurrence === "aucune") return;
+  const suivante = addToDate(e.date_echeance, e.recurrence);
+  const { data: existe } = await db
+    .from("echeances")
+    .select("id")
+    .eq("client_id", e.client_id ?? "")
+    .eq("titre", e.titre)
+    .eq("date_echeance", suivante)
+    .neq("statut", "annulee")
+    .limit(1);
+  if (existe?.length) return;
+  await db.from("echeances").insert({
+    client_id: e.client_id,
+    titre: e.titre,
+    montant: e.montant,
+    date_echeance: suivante,
+    recurrence: e.recurrence,
+    mode_paiement: e.mode_paiement,
+    notes: e.notes,
+  });
+}
+
+// Facture payée depuis Devis & factures : l'échéance qui l'a générée se clôt d'elle-même.
+async function synchroniserEcheance(db: Db, documentId: string) {
+  const { data: doc } = await db.from("documents").select("statut").eq("id", documentId).single();
+  if (doc?.statut !== "paye") return;
+  const { data: ech } = await db.from("echeances").select("*").eq("document_id", documentId).eq("statut", "facturee");
+  for (const e of (ech ?? []) as Echeance[]) await cloturerEcheance(db, e);
+}
+
+// Encaisser une échéance. Si une facture est liée, le paiement porte sur son reste dû (jamais de double encaissement).
 export async function payerEcheance(formData: FormData) {
   const db = createClient();
-  const { data: e, error } = await db.from("echeances").select("*").eq("id", s(formData, "id")).single();
-  if (error || !e) fail("Échéance introuvable");
+  const { data, error } = await db.from("echeances").select("*").eq("id", s(formData, "id")).single();
+  if (error || !data) fail("Échéance introuvable");
+  const e = data as Echeance;
   if (e.statut === "payee") return;
 
-  const { error: pe } = await db.from("paiements").insert({
-    document_id: e.document_id,
-    echeance_id: e.id,
-    date: s(formData, "date") || todayISO(),
-    montant: Number(e.montant),
-    mode: e.mode_paiement,
-  });
-  if (pe) fail(pe.message);
-  await db.from("echeances").update({ statut: "payee" }).eq("id", e.id);
-
-  if (e.recurrence !== "aucune") {
-    await db.from("echeances").insert({
-      client_id: e.client_id,
-      titre: e.titre,
-      montant: e.montant,
-      date_echeance: addToDate(e.date_echeance, e.recurrence),
-      recurrence: e.recurrence,
-      mode_paiement: e.mode_paiement,
-      notes: e.notes,
-    });
+  let montant = Number(e.montant);
+  if (e.document_id) {
+    const { data: doc } = await db.from("documents").select("statut, total_ht").eq("id", e.document_id).single();
+    if (doc?.statut === "brouillon") fail("La facture liée est encore un brouillon : émets-la avant d'encaisser.");
+    const { data: pai } = await db.from("paiements").select("montant").eq("document_id", e.document_id);
+    montant = Number(doc?.total_ht ?? 0) - (pai ?? []).reduce((t, p) => t + Number(p.montant), 0);
   }
+  if (montant > 0) {
+    const { error: pe } = await db.from("paiements").insert({
+      document_id: e.document_id,
+      echeance_id: e.id,
+      date: s(formData, "date") || todayISO(),
+      montant,
+      mode: e.mode_paiement,
+    });
+    if (pe) fail(pe.message);
+  }
+  await cloturerEcheance(db, e);
   revalidatePath("/admin", "layout");
 }
 
