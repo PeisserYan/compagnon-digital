@@ -7,13 +7,30 @@ import type { Doc } from "@/lib/admin/types";
 
 export const dynamic = "force-dynamic";
 
-export default async function Factures({ searchParams }: { searchParams: { type?: string } }) {
+const FILTRES = [["", "Tous"], ["facture", "Factures"], ["devis", "Devis"], ["avoir", "Avoirs"], ["encaisser", "À encaisser"]] as const;
+
+// Conserve filtre et ordre dans l'URL (?type=…&ordre=desc).
+const lien = (type: string, desc: boolean) => {
+  const p = new URLSearchParams();
+  if (type) p.set("type", type);
+  if (desc) p.set("ordre", "desc");
+  const qs = p.toString();
+  return `/admin/factures${qs ? `?${qs}` : ""}`;
+};
+
+export default async function Factures({ searchParams }: { searchParams: { type?: string; ordre?: string } }) {
   const db = createClient();
-  let q = db.from("documents").select("*, clients(societe)").order("numero", { ascending: true, nullsFirst: false });
-  if (searchParams.type) q = q.eq("type", searchParams.type);
+  const filtre = searchParams.type ?? "";
+  const desc = searchParams.ordre === "desc";
+  // Tri par numéro ; en décroissant, les brouillons (sans numéro) passent en tête.
+  let q = db.from("documents").select("*, clients(societe)").order("numero", { ascending: !desc, nullsFirst: desc });
+  if (filtre === "encaisser") q = q.eq("type", "facture").eq("statut", "emis");
+  else if (filtre) q = q.eq("type", filtre);
   const { data } = await q;
   const docs = (data ?? []) as unknown as Doc[];
   const today = new Date().toISOString().slice(0, 10);
+  const aEncaisser = filtre === "encaisser" ? docs.reduce((t, d) => t + Number(d.total_ht), 0) : 0;
+  const enRetard = filtre === "encaisser" ? docs.filter((d) => d.date_echeance && d.date_echeance < today) : [];
 
   return (
     <div className="space-y-5">
@@ -21,11 +38,22 @@ export default async function Factures({ searchParams }: { searchParams: { type?
         <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Devis & factures</h1>
         <Link href="/admin/factures/nouveau" className={btn} style={btnStyle}>Nouveau</Link>
       </div>
-      <div className="flex gap-4 text-sm overflow-x-auto [scrollbar-width:none]">
-        {[["", "Tous"], ["facture", "Factures"], ["devis", "Devis"], ["avoir", "Avoirs"]].map(([v, l]) => (
-          <Link key={v} href={v ? `/admin/factures?type=${v}` : "/admin/factures"} className={`py-1 ${(searchParams.type ?? "") === v ? "font-semibold underline" : ""}`}>{l}</Link>
-        ))}
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm">
+        <div className="flex gap-4 overflow-x-auto [scrollbar-width:none]">
+          {FILTRES.map(([v, l]) => (
+            <Link key={v} href={lien(v, desc)} className={`shrink-0 whitespace-nowrap py-1 ${filtre === v ? "font-semibold underline" : ""}`}>{l}</Link>
+          ))}
+        </div>
+        <Link href={lien(filtre, !desc)} className="py-1" style={{ color: "var(--gris-texte)" }} aria-label="Inverser l'ordre de tri">
+          N° {desc ? "décroissant ↓" : "croissant ↑"}
+        </Link>
       </div>
+      {filtre === "encaisser" && (
+        <p className="text-sm">
+          {docs.length} facture(s) · <strong>{eur(aEncaisser)}</strong> à encaisser
+          {enRetard.length > 0 && <span style={{ color: "#b42318" }}>, dont {eur(enRetard.reduce((t, d) => t + Number(d.total_ht), 0))} en retard ({enRetard.length})</span>}
+        </p>
+      )}
       {/* Mobile : une carte par document */}
       <ul className="space-y-3 md:hidden">
         {docs.map((d) => (
