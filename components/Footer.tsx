@@ -33,18 +33,13 @@ export default function Footer() {
           <p style={{ fontFamily: "var(--font-playfair)", fontSize: "1.5rem", lineHeight: 1.3 }}>
             Où votre activité perd-elle des clients&nbsp;?
           </p>
-          <div className="flex flex-col items-start gap-2 md:items-end">
-            <Link
-              href="/#diagnostic"
-              className="inline-block text-sm font-medium transition-opacity hover:opacity-85"
-              style={{ backgroundColor: "var(--orange)", color: ENCRE, padding: "0.85rem 1.75rem", borderRadius: "999px" }}
-            >
-              Faire le diagnostic
-            </Link>
-            <a href="tel:+33673401475" className="text-sm opacity-85">
-              ou appelez-moi au <span style={{ whiteSpace: "nowrap", fontWeight: 500 }}>06 73 40 14 75</span>
-            </a>
-          </div>
+          <Link
+            href="/#diagnostic"
+            className="inline-block text-sm font-medium transition-opacity hover:opacity-85"
+            style={{ backgroundColor: "var(--orange)", color: ENCRE, padding: "0.85rem 1.75rem", borderRadius: "999px" }}
+          >
+            Faire le diagnostic
+          </Link>
         </div>
 
         {/* Grille : identité · navigation · contact, alignés à gauche et en haut. */}
