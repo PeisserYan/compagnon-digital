@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "backup": "node scripts/backup.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.4.5",
