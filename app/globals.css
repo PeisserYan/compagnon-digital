@@ -260,7 +260,10 @@ body { background: var(--surface); color: var(--noir); }
   .burger { display: flex; }
   .nav.open { display: flex; position: absolute; top: calc(100% + 10px); left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--light); border-radius: var(--r-m); box-shadow: 0 12px 30px rgba(17,17,17,.14); padding: 10px; }
   .nav.open > a, .nav.open .dd > button { padding: 14px; width: 100%; }
-  .nav.open .dd__menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; padding: 0 0 0 14px; background: none; min-width: 0; }
+  .nav.open .dd__menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; padding: 0 0 0 14px; background: none; min-width: 0; display: none; }
+  .nav.open .dd.open .dd__menu { display: block; }
+  /* Sur tactile, :hover reste collé : la flèche ne suit que l'état ouvert / fermé */
+  .nav.open .dd:not(.open) > button svg { transform: none; }
   .nav.open .dd__menu::before { display: none; }
   .nav.open .header__cta-m { display: flex; margin: 8px 4px 4px; }
   .hero { flex-direction: column; }

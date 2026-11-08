@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
@@ -156,12 +155,6 @@ export default function Referencement() {
                   <p style={{ marginBottom: 0 }}>{c.texte}</p>
                 </div>
               ))}
-            </div>
-            <div className="center-cta hide-mobile" data-reveal style={{ flexDirection: "column", alignItems: "center", gap: "16px" }}>
-              <p className="lead">Vous ne savez pas par où commencer ? On fait le point ensemble.</p>
-              <Link href="/#diagnostic" className="btn">
-                Faire le diagnostic
-              </Link>
             </div>
           </div>
         </section>

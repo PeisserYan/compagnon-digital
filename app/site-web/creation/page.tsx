@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
@@ -56,11 +55,6 @@ export default function Creation() {
                   </ul>
                 </div>
               ))}
-            </div>
-            <div className="center-cta hide-mobile" data-reveal>
-              <Link href="/#diagnostic" className="btn">
-                Faire le diagnostic
-              </Link>
             </div>
           </div>
         </section>
