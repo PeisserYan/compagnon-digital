@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import PageHead from "@/components/PageHead";
 
 const GOOGLE_BOOKING_URL = "https://calendar.app.google/FW4K2drShQNytcwt8";
 
@@ -50,13 +49,6 @@ const usages = [
 ];
 
 export default function Guide() {
-  const { ref: introRef, isInView: introInView } = useScrollAnimation();
-  const { ref: filtresRef, isInView: filtresInView } = useScrollAnimation();
-  const { ref: usagesRef, isInView: usagesInView } = useScrollAnimation();
-  const { ref: antipatternRef, isInView: antipatternInView } = useScrollAnimation();
-  const { ref: methodeRef, isInView: methodeInView } = useScrollAnimation();
-  const { ref: preuveRef, isInView: preuveInView } = useScrollAnimation();
-  const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
 
   const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
@@ -68,7 +60,7 @@ export default function Guide() {
     width: "100%",
     padding: "0.875rem 1rem",
     border: "1px solid var(--gris-border)",
-    borderRadius: "2px",
+    borderRadius: "var(--r-m)",
     backgroundColor: "#FFFFFF",
     color: "var(--noir)",
     fontSize: "0.9375rem",
@@ -94,319 +86,114 @@ export default function Guide() {
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF" }}>
-
-        {/* Intro */}
-        <section className="px-6 md:px-12" style={{ paddingTop: "160px", paddingBottom: "80px" }}>
-          <div ref={introRef} className="text-center" style={{ maxWidth: "720px", margin: "0 auto" }}>
-            <motion.p
-              initial={{ opacity: 0, y: 40 }}
-              animate={introInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="mb-6 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--orange-texte)" }}
-            >
-              Guide · Automatisation IA
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={introInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-              className="leading-snug"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-                color: "var(--noir)",
-              }}
-            >
-              Où l'IA peut vraiment vous aider, avant de vous lancer.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={introInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-              className="mt-6 text-base leading-relaxed"
-              style={{ color: "var(--gris-texte)" }}
-            >
-              Ce guide s'adresse aux indépendants et aux petites structures — pas aux PME de 50 salariés avec un budget dédié. Pas de jargon, pas de promesse de robot qui gère votre entreprise à votre place. Juste de quoi savoir ce qui vaut vraiment le coup chez vous.
-            </motion.p>
-          </div>
-        </section>
+      <main>
+        <PageHead
+          eyebrow="Guide · Automatisation IA"
+          title="Où l'IA peut vraiment vous aider, avant de vous lancer."
+          intro="Ce guide s'adresse aux indépendants et aux petites structures — pas aux PME de 50 salariés avec un budget dédié. Pas de jargon, pas de promesse de robot qui gère votre entreprise à votre place. Juste de quoi savoir ce qui vaut vraiment le coup chez vous."
+        />
 
         {/* 3 filtres */}
-        <section className="py-20 px-6 md:px-12" style={{ backgroundColor: "var(--gris-clair)" }}>
-          <div ref={filtresRef} style={{ maxWidth: "900px", margin: "0 auto" }}>
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              animate={filtresInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="mb-4 text-center leading-snug"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "var(--noir)",
-              }}
-            >
-              3 questions pour savoir si une tâche vaut la peine d'être automatisée
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={filtresInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-              className="mb-12 text-center text-base leading-relaxed"
-              style={{ color: "var(--gris-texte)", maxWidth: "620px", margin: "0 auto 3rem" }}
-            >
-              Si vous répondez oui aux trois, vous tenez un bon candidat. Sinon, ce n'est pas la priorité.
-            </motion.p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {filtres.map((filtre, i) => (
-                <motion.div
-                  key={filtre.titre}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={filtresInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid var(--gris-border)",
-                    borderTop: "3px solid var(--orange)",
-                    borderRadius: "4px",
-                    padding: "2rem",
-                  }}
-                >
-                  <p
-                    className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--orange-texte)" }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3
-                    className="mb-3 leading-snug"
-                    style={{
-                      fontFamily: "var(--font-playfair)",
-                      fontSize: "1.125rem",
-                      color: "var(--noir)",
-                    }}
-                  >
-                    {filtre.titre}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-                    {filtre.description}
-                  </p>
-                </motion.div>
+        <section className="section">
+          <div className="wrap">
+            <div className="sec-head" data-reveal>
+              <h2 className="h-title h2 t-accent">3 questions pour savoir si une tâche vaut la peine d&apos;être automatisée</h2>
+              <p className="lead">Si vous répondez oui aux trois, vous tenez un bon candidat. Sinon, ce n&apos;est pas la priorité.</p>
+            </div>
+            <div className="tiles">
+              {filtres.map((f, i) => (
+                <div key={f.titre} className="tile" data-reveal>
+                  <p className="tile__num">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="h-title" style={{ fontSize: "22px" }}>{f.titre}</h3>
+                  <p style={{ marginBottom: 0 }}>{f.description}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Ce qui marche aujourd'hui */}
-        <section className="py-20 px-6 md:px-12" style={{ backgroundColor: "#FFFFFF" }}>
-          <div ref={usagesRef} style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              animate={usagesInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="mb-10 text-center leading-snug"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "var(--noir)",
-              }}
-            >
-              Ce qui marche vraiment aujourd'hui pour une petite structure
-            </motion.h2>
-
-            <div className="space-y-6">
-              {usages.map((usage, i) => (
-                <motion.div
-                  key={usage.titre}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={usagesInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
-                  className="flex gap-4"
-                  style={{
-                    borderBottom: i < usages.length - 1 ? "1px solid var(--gris-border)" : "none",
-                    paddingBottom: "1.5rem",
-                  }}
-                >
-                  <span style={{ color: "var(--orange-texte)", fontSize: "1.125rem", flexShrink: 0 }}>✓</span>
-                  <div>
-                    <p className="mb-1 font-semibold" style={{ color: "var(--noir)" }}>
-                      {usage.titre}
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-                      {usage.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+        <section className="section section--tight">
+          <div className="wrap intro__grid" style={{ alignItems: "start" }}>
+            <div data-reveal>
+              <h2 className="h-title h2 t-accent">Ce qui marche vraiment aujourd&apos;hui pour une petite structure</h2>
+            </div>
+            <div className="tile" data-reveal>
+              <ul className="checks" style={{ gap: "22px" }}>
+                {usages.map((u) => (
+                  <li key={u.titre}>
+                    <span>
+                      <strong style={{ display: "block", fontWeight: 600, marginBottom: "4px" }}>{u.titre}</strong>
+                      <span style={{ color: "var(--gris-texte)" }}>{u.description}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
 
         {/* Anti-pattern */}
-        <section className="py-20 px-6 md:px-12" style={{ backgroundColor: "var(--gris-clair)" }}>
-          <motion.div
-            ref={antipatternRef}
-            initial={{ opacity: 0, y: 40 }}
-            animate={antipatternInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            style={{ maxWidth: "680px", margin: "0 auto", textAlign: "center" }}
-          >
-            <p
-              className="mb-4 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--orange-texte)" }}
-            >
-              Ce dont il faut se méfier
-            </p>
-            <h2
-              className="mb-6 leading-snug"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.375rem, 2.5vw, 1.75rem)",
-                color: "var(--noir)",
-              }}
-            >
-              L'agent IA qui gère votre entreprise à votre place n'existe pas encore pour une TPE.
-            </h2>
-            <p className="text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-              C'est la promesse marketing de 2026. Dans les faits, ce qui fonctionne pour un indépendant, ce sont des automatisations ciblées sur une tâche précise, avec un contrôle humain gardé au début. Si un prestataire vous vend un agent autonome qui remplace un poste entier, vous achetez du futur — pas du présent qui fonctionne.
-            </p>
-          </motion.div>
-        </section>
-
-        {/* Comment ça se passe */}
-        <section className="py-20 px-6 md:px-12" style={{ backgroundColor: "#FFFFFF" }}>
-          <div ref={methodeRef} style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              animate={methodeInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="mb-12 text-center leading-snug"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "var(--noir)",
-              }}
-            >
-              Comment ça se passe avec moi
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  n: "01",
-                  titre: "On regarde où vous perdez du temps",
-                  description: "Un échange simple sur votre quotidien : ce qui revient chaque semaine, ce qui vous agace, ce qui prend plus de temps que ça ne devrait.",
-                },
-                {
-                  n: "02",
-                  titre: "Je vous dis ce qui vaut le coup — et ce qui ne le vaut pas",
-                  description: "Certaines tâches se prêtent bien à l'automatisation, d'autres non. Je vous le dis honnêtement, même si ça réduit le projet.",
-                },
-                {
-                  n: "03",
-                  titre: "Je mets en place, et je reste disponible",
-                  description: "Une fois l'automatisation en place, vous n'êtes pas seul avec un outil que personne ne sait faire évoluer.",
-                },
-              ].map((etape, i) => (
-                <motion.div
-                  key={etape.n}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={methodeInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-                >
-                  <p
-                    className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--orange-texte)" }}
-                  >
-                    {etape.n}
-                  </p>
-                  <h3
-                    className="mb-3 leading-snug"
-                    style={{
-                      fontFamily: "var(--font-playfair)",
-                      fontSize: "1.0625rem",
-                      color: "var(--noir)",
-                    }}
-                  >
-                    {etape.titre}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-                    {etape.description}
-                  </p>
-                </motion.div>
-              ))}
+        <section className="section on-dark stripes">
+          <div className="wrap">
+            <div className="stripes__text" data-reveal>
+              <p className="eyebrow">Ce dont il faut se méfier</p>
+              <h2 className="h-title h2 t-accent" style={{ marginBottom: "var(--s-m)" }}>
+                L&apos;agent IA qui gère votre entreprise à votre place n&apos;existe pas encore pour une TPE.
+              </h2>
+              <p className="lead">
+                C&apos;est la promesse marketing de 2026. Dans les faits, ce qui fonctionne pour un indépendant, ce sont des automatisations ciblées sur une tâche précise, avec un contrôle humain gardé au début. Si un prestataire vous vend un agent autonome qui remplace un poste entier, vous achetez du futur — pas du présent qui fonctionne.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Preuve */}
-        <section className="py-20 px-6 md:px-12" style={{ backgroundColor: "var(--gris-clair)" }}>
-          <motion.div
-            ref={preuveRef}
-            initial={{ opacity: 0, y: 40 }}
-            animate={preuveInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            style={{
-              maxWidth: "680px",
-              margin: "0 auto",
-              backgroundColor: "#FFFFFF",
-              border: "1px solid var(--gris-border)",
-              borderLeft: "3px solid var(--orange)",
-              borderRadius: "4px",
-              padding: "2.5rem",
-            }}
-          >
-            <p
-              className="mb-4 text-xs font-medium tracking-widest uppercase"
-              style={{ color: "var(--orange-texte)" }}
-            >
-              Ce que j'ai déjà mis en place
-            </p>
-            <p className="text-base leading-relaxed" style={{ color: "var(--noir)" }}>
-              Je suis en train de construire cette offre — c'est une nouvelle activité, pas un catalogue figé. Aujourd'hui, j'ai déjà automatisé le tri de boîte mail pour un client : les demandes sont classées et priorisées automatiquement, il ne part plus de zéro chaque matin. C'est exactement le type de projet concret que je préfère aux promesses vagues.
-            </p>
-          </motion.div>
+        {/* Comment ça se passe */}
+        <section className="section">
+          <div className="wrap">
+            <div className="sec-head" data-reveal>
+              <h2 className="h-title h2 t-accent">Comment ça se passe avec moi</h2>
+            </div>
+            <div className="tiles">
+              {ETAPES.map((e) => (
+                <div key={e.n} className="tile" data-reveal>
+                  <p className="tile__num">{e.n}</p>
+                  <h3 className="h-title" style={{ fontSize: "22px" }}>{e.titre}</h3>
+                  <p style={{ marginBottom: 0 }}>{e.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Preuve */}
+            <div className="tile" data-reveal style={{ marginTop: "var(--s-m)", maxWidth: "900px" }}>
+              <p className="eyebrow">Ce que j&apos;ai déjà mis en place</p>
+              <p style={{ color: "var(--noir)", marginBottom: 0 }}>
+                Je suis en train de construire cette offre — c&apos;est une nouvelle activité, pas un catalogue figé. Aujourd&apos;hui, j&apos;ai déjà automatisé le tri de boîte mail pour un client : les demandes sont classées et priorisées automatiquement, il ne part plus de zéro chaque matin. C&apos;est exactement le type de projet concret que je préfère aux promesses vagues.
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* CTA final : qualification + réservation */}
-        <section className="pb-24 px-6 md:px-12" style={{ backgroundColor: "#FFFFFF", paddingTop: "5rem" }}>
-          <motion.div
-            ref={ctaRef}
-            initial={{ opacity: 0, y: 24 }}
-            animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="text-center"
-            style={{ maxWidth: "560px", margin: "0 auto" }}
-          >
-            <h2
-              className="mb-4 leading-snug"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.375rem, 2.5vw, 1.75rem)",
-                color: "var(--noir)",
-              }}
-            >
-              Envie de savoir ce qui vaut le coup chez vous ?
-            </h2>
-            <p className="mb-3 text-base leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-              Chaque automatisation est différente. Le prix se construit sur devis, selon vos outils et vos besoins.
-            </p>
-            <p className="mb-8 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-              Pour savoir si ça vaut le coup chez vous, dites-m'en un mot et je vous envoie mon lien pour un échange de 30 minutes, gratuit et sans engagement.
-            </p>
-
+        <section className="section on-dark stripes">
+          <div className="wrap quote__grid">
+            <div className="quote__side" data-reveal>
+              <h2 className="h-title h2 t-accent">Envie de savoir ce qui vaut le coup chez vous ?</h2>
+              <p className="lead" style={{ marginBottom: "var(--s-s)" }}>
+                Chaque automatisation est différente. Le prix se construit sur devis, selon vos outils et vos besoins.
+              </p>
+              <p className="lead" style={{ marginBottom: "var(--s-m)" }}>
+                Pour savoir si ça vaut le coup chez vous, dites-m&apos;en un mot et je vous envoie mon lien pour un échange de 15 minutes, gratuit et sans engagement.
+              </p>
+              <Link href="/ia" className="btn btn--light">
+                Retour à l&apos;offre Automatisation IA
+              </Link>
+            </div>
+            <div data-reveal style={{ color: "var(--noir)" }}>
             {status === "success" ? (
               <div
-                style={{
-                  backgroundColor: "#F8F8F8",
-                  padding: "2.5rem",
-                  borderRadius: "4px",
-                  textAlign: "center",
-                }}
+                className="form-card"
+                style={{ textAlign: "center" }}
               >
                 <p className="mb-6 text-base leading-relaxed" style={{ color: "var(--noir)" }}>
                   Merci {nom}, j'ai bien reçu votre demande. Réservez directement le créneau qui vous arrange :
@@ -415,31 +202,16 @@ export default function Guide() {
                   href={GOOGLE_BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block font-medium transition-colors"
-                  style={{
-                    backgroundColor: "var(--noir)",
-                    color: "#FFFFFF",
-                    padding: "1rem 2.25rem",
-                    borderRadius: "2px",
-                    textDecoration: "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-                  }}
+                  className="btn"
                 >
-                  Réserver mon échange gratuit →
+                  Réserver mon échange gratuit
                 </a>
               </div>
             ) : (
               <form
                 onSubmit={handleSubmit}
+                className="form-card"
                 style={{
-                  backgroundColor: "#F8F8F8",
-                  padding: "2.5rem",
-                  borderRadius: "4px",
                   textAlign: "left",
                   display: "flex",
                   flexDirection: "column",
@@ -531,49 +303,41 @@ export default function Guide() {
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                  <button
-                    type="submit"
-                    disabled={status === "loading"}
-                    style={{
-                      width: "100%",
-                      backgroundColor: "var(--noir)",
-                      color: "#FFFFFF",
-                      padding: "1rem",
-                      borderRadius: "2px",
-                      border: "none",
-                      fontSize: "0.9375rem",
-                      fontWeight: 500,
-                      cursor: status === "loading" ? "not-allowed" : "pointer",
-                      opacity: status === "loading" ? 0.65 : 1,
-                      transition: "opacity 0.2s ease",
-                    }}
-                  >
-                    {status === "loading" ? "Envoi en cours…" : "Obtenir mon lien de réservation →"}
+                  <button type="submit" disabled={status === "loading"} className="btn">
+                    {status === "loading" ? "Envoi en cours…" : "Obtenir mon lien de réservation"}
                   </button>
 
                   {status === "error" && (
-                    <p style={{ color: "#c0392b", fontSize: "0.875rem", textAlign: "center" }}>
+                    <p style={{ color: "#c0392b", fontSize: "0.875rem", }}>
                       Une erreur est survenue. Réessayez ou contactez-moi directement.
                     </p>
                   )}
                 </div>
               </form>
             )}
-
-            <div className="mt-10">
-              <Link
-                href="/ia"
-                className="text-sm font-medium border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                ← Retour à l'offre Automatisation IA
-              </Link>
             </div>
-          </motion.div>
+          </div>
         </section>
-
       </main>
       <Footer />
     </>
   );
 }
+
+const ETAPES = [
+  {
+    n: "01",
+    titre: "On regarde où vous perdez du temps",
+    description: "Un échange simple sur votre quotidien : ce qui revient chaque semaine, ce qui vous agace, ce qui prend plus de temps que ça ne devrait.",
+  },
+  {
+    n: "02",
+    titre: "Je vous dis ce qui vaut le coup — et ce qui ne le vaut pas",
+    description: "Certaines tâches se prêtent bien à l'automatisation, d'autres non. Je vous le dis honnêtement, même si ça réduit le projet.",
+  },
+  {
+    n: "03",
+    titre: "Je mets en place, et je reste disponible",
+    description: "Une fois l'automatisation en place, vous n'êtes pas seul avec un outil que personne ne sait faire évoluer.",
+  },
+];

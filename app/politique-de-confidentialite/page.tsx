@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHead from "@/components/PageHead";
 
 export const metadata = {
   title: "Politique de confidentialité — Compagnon Digital",
@@ -9,30 +10,11 @@ export default function PolitiqueDeConfidentialite() {
   return (
     <>
       <Navbar />
-      <main
-        className="py-24 px-6 md:px-12"
-        style={{ backgroundColor: "var(--blanc)", minHeight: "80vh" }}
-      >
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-          <p
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--orange-texte)" }}
-          >
-            Confidentialité
-          </p>
-
-          <h1
-            className="mb-12 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
-          >
-            Politique de confidentialité
-          </h1>
-
-          <div className="space-y-10 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
+      <main>
+        <PageHead eyebrow="Confidentialité" title="Politique de confidentialité" />
+        <section className="section">
+          <div className="wrap">
+          <div className="doc" data-reveal>
             <section>
               <h2
                 className="mb-3 font-semibold text-base"
@@ -44,7 +26,6 @@ export default function PolitiqueDeConfidentialite() {
                 Yan Peisser —{" "}
                 <a
                   href="mailto:yan@compagnondigital.fr"
-                  style={{ color: "var(--orange-texte)" }}
                 >
                   yan@compagnondigital.fr
                 </a>
@@ -86,7 +67,6 @@ export default function PolitiqueDeConfidentialite() {
                 Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Contactez :{" "}
                 <a
                   href="mailto:yan@compagnondigital.fr"
-                  style={{ color: "var(--orange-texte)" }}
                 >
                   yan@compagnondigital.fr
                 </a>
@@ -103,7 +83,8 @@ export default function PolitiqueDeConfidentialite() {
               <p>Ce site n'utilise pas de cookies de tracking.</p>
             </section>
           </div>
-        </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

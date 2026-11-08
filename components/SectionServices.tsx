@@ -1,159 +1,57 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
-const MotionLink = motion(Link);
 
 const blocs = [
   {
     href: "/site-web/creation",
-    tag: "01 · CRÉATION",
+    tag: "01 · Création",
     titre: "Site web qui convertit.",
     description:
       "Site one page, site vitrine, site marchand. Un site conçu pour ramener des clients, pas juste pour exister.",
     items: ["Site one page", "Site vitrine", "Site marchand", "Mobile, RGPD & hébergement inclus"],
-    cta: "Voir les formules →",
+    cta: "Voir les formules",
   },
   {
     href: "/site-web/referencement",
-    tag: "02 · RÉFÉRENCEMENT",
+    tag: "02 · Référencement",
     titre: "Être trouvé par les bons clients.",
     description:
       "SEO, SEA, GEO. Trois approches complémentaires pour apparaître quand vos clients vous cherchent.",
     items: ["SEO local", "SEA Google Ads", "GEO (IA & LLMs)", "Suivi mensuel"],
-    cta: "Voir les approches →",
+    cta: "Voir les approches",
   },
 ];
 
+// Format GD Concept : section sombre, cartes, boutons flèche.
 export default function SectionServices() {
-  const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
-  const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
-
   return (
-    <section
-      id="services"
-      className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "#FFFFFF" }}
-    >
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <div ref={headerRef}>
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--orange-texte)" }}
-          >
-            Ce que je fais
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="mb-16 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
-          >
-            Ce que je fais concrètement.
-          </motion.h2>
+    <section id="services" className="section on-dark stripes">
+      <div className="wrap">
+        <div className="sec-head" data-reveal>
+          <p className="eyebrow">Ce que je fais</p>
+          <h2 className="h-title h2 t-accent">Ce que je fais concrètement.</h2>
         </div>
-
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {blocs.map((bloc, i) => (
-            <MotionLink
-              key={bloc.tag}
-              href={bloc.href}
-              initial={{ opacity: 0, y: 60 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-              whileHover={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
-              className="block"
-              style={{
-                backgroundColor: "var(--gris-clair)",
-                borderRadius: "4px",
-                padding: "2.5rem",
-                border: "1px solid var(--gris-border)",
-                borderTop: "3px solid var(--orange)",
-                textDecoration: "none",
-              }}
-            >
-              <p
-                className="mb-3 text-xs font-bold tracking-widest"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                {bloc.tag}
-              </p>
-
-              <h3
-                className="mb-4 leading-snug"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
-                  color: "var(--noir)",
-                }}
-              >
-                {bloc.titre}
-              </h3>
-
-              <p
-                className="mb-6 text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)" }}
-              >
-                {bloc.description}
-              </p>
-
-              <ul className="mb-6 space-y-2">
-                {bloc.items.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm">
-                    <span style={{ color: "var(--orange-texte)", fontSize: "1rem" }}>✓</span>
-                    <span style={{ color: "var(--noir)" }}>{item}</span>
-                  </li>
+        <div className="tiles tiles--2">
+          {blocs.map((b) => (
+            <div key={b.tag} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
+              <p className="eyebrow">{b.tag}</p>
+              <h3 className="h-title h3" style={{ color: "var(--noir)" }}>{b.titre}</h3>
+              <p style={{ color: "var(--gris-texte)" }}>{b.description}</p>
+              <ul className="checks">
+                {b.items.map((it) => (
+                  <li key={it}>{it}</li>
                 ))}
               </ul>
-
-              <p
-                className="font-medium text-sm"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                {bloc.cta}
-              </p>
-            </MotionLink>
+              <Link href={b.href} className="btn">
+                {b.cta}
+              </Link>
+            </div>
           ))}
         </div>
-
-        <motion.div
-          ref={ctaRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mt-14 text-center"
-        >
-          <Link
-            href="/#diagnostic"
-            className="inline-block font-medium transition-colors"
-            style={{
-              backgroundColor: "var(--noir)",
-              color: "#FFFFFF",
-              padding: "1rem 2.25rem",
-              borderRadius: "999px",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-            }}
-          >
+        <div className="center-cta" data-reveal>
+          <Link href="/#diagnostic" className="btn btn--light">
             Faire le diagnostic
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

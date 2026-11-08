@@ -1,8 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
 const constats = [
   {
     chiffre: "01",
@@ -18,95 +13,24 @@ const constats = [
   },
 ];
 
-const titleText = "Vos futurs clients vous cherchent en ce moment.";
-const titleWords = titleText.split(" ");
-const ease = [0.76, 0, 0.24, 1] as const;
-
+// Format GD Concept : sur-titre, titre à parallélogramme, cartes numérotées claires sur fond gris.
 export default function SectionProbleme() {
-  const { ref: titleRef, isInView: titleInView } = useScrollAnimation();
-  const { ref: subtitleRef, isInView: subtitleInView } = useScrollAnimation();
-  const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
-
   return (
-    <section
-      id="probleme"
-      className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "var(--gris-clair)" }}
-    >
-      <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-        <p
-          className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--orange-texte)" }}
-        >
-          Le constat
-        </p>
-
-        <h2
-          ref={titleRef}
-          className="mb-8 leading-snug"
-          style={{
-            fontFamily: "var(--font-playfair)",
-            fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            color: "var(--noir)",
-          }}
-        >
-          {titleWords.map((word, i) => (
-            <span
-              key={i}
-              style={{ overflow: "hidden", display: "inline-block", marginRight: "0.3em" }}
-            >
-              <motion.span
-                initial={{ y: 80, opacity: 0 }}
-                animate={titleInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.08, ease }}
-                style={{ display: "inline-block" }}
-              >
-                {word}
-              </motion.span>
-            </span>
-          ))}
-        </h2>
-
-        <motion.p
-          ref={subtitleRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={subtitleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-16 text-base leading-relaxed"
-          style={{ color: "var(--gris-texte)" }}
-        >
-          Plus de clients. C'est de ça qu'on parle, pas d'un site. Vous voulez qu'on vous laisse tranquille pour faire votre métier. Que les clients vous trouvent quand ils cherchent ce que vous faites. C'est pour ça que je suis là.
-        </motion.p>
-
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {constats.map((item, i) => (
-            <motion.div
-              key={item.chiffre}
-              initial={{ opacity: 0, y: 40 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: (i + 1) * 0.1, ease: "easeOut" }}
-              style={{
-                borderLeft: "3px solid var(--orange)",
-                paddingLeft: "1.25rem",
-              }}
-            >
-              <p
-                className="mb-3 font-bold leading-none"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(2rem, 4vw, 2.75rem)",
-                  color: "var(--orange-texte)",
-                }}
-              >
-                {item.chiffre}
-              </p>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)" }}
-              >
-                {item.texte}
-              </p>
-            </motion.div>
+    <section id="probleme" className="section">
+      <div className="wrap">
+        <div className="sec-head" data-reveal>
+          <p className="eyebrow">Le constat</p>
+          <h2 className="h-title h2 t-accent">Vos futurs clients vous cherchent en ce moment.</h2>
+          <p className="lead">
+            Plus de clients. C&apos;est de ça qu&apos;on parle, pas d&apos;un site. Vous voulez qu&apos;on vous laisse tranquille pour faire votre métier. Que les clients vous trouvent quand ils cherchent ce que vous faites. C&apos;est pour ça que je suis là.
+          </p>
+        </div>
+        <div className="tiles">
+          {constats.map((c) => (
+            <div key={c.chiffre} className="tile" data-reveal>
+              <p className="tile__num">{c.chiffre}</p>
+              <p style={{ marginBottom: 0 }}>{c.texte}</p>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RealisationsGallery from "@/components/RealisationsGallery";
+import PageHead from "@/components/PageHead";
 
 const projets = [
   {
@@ -73,33 +74,15 @@ export default function RealisationsPage() {
   return (
     <>
       <Navbar />
-      <main className="py-24 px-6 md:px-12">
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-
-        <p
-          className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--orange-texte)" }}
-        >
-          Réalisations
-        </p>
-
-        <h1
-          className="mb-16 leading-snug"
-          style={{
-            fontFamily: "var(--font-playfair)",
-            fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            color: "var(--noir)",
-          }}
-        >
-          Tous mes projets.
-        </h1>
-
-        <RealisationsGallery projets={projets} />
-
-      </div>
-    </main>
-    <Footer />
+      <main>
+        <PageHead eyebrow="Réalisations" title="Tous mes projets." />
+        <section className="section">
+          <div className="wrap">
+            <RealisationsGallery projets={projets} />
+          </div>
+        </section>
+      </main>
+      <Footer />
     </>
   );
 }
-

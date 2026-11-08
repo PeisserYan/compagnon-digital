@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageHead from "@/components/PageHead";
 
 const approches = [
   {
@@ -30,7 +29,7 @@ const approches = [
         description: "Navigation claire, site bien organisé, taux de rebond réduit.",
       },
     ],
-    usage: "✓ Idéal pour : construire une visibilité durable sur votre secteur local.",
+    usage: "Idéal pour : construire une visibilité durable sur votre secteur local.",
   },
   {
     numero: "02",
@@ -57,7 +56,7 @@ const approches = [
         description: "Vous définissez un plafond quotidien. Pas de mauvaise surprise.",
       },
     ],
-    usage: "✓ Idéal pour : obtenir des appels rapidement lors d'un lancement ou d'une promotion.",
+    usage: "Idéal pour : obtenir des appels rapidement lors d'un lancement ou d'une promotion.",
   },
   {
     numero: "03",
@@ -84,7 +83,7 @@ const approches = [
         description: "Suivre votre présence sur les moteurs IA : visibilité, part de voix, évolution mensuelle.",
       },
     ],
-    usage: "✓ Idéal pour : préparer votre visibilité dans la recherche de demain.",
+    usage: "Idéal pour : préparer votre visibilité dans la recherche de demain.",
   },
 ];
 
@@ -98,212 +97,74 @@ export default function Referencement() {
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF", paddingTop: "160px" }}>
-        <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 clamp(1rem, 6vw, 4rem)" }}>
-          {/* Header */}
-          <p
-            className="text-xs font-medium uppercase tracking-widest"
-            style={{ color: "var(--orange-texte)" }}
-          >
-            RÉFÉRENCEMENT
-          </p>
+      <main>
+        <PageHead
+          eyebrow="Référencement"
+          title="Trois approches, un objectif."
+          intro="Le référencement naturel (SEO) et le référencement payant (SEA) sont deux stratégies pour améliorer votre visibilité dans les moteurs de recherche. Le GEO, lui, vous positionne dans les réponses générées par les intelligences artificielles. Les trois sont complémentaires."
+        />
 
-          <h1
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              color: "var(--noir)",
-            }}
-          >
-            Trois approches, un objectif.
-          </h1>
-
-          <div
-            style={{
-              width: "50px",
-              height: "2px",
-              backgroundColor: "var(--orange)",
-              margin: "1.5rem 0",
-            }}
-          />
-
-          <p
-            className="text-lg leading-relaxed"
-            style={{ color: "var(--gris-texte)", maxWidth: "640px" }}
-          >
-            Le référencement naturel (SEO) et le référencement payant (SEA) sont deux stratégies pour améliorer votre visibilité dans les moteurs de recherche. Le GEO, lui, vous positionne dans les réponses générées par les intelligences artificielles. Les trois sont complémentaires.
-          </p>
-
-          {/* SEO / SEA / GEO */}
-          {approches.map((approche) => (
-            <section
-              key={approche.sigle}
-              style={{
-                paddingTop: "80px",
-                paddingBottom: "80px",
-                borderBottom: "1px solid var(--gris-border)",
-              }}
-            >
-              <div className="flex" style={{ gap: "1rem", alignItems: "baseline" }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-playfair)",
-                    fontSize: "clamp(4rem, 8vw, 7rem)",
-                    color: "var(--gris-border)",
-                  }}
-                >
-                  {approche.numero}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-playfair)",
-                    fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
-                    color: "var(--noir)",
-                  }}
-                >
-                  {approche.sigle}
-                </span>
+        {/* SEO / SEA / GEO : une section par approche, alternance gris / sombre */}
+        {approches.map((a, i) => (
+          <section key={a.sigle} className={`section${i % 2 === 1 ? " on-dark stripes" : ""}`}>
+            <div className="wrap">
+              <div className="sec-head--split sec-head" data-reveal>
+                <div>
+                  <p className="eyebrow">
+                    {a.numero} · {a.sigle} · {a.surtitre}
+                  </p>
+                  <h2 className="h-title h2 t-accent">{a.accroche}</h2>
+                </div>
+                <p className="lead">{a.paragraphe}</p>
               </div>
-
-              <p
-                className="mb-2 text-xs uppercase tracking-widest"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                {approche.surtitre}
-              </p>
-
-              <h2
-                className="mb-4"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.25rem, 2vw, 1.75rem)",
-                  color: "var(--noir)",
-                }}
-              >
-                {approche.accroche}
-              </h2>
-
-              <p
-                className="mb-8 text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)", maxWidth: "600px" }}
-              >
-                {approche.paragraphe}
-              </p>
-
-              <div
-                className="grid grid-cols-1 md:grid-cols-2"
-                style={{ gap: "1rem", maxWidth: "640px" }}
-              >
-                {approche.cellules.map((cellule) => (
+              <div className="tiles tiles--4">
+                {a.cellules.map((c) => (
                   <div
-                    key={cellule.titre}
-                    style={{
-                      padding: "1.25rem",
-                      backgroundColor: "var(--gris-clair)",
-                      borderRadius: "4px",
-                      borderLeft: "2px solid var(--orange)",
-                    }}
+                    key={c.titre}
+                    className="tile"
+                    data-reveal
+                    style={i % 2 === 1 ? { background: "var(--light)", color: "var(--noir)", border: 0 } : undefined}
                   >
-                    <p className="mb-1 text-sm font-semibold" style={{ color: "var(--noir)" }}>
-                      {cellule.titre}
-                    </p>
-                    <p className="text-xs" style={{ color: "var(--gris-texte)" }}>
-                      {cellule.description}
-                    </p>
+                    <h3 className="h-title" style={{ fontSize: "20px", color: "var(--noir)" }}>
+                      {c.titre}
+                    </h3>
+                    <p style={{ marginBottom: 0, color: "var(--gris-texte)" }}>{c.description}</p>
                   </div>
                 ))}
               </div>
+              <ul className="checks" style={{ marginTop: "var(--s-m)", marginBottom: 0 }} data-reveal>
+                <li>{a.usage}</li>
+              </ul>
+            </div>
+          </section>
+        ))}
 
-              <p
-                className="mt-6 text-sm"
-                style={{ color: "var(--gris-texte)", fontStyle: "italic" }}
-              >
-                {approche.usage}
+        {/* Que choisir ? */}
+        <section className="section">
+          <div className="wrap">
+            <div className="sec-head" data-reveal>
+              <p className="eyebrow">Que choisir ?</p>
+              <h2 className="h-title h2 t-accent">Les trois sont complémentaires.</h2>
+              <p className="lead">
+                Le SEA pour des résultats rapides, le SEO pour une visibilité durable, le GEO pour préparer l&apos;avenir de la recherche. La meilleure stratégie combine les trois selon vos priorités et votre budget.
               </p>
-            </section>
-          ))}
-
-          {/* Que choisir ? */}
-          <section style={{ paddingTop: "80px", paddingBottom: "80px" }}>
-            <p
-              className="text-xs font-medium uppercase tracking-widest"
-              style={{ color: "var(--orange-texte)" }}
-            >
-              QUE CHOISIR ?
-            </p>
-
-            <h2
-              className="mb-4"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                color: "var(--noir)",
-              }}
-            >
-              Les trois sont complémentaires.
-            </h2>
-
-            <p
-              className="mb-10"
-              style={{ color: "var(--gris-texte)", maxWidth: "640px" }}
-            >
-              Le SEA pour des résultats rapides, le SEO pour une visibilité durable, le GEO pour préparer l'avenir de la recherche. La meilleure stratégie combine les trois selon vos priorités et votre budget.
-            </p>
-
-            <div
-              className="grid grid-cols-1 md:grid-cols-3"
-              style={{ gap: "1.5rem" }}
-            >
-              {cartes.map((carte) => (
-                <div
-                  key={carte.titre}
-                  style={{
-                    padding: "2rem",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--gris-clair)",
-                    borderTop: "3px solid var(--orange)",
-                  }}
-                >
-                  <h3
-                    className="mb-2"
-                    style={{ fontFamily: "var(--font-playfair)", color: "var(--noir)" }}
-                  >
-                    {carte.titre}
-                  </h3>
-                  <p className="text-sm" style={{ color: "var(--gris-texte)" }}>
-                    {carte.texte}
-                  </p>
+            </div>
+            <div className="tiles">
+              {cartes.map((c) => (
+                <div key={c.titre} className="tile" data-reveal>
+                  <h3 className="h-title h3">{c.titre}</h3>
+                  <p style={{ marginBottom: 0 }}>{c.texte}</p>
                 </div>
               ))}
             </div>
-          </section>
-
-          {/* CTA */}
-          <section className="text-center" style={{ paddingBottom: "80px" }}>
-            <p className="mb-6 text-sm" style={{ color: "var(--gris-texte)" }}>
-              Vous ne savez pas par où commencer ? On fait le point ensemble.
-            </p>
-
-            <Link
-              href="/#diagnostic"
-              className="inline-block font-medium transition-colors"
-              style={{
-                backgroundColor: "var(--noir)",
-                color: "#FFFFFF",
-                padding: "1rem 2.25rem",
-                borderRadius: "999px",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-              }}
-            >
-              Faire le diagnostic
-            </Link>
-          </section>
-        </div>
+            <div className="center-cta" data-reveal style={{ flexDirection: "column", alignItems: "center", gap: "16px" }}>
+              <p className="lead">Vous ne savez pas par où commencer ? On fait le point ensemble.</p>
+              <Link href="/#diagnostic" className="btn">
+                Faire le diagnostic
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

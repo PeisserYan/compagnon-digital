@@ -1,14 +1,11 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import PageHead from "@/components/PageHead";
 
 const services = [
   {
-    tag: "01 · L'ESSENTIEL",
+    tag: "01 · L'essentiel",
     titre: "Vous voulez exister proprement.",
     prix: "One page dès 500€ · site vitrine dès 800€",
     description:
@@ -16,7 +13,7 @@ const services = [
     items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
   },
   {
-    tag: "02 · LA VISIBILITÉ",
+    tag: "02 · La visibilité",
     titre: "Vous voulez qu'on vous trouve.",
     prix: "Sur mesure selon vos besoins",
     description:
@@ -24,7 +21,7 @@ const services = [
     items: ["SEO local", "Google Business", "Avis clients", "Contenu"],
   },
   {
-    tag: "03 · L'OUTIL",
+    tag: "03 · L'outil",
     titre: "Vous voulez que votre site bosse pour vous.",
     prix: "Sur mesure selon vos besoins",
     description:
@@ -34,156 +31,37 @@ const services = [
 ];
 
 export default function Creation() {
-  const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
-  const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
-
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF" }}>
-        <section
-          className="px-6 md:px-12"
-          style={{ paddingTop: "160px", paddingBottom: "80px" }}
-        >
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div ref={headerRef} className="text-center">
-              <motion.p
-                initial={{ opacity: 0, y: 40 }}
-                animate={headerInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="mb-6 text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                Création de site web
-              </motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={headerInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-                className="leading-snug"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-                  color: "var(--noir)",
-                }}
-              >
-                Choisissez votre formule.
-              </motion.h1>
-
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={headerInView ? { scaleX: 1 } : {}}
-                transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-                style={{
-                  width: "50px",
-                  height: "2px",
-                  backgroundColor: "var(--orange)",
-                  margin: "1.5rem auto",
-                }}
-              />
-
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={headerInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-                className="mb-16 text-base leading-relaxed"
-                style={{ color: "var(--gris-texte)", maxWidth: "560px", margin: "0 auto 4rem" }}
-              >
-                Chaque site est conçu et développé sur mesure, adapté à votre métier et à vos clients.
-              </motion.p>
-            </div>
-
-            <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {services.map((service, i) => (
-                <motion.div
-                  key={service.tag}
-                  initial={{ opacity: 0, y: 60 }}
-                  animate={gridInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-                  style={{
-                    backgroundColor: "var(--gris-clair)",
-                    borderRadius: "4px",
-                    padding: "2.5rem",
-                    border: "1px solid var(--gris-border)",
-                    borderTop: "3px solid var(--orange)",
-                  }}
-                >
-                  <p
-                    className="mb-3 text-xs font-bold tracking-widest"
-                    style={{ color: "var(--orange-texte)" }}
-                  >
-                    {service.tag}
-                  </p>
-
-                  <h3
-                    className="mb-4 leading-snug"
-                    style={{
-                      fontFamily: "var(--font-playfair)",
-                      fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
-                      color: "var(--noir)",
-                    }}
-                  >
-                    {service.titre}
-                  </h3>
-
-                  <p
-                    style={{
-                      fontWeight: 600,
-                      color: "var(--noir)",
-                      fontSize: "0.9375rem",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {service.prix}
-                  </p>
-
-                  <p
-                    className="mb-6 text-sm leading-relaxed"
-                    style={{ color: "var(--gris-texte)" }}
-                  >
-                    {service.description}
-                  </p>
-
-                  <ul className="space-y-2">
-                    {service.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm">
-                        <span style={{ color: "var(--orange-texte)", fontSize: "1rem" }}>✓</span>
-                        <span style={{ color: "var(--noir)" }}>{item}</span>
-                      </li>
+      <main>
+        <PageHead
+          eyebrow="Création de site web"
+          title="Choisissez votre formule."
+          intro="Chaque site est conçu et développé sur mesure, adapté à votre métier et à vos clients."
+        />
+        <section className="section">
+          <div className="wrap">
+            <div className="tiles">
+              {services.map((s) => (
+                <div key={s.tag} className="tile tile--hover" data-reveal>
+                  <p className="eyebrow">{s.tag}</p>
+                  <h2 className="h-title h3">{s.titre}</h2>
+                  <span className="price">{s.prix}</span>
+                  <p>{s.description}</p>
+                  <ul className="checks">
+                    {s.items.map((it) => (
+                      <li key={it}>{it}</li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
               ))}
             </div>
-
-            <motion.div
-              ref={ctaRef}
-              initial={{ opacity: 0, y: 24 }}
-              animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-14 text-center"
-            >
-              <Link
-                href="/#diagnostic"
-                className="inline-block font-medium transition-colors"
-                style={{
-                  backgroundColor: "var(--noir)",
-                  color: "#FFFFFF",
-                  padding: "1rem 2.25rem",
-                  borderRadius: "999px",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-                }}
-              >
+            <div className="center-cta" data-reveal>
+              <Link href="/#diagnostic" className="btn">
                 Faire le diagnostic
               </Link>
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>

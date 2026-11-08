@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import PageHead from "@/components/PageHead";
 import SectionProbleme from "@/components/SectionProbleme";
 import SectionServices from "@/components/SectionServices";
 import Footer from "@/components/Footer";
@@ -17,7 +18,11 @@ export default function SiteWeb() {
   return (
     <>
       <Navbar />
-      <main style={{ backgroundColor: "#FFFFFF", paddingTop: "120px" }}>
+      <main>
+        <PageHead
+          title="Site web"
+          intro="Création de sites web pour indépendants et petites entreprises : site vitrine, référencement local et outils sur mesure."
+        />
         <SectionProbleme />
         <SectionServices />
       </main>

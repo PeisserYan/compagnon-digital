@@ -94,103 +94,48 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {/* Format GD Concept : cartes claires, image arrondie qui zoome au survol, bouton flèche */}
+      <div className="cards">
         {projets.map((projet, i) => (
-          <motion.div
-            key={projet.nom}
-            whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.1)" }}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              backgroundColor: "#FFFFFF",
-              border: "1px solid var(--gris-border)",
-              borderRadius: "8px",
-              overflow: "hidden",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-            }}
-          >
+          <article key={projet.nom} className="card" data-reveal>
             <button
               type="button"
+              className="card__img"
+              aria-label={`Agrandir la capture de ${projet.nom}`}
               onClick={(e) => {
                 triggerRef.current = e.currentTarget;
                 setActiveIndex(i);
               }}
-              style={{
-                height: "220px",
-                overflow: "hidden",
-                position: "relative",
-                cursor: "pointer",
-                display: "block",
-                width: "100%",
-                border: "none",
-                background: "none",
-                padding: 0,
-                textAlign: "inherit",
-                font: "inherit",
-              }}
+              style={{ display: "block", width: "100%", border: 0, padding: 0, cursor: "zoom-in", background: "none" }}
             >
-              <Image
-                src={projet.image}
-                alt={projet.alt}
-                width={600}
-                height={220}
-                className="w-full h-full object-cover"
-              />
+              <Image src={projet.image} alt={projet.alt} fill sizes="(max-width: 700px) 100vw, 33vw" className="object-cover object-top" />
               {projet.badge && (
                 <span
                   style={{
                     position: "absolute",
-                    top: "0.6rem",
-                    right: "0.6rem",
+                    top: "10px",
+                    right: "10px",
                     backgroundColor: "var(--noir)",
                     color: "#FFFFFF",
-                    fontSize: "0.75rem",
-                    padding: "0.25rem 0.6rem",
-                    borderRadius: "2px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    padding: "4px 10px",
+                    borderRadius: "var(--r-s)",
                   }}
                 >
                   {projet.badge}
                 </span>
               )}
             </button>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "1.5rem" }}>
-              <p
-                className="text-xs font-medium tracking-widest uppercase"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                {projet.tag}
-              </p>
-
-              <h2
-                className="leading-tight"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-                  color: "var(--noir)",
-                }}
-              >
-                {projet.nom}
-              </h2>
-
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "var(--gris-texte)" }}
-              >
-                {projet.description}
-              </p>
-
-              <a
-                href={projet.lien}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-                style={{ color: "var(--orange-texte)" }}
-              >
-                Voir le site →
+            <div className="card__body">
+              <p className="eyebrow">{projet.tag}</p>
+              <h2 className="h-title h3">{projet.nom}</h2>
+              <p>{projet.description}</p>
+              <a href={projet.lien} target="_blank" rel="noopener noreferrer" className="btn">
+                Voir le site
               </a>
             </div>
-          </motion.div>
+          </article>
         ))}
       </div>
 
@@ -209,7 +154,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
             style={{
               position: "fixed",
               inset: 0,
-              backgroundColor: "rgba(0,0,0,0.9)",
+              backgroundColor: "rgba(17,17,17,0.94)",
               zIndex: 100,
               display: "flex",
               alignItems: "center",
@@ -225,12 +170,17 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               aria-label="Fermer"
               style={{
                 position: "absolute",
-                top: "1.5rem",
-                right: "1.5rem",
-                color: "#FFFFFF",
-                fontSize: "2rem",
+                top: "24px",
+                right: "24px",
+                width: "50px",
+                height: "50px",
+                borderRadius: "var(--r-m)",
+                backgroundColor: "var(--orange)",
+                color: "var(--noir)",
+                fontSize: "28px",
                 lineHeight: 1,
-                background: "none",
+                display: "grid",
+                placeItems: "center",
                 border: "none",
                 cursor: "pointer",
               }}
@@ -247,13 +197,18 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               aria-label="Précédent"
               style={{
                 position: "absolute",
-                left: "1rem",
+                left: "24px",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "#FFFFFF",
-                fontSize: "2.5rem",
+                width: "50px",
+                height: "50px",
+                borderRadius: "var(--r-m)",
+                backgroundColor: "var(--orange)",
+                color: "var(--noir)",
+                fontSize: "28px",
                 lineHeight: 1,
-                background: "none",
+                display: "grid",
+                placeItems: "center",
                 border: "none",
                 cursor: "pointer",
               }}
@@ -270,13 +225,18 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               aria-label="Suivant"
               style={{
                 position: "absolute",
-                right: "1rem",
+                right: "24px",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "#FFFFFF",
-                fontSize: "2.5rem",
+                width: "50px",
+                height: "50px",
+                borderRadius: "var(--r-m)",
+                backgroundColor: "var(--orange)",
+                color: "var(--noir)",
+                fontSize: "28px",
                 lineHeight: 1,
-                background: "none",
+                display: "grid",
+                placeItems: "center",
                 border: "none",
                 cursor: "pointer",
               }}
@@ -307,6 +267,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                   alt={activeProjet.alt}
                   fill
                   className="object-contain"
+                  style={{ borderRadius: "var(--r-m)" }}
                 />
               </div>
 
