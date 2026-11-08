@@ -13,14 +13,11 @@ const NAV = [
 export default function Footer() {
   return (
     <>
-      {/* Bandeau CTA : relance pour ceux qui lisent jusqu'en bas (le diagnostic est plus haut sur l'accueil). */}
+      {/* Bandeau CTA : un seul appel à l'action, le diagnostic (le téléphone reste dans le footer). */}
       <section className="band">
         <div className="wrap">
-          <h2>Où votre activité perd-elle des clients&nbsp;?</h2>
+          <h2>Vous ne savez pas par où commencer&nbsp;? On fait le point ensemble.</h2>
           <div className="acts">
-            <a href="tel:+33673401475" className="btn btn--ink btn--phone">
-              06 73 40 14 75
-            </a>
             <Link href="/#diagnostic" className="btn btn--ink">
               Faire le diagnostic
             </Link>

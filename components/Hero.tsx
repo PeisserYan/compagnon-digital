@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { PhoneIcon } from "@/components/Navbar";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 const BASE_POSITION = "50% 43%"; // cadrage de la photo principale
@@ -87,9 +86,9 @@ export default function Hero() {
         <Link href="/realisations" className="btn btn--light">
           Voir mes réalisations
         </Link>
-        <a href="tel:+33673401475" className="hero__phone">
-          <PhoneIcon /> 06 73 40 14 75
-        </a>
+        <p className="hero__tel">
+          Ou par téléphone : <a href="tel:+33673401475">06 73 40 14 75</a>
+        </p>
       </motion.aside>
     </section>
   );

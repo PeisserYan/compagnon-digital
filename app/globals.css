@@ -136,6 +136,9 @@ body { background: var(--surface); color: var(--noir); }
 .hero__aside { position: relative; z-index: 2; flex: 0 0 394px; background: rgba(17,17,17,.86); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--s-s); padding: calc(var(--header-h) + 60px) var(--s-l) var(--s-l) 64px; color: var(--light); }
 .hero__aside p { line-height: 1.6; }
 .hero__aside .btn { margin-top: var(--s-s); }
+.hero__tel { font-size: 14px; color: rgba(255,255,255,.65); }
+.hero__tel a { color: rgba(255,255,255,.9); text-decoration: underline; text-underline-offset: 3px; }
+.hero__tel a:hover { color: var(--orange); }
 .hero__phone { display: inline-flex; align-items: center; gap: 12px; background: var(--light); color: var(--noir); border-radius: var(--r-m); padding: 12px 18px; font-weight: 600; font-size: 18px; width: fit-content; transition: background .25s, color .25s; }
 .hero__phone:hover { background: var(--gris-clair); color: var(--orange-texte); }
 .hero__phone svg { width: 20px; height: 20px; }
@@ -271,6 +274,7 @@ body { background: var(--surface); color: var(--noir); }
 }
 .header__cta-m { display: none; }
 @media (max-width: 700px) {
+  .hide-mobile { display: none !important; }
   :root { --fs-h1: 36px; --fs-h2: 30px; --fs-h3: 24px; --s-xl: 70px; }
   .header { top: 12px; }
   .header__inner { height: 68px; }

@@ -157,7 +157,7 @@ export default function Referencement() {
                 </div>
               ))}
             </div>
-            <div className="center-cta" data-reveal style={{ flexDirection: "column", alignItems: "center", gap: "16px" }}>
+            <div className="center-cta hide-mobile" data-reveal style={{ flexDirection: "column", alignItems: "center", gap: "16px" }}>
               <p className="lead">Vous ne savez pas par où commencer ? On fait le point ensemble.</p>
               <Link href="/#diagnostic" className="btn">
                 Faire le diagnostic

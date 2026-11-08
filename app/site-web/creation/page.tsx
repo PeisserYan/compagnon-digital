@@ -57,7 +57,7 @@ export default function Creation() {
                 </div>
               ))}
             </div>
-            <div className="center-cta" data-reveal>
+            <div className="center-cta hide-mobile" data-reveal>
               <Link href="/#diagnostic" className="btn">
                 Faire le diagnostic
               </Link>

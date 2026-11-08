@@ -24,11 +24,10 @@ export default function SectionDiagnostic() {
               <span>
                 <small>Une question précise, déjà client ?</small>
                 <a href="mailto:yan@compagnondigital.fr">yan@compagnondigital.fr</a>
+                <small style={{ marginTop: "4px" }}>
+                  ou <a href="tel:+33673401475">06 73 40 14 75</a>
+                </small>
               </span>
-            </li>
-            <li>
-              <Ico d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
-              <a href="tel:+33673401475" style={{ alignSelf: "center" }}>06 73 40 14 75</a>
             </li>
           </ul>
         </div>
