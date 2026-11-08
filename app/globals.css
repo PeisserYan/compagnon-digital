@@ -240,9 +240,6 @@ body { background: var(--surface); color: var(--noir); }
 .footer__bottom a:first-child { margin-left: 0; }
 .footer__bottom a:hover { opacity: 1; }
 
-/* ── Barre mobile ── */
-.mbar { display: none; }
-
 /* ── Révélation au scroll ── */
 .reveal-armed [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
 .reveal-armed [data-reveal].is-visible { opacity: 1; transform: none; }
@@ -287,14 +284,7 @@ body { background: var(--surface); color: var(--noir); }
   .compare { font-size: 14px; }
   .compare th, .compare td { padding: 12px 10px 12px 0; }
   .footer__grid { grid-template-columns: 1fr; }
-  .footer__bottom { padding-bottom: 90px; }
   .band h2 { font-size: 24px; }
-  .mbar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; z-index: 90; left: 10px; right: 10px; bottom: 10px; background: var(--light); border-radius: var(--r-m); padding: 8px; box-shadow: 0 8px 30px rgba(17,17,17,.25); transform: translateY(130%); transition: transform .35s var(--ease); }
-  .mbar.show { transform: none; }
-  .mbar a { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: var(--r-m); font-weight: 600; font-size: 15px; }
-  .mbar a svg { width: 18px; height: 18px; }
-  .mbar .m-call { background: var(--noir); color: var(--light); }
-  .mbar .m-quote { background: var(--accent); color: var(--noir); }
 }
 
 /* ── En-tête des pages intérieures (format GD « page-head ») ── */

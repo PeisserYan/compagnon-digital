@@ -131,15 +131,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Barre d'action mobile, apparaît après le premier écran */}
-      <div className="mbar" aria-label="Actions rapides">
-        <a className="m-call" href={PHONE.href}>
-          <PhoneIcon /> Appeler
-        </a>
-        <Link className="m-quote" href="/#diagnostic">
-          Faire le diagnostic
-        </Link>
-      </div>
 
       <ScrollFx />
     </>

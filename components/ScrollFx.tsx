@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 // Effets de défilement « format GD Concept », pour toutes les pages :
-// - header flottant qui remonte (.scrolled), barre d'action mobile (.mbar.show)
+// - header flottant qui remonte (.scrolled)
 // - parallaxe douce des photos ([data-parallax="0.15"] = vitesse relative)
 // - révélation au scroll ([data-reveal] : fondu + 16 px, léger décalage entre voisins)
 export default function ScrollFx() {
@@ -13,7 +13,6 @@ export default function ScrollFx() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const header = document.querySelector<HTMLElement>(".header");
-    const mbar = document.querySelector<HTMLElement>(".mbar");
     const layers = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
     let raf = 0;
 
@@ -22,7 +21,6 @@ export default function ScrollFx() {
       const y = window.scrollY;
       const vh = window.innerHeight;
       header?.classList.toggle("scrolled", y > 40);
-      mbar?.classList.toggle("show", y > vh * 0.6);
       if (reduce) return;
       for (const el of layers) {
         const box = (el.parentElement ?? el).getBoundingClientRect();
