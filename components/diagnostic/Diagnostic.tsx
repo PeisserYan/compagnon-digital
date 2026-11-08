@@ -217,14 +217,14 @@ export default function Diagnostic() {
                 Où peut-on vous joindre ?
               </h3>
               <p className="mb-7 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-                Vous voyez votre résultat juste après. Je reviens ensuite vers vous pour en parler 15 minutes.
+                Vous voyez votre résultat juste après. Je vous rappelle ensuite pour en parler 15 minutes.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                {/* Prénom et email obligatoires (astérisque) ; téléphone facultatif, sans le dire. */}
-                <input required aria-label="Prénom (obligatoire)" placeholder="Prénom *" autoComplete="given-name" value={prenom} onChange={(e) => setPrenom(e.target.value)} style={champ} maxLength={80} />
-                <input required aria-label="Email (obligatoire)" placeholder="Email *" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} style={champ} maxLength={160} />
+                {/* Les trois champs sont obligatoires. */}
+                <input required aria-label="Prénom" placeholder="Prénom" autoComplete="given-name" value={prenom} onChange={(e) => setPrenom(e.target.value)} style={champ} maxLength={80} />
                 <input
+                  required
                   aria-label="Téléphone"
                   placeholder="Téléphone"
                   type="tel"
@@ -236,8 +236,8 @@ export default function Diagnostic() {
                   maxLength={30}
                   pattern="(?:\D*\d){9,}\D*"
                   title="Au moins 9 chiffres"
-                  className="sm:col-span-2"
                 />
+                <input required aria-label="Email" placeholder="Email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} style={champ} maxLength={160} className="sm:col-span-2" />
                 <input
                   tabIndex={-1}
                   autoComplete="off"
@@ -278,9 +278,7 @@ export default function Diagnostic() {
               <p className="mb-6 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
                 {envoi === "erreur"
                   ? "Votre demande n'a pas pu m'être transmise. Réservez directement un créneau ci-dessous, ou appelez-moi au 06 73 40 14 75."
-                  : telephone.trim()
-                    ? "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Vous préférez choisir le moment ?"
-                    : "Je vous écris sous 24 h (jours ouvrés). Pour en parler 15 minutes de vive voix, choisissez votre créneau :"}
+                  : "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Vous préférez choisir le moment ?"}
               </p>
               <a href={GOOGLE_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn">
                 Choisir mon créneau

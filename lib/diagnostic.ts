@@ -1,4 +1,4 @@
-// Diagnostic express : 5 questions cliquables, puis prénom + email (téléphone facultatif).
+// Diagnostic express : 5 questions cliquables, puis prénom / téléphone / email.
 // But : qualifier en 1 minute et décrocher un appel rapide (15-20 min), qui débouche sur un
 // entretien de 45 min. Le résultat affiché reste volontairement court : il dit QUOI, pas COMMENT.
 // Partagé entre le questionnaire (client) et l'API (emails) : une seule source de vérité.
