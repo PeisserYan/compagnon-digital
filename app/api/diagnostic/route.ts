@@ -10,7 +10,11 @@ function nettoyer(brut: unknown): Reponses {
   if (!brut || typeof brut !== "object") return r;
   for (const q of QUESTIONS) {
     const v = (brut as Record<string, unknown>)[q.id];
-    if (typeof v === "string" && q.options.some((o) => o.value === v)) r[q.id as QuestionId] = v;
+    const valide = (x: unknown): x is string => typeof x === "string" && q.options.some((o) => o.value === x);
+    if (q.multiple) {
+      const vals = Array.from(new Set((Array.isArray(v) ? v : [v]).filter(valide)));
+      if (vals.length) r[q.id as QuestionId] = vals;
+    } else if (valide(v)) r[q.id as QuestionId] = v;
   }
   return r;
 }
@@ -39,7 +43,9 @@ export async function POST(req: NextRequest) {
   const prenom = txt(body.prenom, 80);
   const telephone = txt(body.telephone, 30);
   const email = txt(body.email, 160);
-  if (!prenom || telephone.replace(/\D/g, "").length < 9 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Prénom + email obligatoires ; téléphone facultatif, mais vérifié s'il est donné.
+  const telOk = !telephone || telephone.replace(/\D/g, "").length >= 9;
+  if (!prenom || !telOk || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ success: false, error: "Coordonnées incomplètes" }, { status: 400 });
   }
 
@@ -53,11 +59,11 @@ export async function POST(req: NextRequest) {
   ).join("");
   const htmlYan = `
     <div style="font-family:sans-serif;font-size:15px;max-width:600px">
-      <p style="font-size:18px;margin:0 0 4px"><strong>${esc(prenom)}</strong> · <a href="tel:${esc(telLien)}">${esc(telephone)}</a></p>
+      <p style="font-size:18px;margin:0 0 4px"><strong>${esc(prenom)}</strong> · ${telephone ? `<a href="tel:${esc(telLien)}">${esc(telephone)}</a>` : "pas de téléphone (à recontacter par email)"}</p>
       <p style="margin:0 0 16px"><a href="mailto:${esc(email)}">${esc(email)}</a></p>
       <p style="margin:0 0 16px"><strong>Priorité affichée :</strong> ${esc(prio.titre)}</p>
       <table style="border-collapse:collapse;width:100%">${lignes}</table>
-      <p style="color:#777;font-size:13px;margin-top:16px">Rappel promis sous 24 h ouvrées.</p>
+      <p style="color:#777;font-size:13px;margin-top:16px">${telephone ? "Rappel promis sous 24 h ouvrées." : "Réponse par email promise sous 24 h ouvrées."}</p>
     </div>`;
 
   // 2. Au prospect : trace écrite + lien de réservation
@@ -66,7 +72,7 @@ export async function POST(req: NextRequest) {
       <p>Bonjour ${esc(prenom)},</p>
       <p>Merci pour vos réponses. Votre priorité : <strong>${esc(prio.titre)}</strong>.</p>
       <p style="color:#444">${esc(prio.constat)}</p>
-      <p>Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Si vous préférez choisir le moment :</p>
+      <p>${telephone ? "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Si vous préférez choisir le moment :" : "Je vous écris sous 24 h (jours ouvrés). Pour en parler 15 minutes de vive voix, choisissez votre créneau :"}</p>
       <p><a href="${GOOGLE_BOOKING_URL}" style="display:inline-block;background:#111;color:#fff;padding:12px 22px;text-decoration:none;border-radius:2px">Choisir mon créneau</a></p>
       <p style="margin-top:28px">Yan Peisser<br/><span style="color:#777">Compagnon Digital · 06 73 40 14 75</span></p>
     </div>`;
@@ -77,7 +83,9 @@ export async function POST(req: NextRequest) {
       sender: { name: "Compagnon Digital", email: "yan@compagnondigital.fr" },
       to: [{ email: "yan@compagnondigital.fr", name: "Yan Peisser" }],
       replyTo: { email, name: prenom },
-      subject: `À rappeler : ${prenom} · ${telephone} · priorité ${prio.titre}`,
+      subject: telephone
+        ? `À rappeler : ${prenom} · ${telephone} · priorité ${prio.titre}`
+        : `À recontacter par email : ${prenom} · priorité ${prio.titre}`,
       htmlContent: htmlYan,
     });
   } catch (err) {

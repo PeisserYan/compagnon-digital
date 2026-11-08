@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { GOOGLE_BOOKING_URL, QUESTIONS, priorite, type Question, type Reponses } from "@/lib/diagnostic";
+import { GOOGLE_BOOKING_URL, QUESTIONS, liste, priorite, type Question, type Reponses } from "@/lib/diagnostic";
 
 type Ecran = { kind: "intro" } | { kind: "question"; index: number } | { kind: "contact" } | { kind: "resultat" };
 type Envoi = "idle" | "loading" | "ok" | "erreur";
@@ -64,7 +64,25 @@ export default function Diagnostic() {
     setEcran(e);
   };
 
+  const suivante = (index: number) =>
+    aller(index + 1 < TOTAL ? { kind: "question", index: index + 1 } : { kind: "contact" });
+
+  // Choix multiples : coche / décoche, sans avancer (bouton « Suivant »). Une option exclusive vide les autres.
+  function basculer(q: Question, value: string) {
+    const exclusive = q.options.find((o) => o.value === value)?.exclusive;
+    setReponses((r) => {
+      const actuel = liste(r[q.id]);
+      const suivant = actuel.includes(value)
+        ? actuel.filter((v) => v !== value)
+        : exclusive
+          ? [value]
+          : [...actuel.filter((v) => !q.options.find((o) => o.value === v)?.exclusive), value];
+      return { ...r, [q.id]: suivant };
+    });
+  }
+
   function repondre(q: Question, value: string, index: number) {
+    if (q.multiple) return basculer(q, value);
     setReponses((r) => ({ ...r, [q.id]: value }));
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(
@@ -158,20 +176,36 @@ export default function Diagnostic() {
 
           {ecran.kind === "question" && (
             <div>
-              <h3 className="mb-7" style={titreStyle}>
+              <h3 className={QUESTIONS[ecran.index].aide ? "mb-2" : "mb-7"} style={titreStyle}>
                 {QUESTIONS[ecran.index].titre}
               </h3>
+              {QUESTIONS[ecran.index].aide && (
+                <p className="mb-6 text-sm" style={{ color: "var(--gris-texte)" }}>
+                  {QUESTIONS[ecran.index].aide}
+                </p>
+              )}
               <div className={`grid gap-3 ${QUESTIONS[ecran.index].colonnes === 2 ? "sm:grid-cols-2" : ""}`}>
                 {QUESTIONS[ecran.index].options.map((o) => (
                   <Choix
                     key={o.value}
-                    actif={reponses[QUESTIONS[ecran.index].id] === o.value}
+                    actif={liste(reponses[QUESTIONS[ecran.index].id]).includes(o.value)}
+                    multiple={QUESTIONS[ecran.index].multiple}
                     onClick={() => repondre(QUESTIONS[ecran.index], o.value, (ecran as { index: number }).index)}
                   >
                     {o.label}
                   </Choix>
                 ))}
               </div>
+              {QUESTIONS[ecran.index].multiple && (
+                <button
+                  type="button"
+                  className="btn mt-6"
+                  disabled={liste(reponses[QUESTIONS[ecran.index].id]).length === 0}
+                  onClick={() => suivante((ecran as { index: number }).index)}
+                >
+                  Suivant
+                </button>
+              )}
               <BoutonRetour onClick={retour} />
             </div>
           )}
@@ -183,13 +217,27 @@ export default function Diagnostic() {
                 Où peut-on vous joindre ?
               </h3>
               <p className="mb-7 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
-                Vous voyez votre résultat juste après. Je vous rappelle ensuite pour en parler 15 minutes.
+                Vous voyez votre résultat juste après. Je reviens ensuite vers vous pour en parler 15 minutes.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                <input required aria-label="Prénom" placeholder="Prénom" autoComplete="given-name" value={prenom} onChange={(e) => setPrenom(e.target.value)} style={champ} maxLength={80} />
-                <input required aria-label="Téléphone" placeholder="Téléphone" type="tel" autoComplete="tel" inputMode="tel" value={telephone} onChange={(e) => setTelephone(e.target.value)} style={champ} maxLength={30} />
-                <input required aria-label="Email" placeholder="Email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} style={champ} maxLength={160} className="sm:col-span-2" />
+                {/* Prénom et email obligatoires (astérisque) ; téléphone facultatif, sans le dire. */}
+                <input required aria-label="Prénom (obligatoire)" placeholder="Prénom *" autoComplete="given-name" value={prenom} onChange={(e) => setPrenom(e.target.value)} style={champ} maxLength={80} />
+                <input required aria-label="Email (obligatoire)" placeholder="Email *" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} style={champ} maxLength={160} />
+                <input
+                  aria-label="Téléphone"
+                  placeholder="Téléphone"
+                  type="tel"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  value={telephone}
+                  onChange={(e) => setTelephone(e.target.value)}
+                  style={champ}
+                  maxLength={30}
+                  pattern="(?:\D*\d){9,}\D*"
+                  title="Au moins 9 chiffres"
+                  className="sm:col-span-2"
+                />
                 <input
                   tabIndex={-1}
                   autoComplete="off"
@@ -230,7 +278,9 @@ export default function Diagnostic() {
               <p className="mb-6 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
                 {envoi === "erreur"
                   ? "Votre demande n'a pas pu m'être transmise. Réservez directement un créneau ci-dessous, ou appelez-moi au 06 73 40 14 75."
-                  : "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Vous préférez choisir le moment ?"}
+                  : telephone.trim()
+                    ? "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Vous préférez choisir le moment ?"
+                    : "Je vous écris sous 24 h (jours ouvrés). Pour en parler 15 minutes de vive voix, choisissez votre créneau :"}
               </p>
               <a href={GOOGLE_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn">
                 Choisir mon créneau
@@ -256,7 +306,7 @@ function BoutonRetour({ onClick }: { onClick: () => void }) {
   );
 }
 
-function Choix({ actif, onClick, children }: { actif: boolean; onClick: () => void; children: React.ReactNode }) {
+function Choix({ actif, multiple, onClick, children }: { actif: boolean; multiple?: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       type="button"
@@ -264,6 +314,9 @@ function Choix({ actif, onClick, children }: { actif: boolean; onClick: () => vo
       aria-pressed={actif}
       className="text-left transition-colors hover:border-[color:var(--noir)]"
       style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "0.75rem",
         width: "100%",
         padding: "1.05rem 1.25rem",
         border: `1.5px solid ${actif ? "var(--orange-texte)" : "var(--gris-border)"}`,
@@ -274,6 +327,24 @@ function Choix({ actif, onClick, children }: { actif: boolean; onClick: () => vo
         cursor: "pointer",
       }}
     >
+      {/* Case à cocher visible sur les questions à choix multiples */}
+      {multiple && (
+        <span
+          aria-hidden="true"
+          style={{
+            flex: "none",
+            width: "20px",
+            height: "20px",
+            borderRadius: "var(--r-s)",
+            border: `1.5px solid ${actif ? "var(--orange)" : "var(--gris-border)"}`,
+            backgroundColor: actif ? "var(--orange)" : "#FFFFFF",
+            backgroundImage: actif ? "var(--ico-check-ink)" : "none",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundSize: "13px",
+          }}
+        />
+      )}
       {children}
     </button>
   );
