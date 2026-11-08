@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 // Effets de défilement « format GD Concept », pour toutes les pages :
-// - header flottant qui remonte (.scrolled)
+// - header flottant qui remonte (.scrolled), masqué en descendant et réaffiché en remontant (.header--hidden)
 // - parallaxe douce des photos ([data-parallax="0.15"] = vitesse relative)
 // - révélation au scroll ([data-reveal] : fondu + 16 px, léger décalage entre voisins)
 export default function ScrollFx() {
@@ -15,12 +15,19 @@ export default function ScrollFx() {
     const header = document.querySelector<HTMLElement>(".header");
     const layers = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
     let raf = 0;
+    let lastY = window.scrollY;
 
     const frame = () => {
       raf = 0;
       const y = window.scrollY;
       const vh = window.innerHeight;
       header?.classList.toggle("scrolled", y > 40);
+      // Seuil de 6 px pour ignorer les micro-mouvements ; jamais masqué en haut de page ni menu ouvert.
+      if (header && Math.abs(y - lastY) > 6) {
+        const menuOuvert = !!header.querySelector(".nav.open, .dd.open");
+        header.classList.toggle("header--hidden", y > lastY && y > 160 && !menuOuvert);
+        lastY = y;
+      }
       if (reduce) return;
       for (const el of layers) {
         const box = (el.parentElement ?? el).getBoundingClientRect();
