@@ -18,11 +18,11 @@ const avis = [
       "Très satisfait du site. Travail sérieux, propre et soigné, avec des explications claires du début à la fin. Réactivité, professionnalisme et bon contact : je recommande sans hésiter.",
   },
   {
-    nom: "Daniel Bogeat",
-    initiale: "D",
-    couleur: "#A142F4",
+    nom: "Grégoire Charles",
+    initiale: "G",
+    couleur: "#1E88E5",
     texte:
-      "Yan a su répondre à mes attentes sur la conception de mon nouveau site tbd-fret.com. La jeunesse est un atout. Merci Yan.",
+      "Le processus de création de mon site internet s'est super bien passé, Yan a été dispo et à l'écoute de A à Z pour aboutir au résultat voulu en plus de travailler rapidement. Je recommande.",
   },
 ];
 
