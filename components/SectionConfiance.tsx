@@ -1,131 +1,51 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
 const comparatif = [
-  {
-    critere: "Engagement",
-    classique: "12-24 mois minimum",
-    compagnon: "Aucun",
-  },
-  {
-    critere: "Tarif",
-    classique: "Opaque, surprises",
-    compagnon: "Clair dès le départ",
-  },
-  {
-    critere: "Après livraison",
-    classique: "Débrouillez-vous",
-    compagnon: "Je reste disponible",
-  },
-  {
-    critere: "Propriété du site",
-    classique: "Souvent bloqué chez eux",
-    compagnon: "100% à vous",
-  },
+  { critere: "Engagement", classique: "12-24 mois minimum", compagnon: "Aucun" },
+  { critere: "Tarif", classique: "Opaque, surprises", compagnon: "Clair dès le départ" },
+  { critere: "Après livraison", classique: "Débrouillez-vous", compagnon: "Je reste disponible" },
+  { critere: "Propriété du site", classique: "Souvent bloqué chez eux", compagnon: "100% à vous" },
 ];
 
+// Format GD Concept : section sombre à bandes diagonales.
 export default function SectionConfiance() {
-  const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: tableRef, isInView: tableInView } = useScrollAnimation();
-
   return (
-    <section
-      id="confiance"
-      className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "var(--gris-clair)" }}
-    >
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-
-        {/* Header */}
-        <div ref={headerRef}>
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--orange-texte)", letterSpacing: "0.15em" }}
-          >
-            Pourquoi je travaille différemment
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="mb-8 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
-          >
+    <section id="confiance" className="section on-dark stripes">
+      <div className="wrap">
+        <div className="stripes__text" data-reveal>
+          <p className="eyebrow">Pourquoi je travaille différemment</p>
+          <h2 className="h-title h2 t-accent" style={{ marginBottom: "var(--s-m)" }}>
             Zéro flou, zéro engagement caché.
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className="mb-16 space-y-4 text-base leading-relaxed"
-            style={{ color: "var(--gris-texte)", maxWidth: "680px" }}
-          >
+          </h2>
+          <div className="lead">
             <p>
-              Mon père a payé 2500€ pour un site il y a quelques années. Il n'a jamais eu un seul client grâce à lui. En prospectant, j'entends régulièrement des entreprises coincées chez SoLocal à 200€ par mois, sous contrat, sans résultat.
+              Mon père a payé 2500€ pour un site il y a quelques années. Il n&apos;a jamais eu un seul client grâce à lui. En prospectant, j&apos;entends régulièrement des entreprises coincées chez SoLocal à 200€ par mois, sous contrat, sans résultat.
             </p>
-            <p>
-              Ce n'est pas normal. Un site doit travailler pour vous. Sinon c'est de l'argent jeté.
-            </p>
+            <p>Ce n&apos;est pas normal. Un site doit travailler pour vous. Sinon c&apos;est de l&apos;argent jeté.</p>
             <p>
               Je suis indépendant, sans frais fixes à couvrir, sans commercial à payer. Ce que vous payez va directement dans votre site.
             </p>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Tableau comparatif */}
-        <motion.div
-          ref={tableRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={tableInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ overflowX: "auto", width: "100%", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
-        >
-          <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+        <div data-reveal style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", maxWidth: "1000px" }}>
+          <table className="compare">
             <thead>
-              <tr style={{ borderBottom: "2px solid var(--noir)" }}>
-                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--noir)", width: "28%" }}>
-                  Critère
-                </th>
-                <th className="py-3 pr-6 text-left font-semibold" style={{ color: "var(--gris-texte)", width: "36%" }}>
-                  Agences / SoLocal
-                </th>
-                <th className="py-3 text-left font-semibold" style={{ color: "var(--orange-texte)", width: "36%", backgroundColor: "rgba(242, 153, 74, 0.12)" }}>
-                  Moi
-                </th>
+              <tr>
+                <th style={{ width: "28%" }}>Critère</th>
+                <th className="muted" style={{ width: "36%" }}>Agences / SoLocal</th>
+                <th className="me" style={{ width: "36%" }}>Moi</th>
               </tr>
             </thead>
             <tbody>
-              {comparatif.map((row, i) => (
-                <tr
-                  key={i}
-                  style={{ borderBottom: "1px solid var(--gris-border)" }}
-                >
-                  <td className="py-4 pr-6 font-medium" style={{ color: "var(--noir)" }}>
-                    {row.critere}
-                  </td>
-                  <td className="py-4 pr-6" style={{ color: "var(--gris-texte)" }}>
-                    {row.classique}
-                  </td>
-                  <td className="py-4" style={{ color: "var(--noir)", fontWeight: 500, backgroundColor: "rgba(242, 153, 74, 0.12)" }}>
-                    {row.compagnon}
-                  </td>
+              {comparatif.map((row) => (
+                <tr key={row.critere}>
+                  <td style={{ fontWeight: 500 }}>{row.critere}</td>
+                  <td className="muted">{row.classique}</td>
+                  <td className="me">{row.compagnon}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </motion.div>
-
+        </div>
       </div>
     </section>
   );

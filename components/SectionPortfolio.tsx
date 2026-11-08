@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const projets = [
   {
@@ -35,145 +31,38 @@ const projets = [
   },
 ];
 
+// Format GD Concept : section sombre, titre à parallélogramme, bouton à droite, cartes claires.
 export default function SectionPortfolio() {
-  const { ref: headerRef, isInView: headerInView } = useScrollAnimation();
-  const { ref: gridRef, isInView: gridInView } = useScrollAnimation();
-  const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation();
-
   return (
-    <section
-      id="portfolio"
-      className="pt-24 pb-24 px-6 md:px-12"
-      style={{ backgroundColor: "#FFFFFF" }}
-    >
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <div ref={headerRef}>
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mb-6 text-xs font-medium tracking-widest uppercase"
-            style={{ color: "var(--orange-texte)" }}
-          >
-            Réalisations
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="mb-16 leading-snug"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--noir)",
-            }}
-          >
-            Réalisations.
-          </motion.h2>
+    <section id="portfolio" className="section on-dark">
+      <div className="wrap">
+        <div className="strip__head" data-reveal>
+          <div>
+            <p className="eyebrow">Réalisations</p>
+            <h2 className="h-title h2 t-accent">Réalisations.</h2>
+          </div>
+          <Link href="/realisations" className="btn btn--light">
+            Voir toutes mes réalisations
+          </Link>
         </div>
 
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {projets.map((projet, i) => (
-            <motion.div
-              key={projet.nom}
-              initial={{ opacity: 0, y: 40 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-              whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.1)" }}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                backgroundColor: "#FFFFFF",
-                border: "1px solid var(--gris-border)",
-                borderRadius: "8px",
-                overflow: "hidden",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-              }}
-            >
-              <div style={{ height: "220px", overflow: "hidden" }}>
-                <Image
-                  src={projet.image}
-                  alt={projet.alt}
-                  width={600}
-                  height={220}
-                  className="w-full h-full object-cover"
-                />
+        <div className="cards">
+          {projets.map((p) => (
+            <article key={p.nom} className="card" data-reveal>
+              <div className="card__img">
+                <Image src={p.image} alt={p.alt} fill sizes="(max-width: 700px) 100vw, 33vw" className="object-cover object-top" />
               </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "1.5rem" }}>
-                <p
-                  className="text-xs font-medium tracking-widest uppercase"
-                  style={{ color: "var(--orange-texte)" }}
-                >
-                  {projet.tag}
-                </p>
-
-                <h3
-                  className="leading-tight"
-                  style={{
-                    fontFamily: "var(--font-playfair)",
-                    fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-                    color: "var(--noir)",
-                  }}
-                >
-                  {projet.nom}
-                </h3>
-
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{
-                    color: "var(--gris-texte)",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {projet.description}
-                </p>
-
-                <a
-                  href={projet.lien}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium w-fit border-b border-transparent hover:border-current transition-colors"
-                  style={{ color: "var(--orange-texte)" }}
-                >
-                  Voir le site →
+              <div className="card__body">
+                <p className="eyebrow">{p.tag}</p>
+                <h3 className="h-title h3">{p.nom}</h3>
+                <p>{p.description}</p>
+                <a href={p.lien} target="_blank" rel="noopener noreferrer" className="btn">
+                  Voir le site
                 </a>
               </div>
-            </motion.div>
+            </article>
           ))}
         </div>
-
-        <motion.div
-          ref={ctaRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mt-16 flex justify-center"
-        >
-          <Link
-            href="/realisations"
-            className="transition-opacity hover:opacity-60"
-            style={{
-              border: "1px solid var(--noir)",
-              color: "var(--noir)",
-              padding: "0.875rem 2rem",
-              borderRadius: "999px",
-              backgroundColor: "transparent",
-              fontSize: "0.9375rem",
-              fontWeight: 500,
-              textDecoration: "none",
-            }}
-          >
-            Voir toutes mes réalisations →
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

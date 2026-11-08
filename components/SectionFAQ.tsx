@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 // Ne reprend pas les points déjà traités par SectionConfiance (engagement, tarif opaque,
 // suivi après livraison, propriété du site). Mêmes textes dans le JSON-LD FAQPage.
@@ -42,62 +38,27 @@ const JSON_LD = {
   })),
 };
 
+// Format GD Concept : questions dans des cartes claires, bouton carré orange.
 export default function SectionFAQ() {
-  const { ref, isInView } = useScrollAnimation();
-
   return (
-    <section
-      id="faq"
-      className="py-24 px-6 md:px-12"
-      style={{ backgroundColor: "var(--gris-clair)", scrollMarginTop: "64px" }}
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
-      />
-      <div ref={ref} style={{ maxWidth: "760px", margin: "0 auto" }}>
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-6 text-xs font-medium tracking-widest uppercase"
-          style={{ color: "var(--orange-texte)", letterSpacing: "0.15em" }}
-        >
-          FAQ
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-          className="mb-12 leading-snug"
-          style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", color: "var(--noir)" }}
-        >
-          Questions fréquentes
-        </motion.h2>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          style={{ borderTop: "1px solid var(--gris-border)" }}
-        >
+    <section id="faq" className="section section--tight">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+      <div className="wrap">
+        <div data-reveal>
+          <p className="eyebrow">FAQ</p>
+          <h2 className="h-title h2 t-accent">Questions fréquentes</h2>
+        </div>
+        <div className="faq">
           {QUESTIONS.map(({ q, r }) => (
-            <details key={q} className="faq-item" style={{ borderBottom: "1px solid var(--gris-border)" }}>
-              <summary
-                className="flex items-center justify-between gap-6 py-5 cursor-pointer font-medium"
-                style={{ color: "var(--noir)", listStyle: "none" }}
-              >
+            <details key={q} className="faq-item" data-reveal>
+              <summary>
                 <span>{q}</span>
-                <span aria-hidden="true" className="faq-icon" style={{ color: "var(--orange-texte)", fontSize: "1.25rem", lineHeight: 1 }}>
-                  +
-                </span>
+                <span aria-hidden="true" className="faq-icon">+</span>
               </summary>
-              <p className="pb-6 text-base leading-relaxed" style={{ color: "var(--gris-texte)", maxWidth: "640px" }}>
-                {r}
-              </p>
+              <p>{r}</p>
             </details>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

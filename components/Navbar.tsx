@@ -4,6 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import ScrollFx from "@/components/ScrollFx";
+
+const SERVICES_LINKS = [
+  { href: "/site-web/creation", label: "Création de site" },
+  { href: "/site-web/referencement", label: "Référencement" },
+];
 
 const NAV_LINKS = [
   { href: "/realisations", label: "Réalisations" },
@@ -11,377 +17,131 @@ const NAV_LINKS = [
   { href: "/#faq", label: "FAQ" },
 ];
 
-const SERVICES_LINKS = [
-  { href: "/site-web/creation", label: "Création de site" },
-  { href: "/site-web/referencement", label: "Référencement" },
-];
+const PHONE = { href: "tel:+33673401475", label: "06 73 40 14 75" };
 
-// Menu mobile : liste à plat (pas d'accordéon), même destinations que la nav desktop.
-const MOBILE_LINKS = [...SERVICES_LINKS, ...NAV_LINKS];
+function Chevron() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
 
-// React 18 ne connaît pas `inert` : seule la chaîne vide fait écrire l'attribut dans le DOM
-// (true serait ignoré), alors que @types/react 18.3 le type en boolean, d'où le cast.
-// En passant à React 19 : remplacer par inert={!mobileMenuOpen} (sinon "" vaudra false).
-const INERT_REACT_18 = { inert: "" } as unknown as { inert: boolean };
+export function PhoneIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
 
-// Menu mobile : courbe de décélération douce, volontairement un peu plus lente que les standards
-// (≈ 250 ms chez Apple/Vercel) pour le côté design. Dernier lien visible vers 650 ms.
-const MENU_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
-
+// Header flottant (carte blanche détachée du haut, arrondi 6 px) — format GD Concept.
 export default function Navbar() {
-  const navRef = useRef<HTMLElement>(null);
-  const burgerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Overlay retiré du rendu (display: none) quand le menu est fermé : Safari 26 (iOS) détecte les
-  // éléments fixed qui touchent le bas de l'écran, même invisibles (opacity 0), et rend alors
-  // opaque la zone derrière sa barre d'adresse au lieu de laisser voir la page.
-  const [menuMounted, setMenuMounted] = useState(false);
-  // Passe à true une frame après l'affichage, pour que l'animation d'entrée se joue.
-  const [menuEntered, setMenuEntered] = useState(false);
-  const [navHeight, setNavHeight] = useState(0);
+  const headerRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
+  const [ddOpen, setDdOpen] = useState(false);
 
-  // Hauteur réelle du header (88 px en haut de page, ~65 px une fois scrollé, padding animé) :
-  // le menu mobile démarre juste en dessous. border-box pour capter les changements de padding.
+  // Ferme le menu au changement de page, à Échap et au clic en dehors.
   useEffect(() => {
-    const nav = navRef.current;
-    if (!nav) return;
-    const updateNavHeight = () => setNavHeight(nav.getBoundingClientRect().height);
-    updateNavHeight();
-    const observer = new ResizeObserver(updateNavHeight);
-    observer.observe(nav, { box: "border-box" });
-    return () => observer.disconnect();
-  }, []);
+    setOpen(false);
+    setDdOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Bloque le scroll tant que le menu mobile est ouvert. Sur <html> ET <body> : globals.css met
-  // overflow-x: hidden sur html, donc c'est html qui scrolle et body seul ne suffit pas.
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const { documentElement: html, body } = document;
-    const previousHtmlOverflow = html.style.overflow;
-    const previousBodyOverflow = body.style.overflow;
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-    return () => {
-      html.style.overflow = previousHtmlOverflow;
-      body.style.overflow = previousBodyOverflow;
-    };
-  }, [mobileMenuOpen]);
-
-  // Échap ferme le menu et rend le focus au bouton ; repasser au-dessus de md (768 px) le ferme aussi.
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      setMobileMenuOpen(false);
+    if (!open && !ddOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      setDdOpen(false);
       burgerRef.current?.focus();
     };
-    const desktopQuery = window.matchMedia("(min-width: 768px)");
-    const onBreakpointChange = (event: MediaQueryListEvent) => {
-      if (event.matches) setMobileMenuOpen(false);
+    const onClick = (e: MouseEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) {
+        setOpen(false);
+        setDdOpen(false);
+      }
     };
-    document.addEventListener("keydown", onKeyDown);
-    desktopQuery.addEventListener("change", onBreakpointChange);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("click", onClick);
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      desktopQuery.removeEventListener("change", onBreakpointChange);
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
     };
-  }, [mobileMenuOpen]);
+  }, [open, ddOpen]);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      setMenuMounted(true);
-      let innerFrame = 0;
-      const outerFrame = requestAnimationFrame(() => {
-        innerFrame = requestAnimationFrame(() => setMenuEntered(true));
-      });
-      return () => {
-        cancelAnimationFrame(outerFrame);
-        cancelAnimationFrame(innerFrame);
-      };
-    }
-    setMenuEntered(false);
-    // Démonte après la plus longue transition de fermeture (trait orange : 500 ms).
-    const timeout = window.setTimeout(() => setMenuMounted(false), 550);
-    return () => window.clearTimeout(timeout);
-  }, [mobileMenuOpen]);
-
-  const closeMobileMenu = () => setMobileMenuOpen(false);
+  const close = () => {
+    setOpen(false);
+    setDdOpen(false);
+  };
+  const isActive = (href: string) => !href.includes("#") && pathname.startsWith(href);
 
   return (
-    <nav
-      ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
-      style={{
-        padding: `${scrolled ? "0.5rem" : "1.25rem"} clamp(1rem, 4vw, 3rem)`,
-        // Menu mobile ouvert : header blanc, dans la continuité du menu.
-        backgroundColor: scrolled || mobileMenuOpen ? "#FFFFFF" : "transparent",
-        borderBottom: scrolled && !mobileMenuOpen ? "1px solid var(--gris-border)" : "1px solid transparent",
-        boxShadow: scrolled && !mobileMenuOpen ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
-        transition: "padding 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-      }}
-    >
-      <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}>
-        <Image
-          src={pathname === "/" && !scrolled && !mobileMenuOpen ? "/logo-compagnon-digital-encre.svg" : "/logo-compagnon-digital.svg"}
-          alt="Compagnon Digital"
-          width={143}
-          height={48}
-          priority
-        />
-      </Link>
+    <>
+      <header ref={headerRef} className="header">
+        <div className="header__inner">
+          <Link href="/" className="header__logo" aria-label="Compagnon Digital — accueil" onClick={close}>
+            <Image src="/logo-compagnon-digital.svg" alt="Compagnon Digital" width={143} height={48} priority />
+          </Link>
 
-      <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
-        <li
-          style={{ position: "relative" }}
-          onMouseEnter={() => setServicesOpen(true)}
-          onMouseLeave={() => setServicesOpen(false)}
-        >
-          <button
-            type="button"
-            className="hover:opacity-60 transition-opacity"
-            style={{ color: "var(--noir)", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
-            onClick={() => setServicesOpen((open) => !open)}
-            aria-expanded={servicesOpen}
-          >
-            Services
-          </button>
-          {servicesOpen && (
-            <ul
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                backgroundColor: "#FFFFFF",
-                border: "1px solid var(--gris-border)",
-                borderRadius: "2px",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-                minWidth: "190px",
-                padding: "1.25rem 0 0.5rem",
-              }}
-            >
-              {SERVICES_LINKS.map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="hover:opacity-60 transition-opacity block"
-                    style={{ color: "var(--noir)", padding: "0.5rem 1.25rem" }}
-                    onClick={() => setServicesOpen(false)}
-                  >
+          <nav id="nav-principale" className={`nav${open ? " open" : ""}`} aria-label="Navigation principale">
+            <div className={`dd${ddOpen ? " open" : ""}`}>
+              <button type="button" aria-expanded={ddOpen} aria-haspopup="true" onClick={() => setDdOpen((v) => !v)}>
+                Services <Chevron />
+              </button>
+              <div className="dd__menu">
+                {SERVICES_LINKS.map(({ href, label }) => (
+                  <Link key={href} href={href} onClick={close}>
                     {label}
                   </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-        {NAV_LINKS.map(({ href, label }) => (
-          <li key={href}>
-            <Link
-              href={href}
-              className="hover:opacity-60 transition-opacity"
-              style={{ color: "var(--noir)" }}
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <Link
-        href="/#diagnostic"
-        className={`hidden md:inline-block text-sm font-medium transition-colors`}
-        style={{
-          backgroundColor: "var(--noir)",
-          color: "#FFFFFF",
-          padding: "0.625rem 1.375rem",
-          borderRadius: "999px",
-          textDecoration: "none",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-        }}
-      >
-        Faire le diagnostic
-      </Link>
-
-      <button
-        ref={burgerRef}
-        type="button"
-        // display géré en classes (inline-flex / md:hidden) : un display en style inline écraserait md:hidden.
-        className="mobile-nav inline-flex md:hidden"
-        onClick={() => setMobileMenuOpen((open) => !open)}
-        aria-expanded={mobileMenuOpen}
-        aria-controls="menu-mobile"
-        aria-label={mobileMenuOpen ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
-        style={{
-          position: "relative",
-          zIndex: 60,
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "0.625rem",
-          background: "none",
-          border: "none",
-          color: "var(--noir)",
-          cursor: "pointer",
-        }}
-      >
-        <span style={{ position: "relative", display: "block", width: "20px", height: "16px" }}>
-          <span
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              width: "20px",
-              height: "2px",
-              backgroundColor: "currentColor",
-              transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-              transform: mobileMenuOpen ? "translateY(7px) rotate(45deg)" : "none",
-            }}
-          />
-          <span
-            style={{
-              position: "absolute",
-              left: 0,
-              top: "7px",
-              width: "20px",
-              height: "2px",
-              backgroundColor: "currentColor",
-              transition: "opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)",
-              opacity: mobileMenuOpen ? 0 : 1,
-            }}
-          />
-          <span
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: 0,
-              width: "20px",
-              height: "2px",
-              backgroundColor: "currentColor",
-              transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-              transform: mobileMenuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
-            }}
-          />
-        </span>
-      </button>
-
-      {/* Menu plein écran sous le header (logo + burger restent visibles au-dessus). */}
-      <div
-        id="menu-mobile"
-        className={`mobile-nav ${menuMounted ? "block" : "hidden"} md:hidden`}
-        aria-hidden={!mobileMenuOpen}
-        // Fermé : invisible ET hors de portée du clavier (Tab) et des lecteurs d'écran.
-        {...(mobileMenuOpen ? {} : INERT_REACT_18)}
-        style={{
-          position: "fixed",
-          left: 0,
-          right: 0,
-          top: `${navHeight}px`,
-          bottom: 0,
-          zIndex: 40,
-          overflow: "hidden",
-          pointerEvents: mobileMenuOpen ? "auto" : "none",
-        }}
-      >
-        {/* Fond blanc : fondu + léger glissement vers le bas */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "var(--blanc)",
-            opacity: menuEntered ? 1 : 0,
-            transform: menuEntered ? "translateY(0)" : "translateY(-8px)",
-            transition: `opacity 400ms ${MENU_EASING}, transform 400ms ${MENU_EASING}`,
-          }}
-        />
-        {/* Fin trait orange sous le header, qui se trace de gauche à droite */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "1px",
-            backgroundColor: "var(--orange)",
-            transformOrigin: "left center",
-            transform: menuEntered ? "scaleX(1)" : "scaleX(0)",
-            transition: `transform 500ms ${MENU_EASING}`,
-            transitionDelay: menuEntered ? "100ms" : "0ms",
-          }}
-        />
-
-        <ul
-          aria-label="Navigation principale (mobile)"
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "2rem",
-          }}
-        >
-          {MOBILE_LINKS.map(({ href, label }, index) => (
-            <li key={href}>
-              <Link
-                href={href}
-                onClick={closeMobileMenu}
-                className="block uppercase text-[color:var(--noir)] hover:text-[color:var(--orange-texte)]"
-                style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "1.5rem",
-                  lineHeight: "2rem",
-                  letterSpacing: "0.08em",
-                  opacity: menuEntered ? 1 : 0,
-                  transform: menuEntered ? "translateY(0)" : "translateY(12px)",
-                  transition: `opacity 350ms ${MENU_EASING}, transform 350ms ${MENU_EASING}, color 200ms ease`,
-                  // Délai sur opacity/transform seulement : la couleur au survol reste immédiate.
-                  transitionDelay: menuEntered ? `${100 + index * 50}ms, ${100 + index * 50}ms, 0ms` : "0ms",
-                }}
-              >
+                ))}
+              </div>
+            </div>
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link key={href} href={href} className={isActive(href) ? "is-active" : undefined} onClick={close}>
                 {label}
               </Link>
-            </li>
-          ))}
-          <li>
-            <Link
-              href="/#diagnostic"
-              onClick={closeMobileMenu}
-              className="block font-medium"
-              style={{
-                marginTop: "0.5rem",
-                backgroundColor: "var(--noir)",
-                color: "#FFFFFF",
-                padding: "0.95rem 2rem",
-                borderRadius: "999px",
-                opacity: menuEntered ? 1 : 0,
-                transform: menuEntered ? "translateY(0)" : "translateY(12px)",
-                transition: `opacity 350ms ${MENU_EASING}, transform 350ms ${MENU_EASING}`,
-                transitionDelay: menuEntered ? `${100 + MOBILE_LINKS.length * 50}ms` : "0ms",
-              }}
-            >
-              Faire le diagnostic
-            </Link>
-          </li>
-        </ul>
+            ))}
+            <a href={PHONE.href}>{PHONE.label}</a>
+            <div className="header__cta-m">
+              <Link href="/#diagnostic" className="btn" onClick={close}>
+                Faire le diagnostic
+              </Link>
+            </div>
+          </nav>
+
+          <Link href="/#diagnostic" className="btn header__cta">
+            Faire le diagnostic
+          </Link>
+
+          <button
+            ref={burgerRef}
+            type="button"
+            className="burger"
+            aria-expanded={open}
+            aria-controls="nav-principale"
+            aria-label={open ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      {/* Barre d'action mobile, apparaît après le premier écran */}
+      <div className="mbar" aria-label="Actions rapides">
+        <a className="m-call" href={PHONE.href}>
+          <PhoneIcon /> Appeler
+        </a>
+        <Link className="m-quote" href="/#diagnostic">
+          Faire le diagnostic
+        </Link>
       </div>
-    </nav>
+
+      <ScrollFx />
+    </>
   );
 }

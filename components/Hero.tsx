@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { PhoneIcon } from "@/components/Navbar";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 
@@ -18,6 +19,9 @@ const BASE_POSITION = "50% 43%"; // cadrage de la photo principale
 const TEXT_PADDING = 6; // marge autour du texte où l'effet est coupé (px)
 
 type Point = { x: number; y: number; t: number };
+
+// Repris du texte d'accroche (Site web, référencement, publicité Google)
+const CHIPS = ["Site web", "Référencement", "Publicité Google"];
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -102,8 +106,8 @@ export default function Hero() {
         ctx.globalCompositeOperation = "destination-in";
         ctx.drawImage(mask, 0, 0, w, h);
 
-        // Rien derrière la navbar : on coupe sous son bord bas, avec un léger fondu
-        const nav = document.querySelector("nav");
+        // Rien derrière le header flottant : on coupe sous son bord bas, avec un léger fondu
+        const nav = document.querySelector(".header__inner");
         const navBottom = nav ? nav.getBoundingClientRect().bottom - section.getBoundingClientRect().top : 0;
         if (navBottom > 0) {
           const g = ctx.createLinearGradient(0, navBottom, 0, navBottom + NAV_FEATHER);
@@ -196,107 +200,86 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden min-h-[85vh] flex flex-col items-center justify-center text-center pt-[120px] pb-24 px-6 md:px-12"
-      style={{ backgroundColor: "#F2A65E" }}
-    >
-      {/* Photo principale, toujours visible */}
-      {/* Sur grand écran, l'image est élargie et calée à gauche : l'oiseau finit à droite, hors du texte */}
-      <div className="absolute inset-y-0 left-0 w-full lg:w-[180%]">
-        {/* Mobile / tablette : version sans l'oiseau (il passerait derrière le texte) */}
-        <Image
-          src="/hero/hero-base-mobile.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover lg:hidden"
-          style={{ objectPosition: BASE_POSITION }}
-        />
-        {/* Grand écran : photo d'origine avec l'oiseau */}
-        <Image
-          src="/hero/hero-base.webp"
-          alt=""
-          fill
-          sizes="180vw"
-          className="hidden lg:block object-cover"
-          style={{ objectPosition: BASE_POSITION }}
-        />
+    <section ref={sectionRef} className="hero">
+      {/* Photo principale, en parallaxe douce */}
+      <div className="hero__bg" data-parallax="0.25" data-parallax-top>
+        {/* Grand écran : photo élargie et calée à gauche, l'oiseau passe à droite du titre */}
+        <div className="hero__bg-img lg:right-auto lg:w-[125%]">
+          {/* Mobile / tablette : version sans l'oiseau (il passerait derrière le texte) */}
+          <Image
+            src="/hero/hero-base-mobile.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover lg:hidden"
+            style={{ objectPosition: BASE_POSITION }}
+          />
+          <Image
+            src="/hero/hero-base.webp"
+            alt=""
+            fill
+            sizes="125vw"
+            className="hidden lg:block object-cover"
+            style={{ objectPosition: BASE_POSITION }}
+          />
+        </div>
       </div>
       {/* Photo révélée au passage de la souris */}
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      />
+      <canvas ref={canvasRef} aria-hidden="true" className="hero__canvas" />
+      <div className="hero__ov" aria-hidden="true" />
 
-      {/* Fondu du bas du héros vers la section suivante (blanche) */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 pointer-events-none"
-        style={{ height: "180px", background: "linear-gradient(to bottom, rgba(255,255,255,0), #FFFFFF)" }}
-      />
-
-      <div className="relative z-10" style={{ maxWidth: "780px", width: "100%" }}>
-        <h1
-          data-no-reveal
-          className="mb-8"
-          style={{
-            fontFamily: "var(--font-playfair)",
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
-            lineHeight: 1.15,
-            color: "var(--noir)",
-          }}
-        >
-          J'aide les indépendants et les entreprises à trouver plus de clients.
+      <div className="hero__content">
+        <h1 data-no-reveal className="hero__title">
+          J&apos;aide les indépendants et les entreprises à trouver plus de clients.
         </h1>
 
-        <motion.p
-          data-no-reveal
+        <motion.ul
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease }}
-          className="mb-12 text-lg leading-relaxed"
-          style={{
-            maxWidth: "560px",
-            margin: "0 auto 3rem",
-            color: "var(--noir)",
-          }}
+          transition={{ duration: 0.7, delay: 0.3, ease }}
+          className="chips"
+          aria-label="Services"
         >
-          Site web, référencement, publicité Google : je repère où votre activité perd des clients, puis je construis ce qui manque.
-        </motion.p>
+          {CHIPS.map((c) => (
+            <li key={c} className="chip" data-no-reveal>
+              {c}
+            </li>
+          ))}
+        </motion.ul>
 
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease }}
+          transition={{ duration: 0.6, delay: 0.5, ease }}
+          className="hero__actions"
         >
-          <Link
-            href="/#diagnostic"
-            data-no-reveal="box"
-            className="inline-block font-medium transition-colors"
-            style={{
-              backgroundColor: "var(--noir)",
-              color: "#FFFFFF",
-              padding: "1rem 2.25rem",
-              borderRadius: "999px",
-              textDecoration: "none",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--orange-texte)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--noir)";
-            }}
-          >
+          <Link href="/#diagnostic" data-no-reveal="box" className="btn">
             Faire le diagnostic
           </Link>
-          <p data-no-reveal className="mt-4 text-sm" style={{ color: "var(--noir)", opacity: 0.8 }}>
+          <p data-no-reveal className="btn-note">
             Gratuit · 1 minute · Sans engagement
           </p>
         </motion.div>
       </div>
+
+      <motion.aside
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2, ease }}
+        className="hero__aside"
+        data-no-reveal="box"
+      >
+        <p>
+          Site web, référencement, publicité Google : je repère <strong>où votre activité perd des clients</strong>, puis je construis ce qui manque.
+        </p>
+        <Link href="/realisations" className="btn btn--light">
+          Voir mes réalisations
+        </Link>
+        <a href="tel:+33673401475" className="hero__phone">
+          <PhoneIcon /> 06 73 40 14 75
+        </a>
+      </motion.aside>
     </section>
   );
 }

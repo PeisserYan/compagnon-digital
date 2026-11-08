@@ -11,23 +11,12 @@ type Envoi = "idle" | "loading" | "ok" | "erreur";
 const ease = [0.22, 1, 0.36, 1] as const;
 const TOTAL = QUESTIONS.length;
 
-const boutonNoir: React.CSSProperties = {
-  backgroundColor: "var(--noir)",
-  color: "#FFFFFF",
-  padding: "1rem 2rem",
-  borderRadius: "999px",
-  border: "none",
-  fontWeight: 500,
-  cursor: "pointer",
-  textDecoration: "none",
-  display: "inline-block",
-};
 
 const champ: React.CSSProperties = {
   width: "100%",
   padding: "0.95rem 1rem",
   border: "1px solid var(--gris-border)",
-  borderRadius: "12px",
+  borderRadius: "var(--r-m)",
   backgroundColor: "#FFFFFF",
   color: "var(--noir)",
   fontSize: "1rem",
@@ -115,9 +104,8 @@ export default function Diagnostic() {
       ref={carteRef}
       style={{
         backgroundColor: "#FFFFFF",
-        borderRadius: "20px",
-        boxShadow: "0 12px 40px rgba(17,17,17,0.10)",
-        padding: "clamp(1.5rem, 5vw, 3rem)",
+        borderRadius: "var(--r-l)",
+        padding: "clamp(1.25rem, 4vw, 2.5rem)",
         textAlign: "left",
         scrollMarginTop: "90px",
         overflow: "hidden",
@@ -159,7 +147,7 @@ export default function Diagnostic() {
               <p className="mb-8 text-lg leading-relaxed" style={{ color: "var(--noir)", maxWidth: "440px", margin: "0 auto 2rem" }}>
                 5 questions. 1 minute. Vous saurez quel maillon de votre acquisition client traiter en premier.
               </p>
-              <button type="button" onClick={() => aller({ kind: "question", index: 0 })} style={boutonNoir}>
+              <button type="button" onClick={() => aller({ kind: "question", index: 0 })} className="btn mx-auto">
                 Commencer le diagnostic
               </button>
               <p className="mt-5 text-xs font-medium tracking-widest uppercase" style={{ color: "var(--gris-texte)" }}>
@@ -213,7 +201,7 @@ export default function Diagnostic() {
                 />
               </div>
 
-              <button type="submit" disabled={envoi === "loading"} className="mt-6" style={{ ...boutonNoir, opacity: envoi === "loading" ? 0.6 : 1 }}>
+              <button type="submit" disabled={envoi === "loading"} className="btn mt-6">
                 {envoi === "loading" ? "Envoi…" : "Voir mon résultat"}
               </button>
 
@@ -244,7 +232,7 @@ export default function Diagnostic() {
                   ? "Votre demande n'a pas pu m'être transmise. Réservez directement un créneau ci-dessous, ou appelez-moi au 06 73 40 14 75."
                   : "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Vous préférez choisir le moment ?"}
               </p>
-              <a href={GOOGLE_BOOKING_URL} target="_blank" rel="noopener noreferrer" style={boutonNoir}>
+              <a href={GOOGLE_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn">
                 Choisir mon créneau
               </a>
             </div>
@@ -278,9 +266,9 @@ function Choix({ actif, onClick, children }: { actif: boolean; onClick: () => vo
       style={{
         width: "100%",
         padding: "1.05rem 1.25rem",
-        border: `1px solid ${actif ? "var(--orange-texte)" : "var(--gris-border)"}`,
+        border: `1.5px solid ${actif ? "var(--orange-texte)" : "var(--gris-border)"}`,
         backgroundColor: actif ? "#FFF4EA" : "#FFFFFF",
-        borderRadius: "12px",
+        borderRadius: "var(--r-m)",
         color: "var(--noir)",
         fontSize: "1rem",
         cursor: "pointer",
