@@ -49,10 +49,13 @@ export default function Creation() {
                 </div>
               ))}
             </div>
+            <p className="lead" style={{ marginTop: "var(--s-m)", marginBottom: 0 }} data-reveal>
+              Votre site est prêt mais personne ne le trouve ?{" "}
+              <Link href="/site-web/visibilite" style={{ color: "var(--orange-texte)", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: "4px" }}>
+                Voir la visibilité : SEO, Google Ads, GEO
+              </Link>
+            </p>
           </div>
-          <p className="lead" style={{ marginTop: "var(--s-m)" }} data-reveal>
-            Votre site est prêt mais personne ne le trouve ? <Link href="/site-web/visibilite">Voir la visibilité : SEO, Google Ads, GEO</Link>.
-          </p>
         </section>
       </main>
       <Footer />
