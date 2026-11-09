@@ -22,6 +22,12 @@ const services = [
   },
 ];
 
+const etapes = [
+  { titre: "Le diagnostic", texte: "5 questions, 1 minute. Vous me dites où vous en êtes et ce que vous voulez." },
+  { titre: "On s’appelle", texte: "15 minutes au téléphone. Je vous propose la formule adaptée et un prix fixé par écrit, qui ne bouge pas." },
+  { titre: "Votre site en ligne", texte: "En 2 à 4 semaines une fois vos contenus réunis. Je rédige les textes avec vous." },
+];
+
 export default function Creation() {
   return (
     <>
@@ -31,6 +37,7 @@ export default function Creation() {
           eyebrow="Création de site web"
           title="Choisissez votre formule."
           intro="Chaque site est conçu et développé sur mesure, adapté à votre métier et à vos clients."
+          cta={{ href: "/#diagnostic", label: "Faire le diagnostic" }}
         />
         <section className="section">
           <div className="wrap">
@@ -55,6 +62,30 @@ export default function Creation() {
                 Voir la visibilité : SEO, Google Ads, GEO
               </Link>
             </p>
+          </div>
+        </section>
+
+        {/* Prochaine étape : rendre le chemin vers le site explicite */}
+        <section className="section on-dark stripes">
+          <div className="wrap">
+            <div className="sec-head" data-reveal>
+              <p className="eyebrow">Prochaine étape</p>
+              <h2 className="h-title h2 t-accent">Comment avoir votre site ?</h2>
+            </div>
+            <div className="tiles">
+              {etapes.map((e, i) => (
+                <div key={e.titre} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
+                  <span className="tile__num">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="h-title" style={{ fontSize: "20px", color: "var(--noir)" }}>{e.titre}</h3>
+                  <p style={{ marginBottom: 0 }}>{e.texte}</p>
+                </div>
+              ))}
+            </div>
+            <div className="center-cta" data-reveal>
+              <Link href="/#diagnostic" className="btn btn--light">
+                Faire le diagnostic
+              </Link>
+            </div>
           </div>
         </section>
       </main>
