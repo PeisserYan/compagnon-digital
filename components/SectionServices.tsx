@@ -11,7 +11,7 @@ const blocs = [
     cta: "Voir les formules",
   },
   {
-    href: "/site-web/referencement",
+    href: "/site-web/visibilite",
     tag: "02 · Référencement",
     titre: "Être trouvé par les bons clients.",
     description:

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const NAV = [
   { href: "/site-web/creation", label: "Création de site" },
-  { href: "/site-web/referencement", label: "Référencement" },
+  { href: "/site-web/visibilite", label: "Visibilité" },
   { href: "/realisations", label: "Réalisations" },
   { href: "/#apropos", label: "À propos" },
   { href: "/#faq", label: "FAQ" },

@@ -6,6 +6,7 @@ const nextConfig = {
     return [
       { source: "/ia", destination: "/", permanent: false },
       { source: "/ia/:path*", destination: "/", permanent: false },
+      { source: "/site-web/referencement", destination: "/site-web/visibilite", permanent: true },
       { source: "/diagnostic", destination: "/#diagnostic", permanent: false },
     ];
   },

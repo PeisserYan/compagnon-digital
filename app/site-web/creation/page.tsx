@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
@@ -12,15 +13,7 @@ const services = [
     items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
   },
   {
-    tag: "02 · La visibilité",
-    titre: "Vous voulez qu'on vous trouve.",
-    prix: "Sur mesure selon vos besoins",
-    description:
-      "SEO local, fiche Google Business, avis clients. Trois leviers qu'on active ensemble pour que les bons clients arrivent.",
-    items: ["SEO local", "Google Business", "Avis clients", "Contenu"],
-  },
-  {
-    tag: "03 · L'outil",
+    tag: "02 · L'outil",
     titre: "Vous voulez que votre site bosse pour vous.",
     prix: "Sur mesure selon vos besoins",
     description:
@@ -41,7 +34,7 @@ export default function Creation() {
         />
         <section className="section">
           <div className="wrap">
-            <div className="tiles">
+            <div className="tiles tiles--2">
               {services.map((s) => (
                 <div key={s.tag} className="tile tile--hover" data-reveal>
                   <p className="eyebrow">{s.tag}</p>
@@ -57,6 +50,9 @@ export default function Creation() {
               ))}
             </div>
           </div>
+          <p className="lead" style={{ marginTop: "var(--s-m)" }} data-reveal>
+            Votre site est prêt mais personne ne le trouve ? <Link href="/site-web/visibilite">Voir la visibilité : SEO, Google Ads, GEO</Link>.
+          </p>
         </section>
       </main>
       <Footer />

@@ -8,7 +8,7 @@ import ScrollFx from "@/components/ScrollFx";
 
 const SERVICES_LINKS = [
   { href: "/site-web/creation", label: "Création de site" },
-  { href: "/site-web/referencement", label: "Référencement" },
+  { href: "/site-web/visibilite", label: "Visibilité" },
 ];
 
 const NAV_LINKS = [
