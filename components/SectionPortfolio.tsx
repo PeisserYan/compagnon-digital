@@ -1,35 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { realisationsVedette as projets } from "@/lib/realisations";
 
-const projets = [
-  {
-    image: "/tbd-fret.png",
-    alt: "Site TBD Fret — Transporteur France-Italie",
-    tag: "Transport routier · Savoie",
-    nom: "TBD Fret",
-    description:
-      "Site vitrine Next.js pour un transporteur France-Italie actif depuis 1980. Formulaires devis et candidature connectés à Brevo.",
-    lien: "https://www.tbd-fret.com",
-  },
-  {
-    image: "/lm3c.png",
-    alt: "Site LM3C Plomberie — Artisan plombier-chauffagiste",
-    tag: "Plomberie · Savoie & Haute-Savoie",
-    nom: "LM3C Plomberie",
-    description:
-      "Site vitrine pour un artisan plombier-chauffagiste. Design épuré, formulaire de contact, optimisation SEO locale.",
-    lien: "https://www.lm3c.fr",
-  },
-  {
-    image: "/andreas-peisser.png",
-    alt: "Site Andreas Peisser — Guide de haute montagne",
-    tag: "Guide de haute montagne · Savoie",
-    nom: "Andreas Peisser",
-    description:
-      "Site vitrine pour un guide UIAGM avec 25 ans d'expérience. Slideshow plein écran, page Super Haute Route, formulaire multilingue.",
-    lien: "https://andreaspeisser.netlify.app/",
-  },
-];
+
 
 // Format GD Concept : section sombre, titre à parallélogramme, bouton à droite, cartes claires.
 export default function SectionPortfolio() {
@@ -48,7 +21,7 @@ export default function SectionPortfolio() {
 
         <div className="cards">
           {projets.map((p) => (
-            <article key={p.nom} className="card" data-reveal>
+            <article key={p.slug} className="card" data-reveal>
               <div className="card__img">
                 <Image src={p.image} alt={p.alt} fill sizes="(max-width: 700px) 100vw, 33vw" className="object-cover object-top" />
               </div>

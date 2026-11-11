@@ -3,16 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Realisation } from "@/lib/realisations";
 
-type Projet = {
-  image: string;
-  alt: string;
-  tag: string;
-  nom: string;
-  description: string;
-  lien: string;
-  badge?: string;
-};
+type Projet = Realisation;
 
 export default function RealisationsGallery({ projets }: { projets: Projet[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -97,7 +90,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
       {/* Format GD Concept : cartes claires, image arrondie qui zoome au survol, bouton flèche */}
       <div className="cards">
         {projets.map((projet, i) => (
-          <article key={projet.nom} className="card" data-reveal>
+          <article key={projet.slug} className="card" data-reveal>
             <button
               type="button"
               className="card__img"
@@ -109,7 +102,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
               style={{ display: "block", width: "100%", border: 0, padding: 0, cursor: "zoom-in", background: "none" }}
             >
               <Image src={projet.image} alt={projet.alt} fill sizes="(max-width: 700px) 100vw, 33vw" className="object-cover object-top" />
-              {projet.badge && (
+              {projet.statut === "en-cours" && (
                 <span
                   style={{
                     position: "absolute",
@@ -123,7 +116,7 @@ export default function RealisationsGallery({ projets }: { projets: Projet[] }) 
                     borderRadius: "var(--r-s)",
                   }}
                 >
-                  {projet.badge}
+                  En cours
                 </span>
               )}
             </button>

@@ -2,69 +2,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RealisationsGallery from "@/components/RealisationsGallery";
 import PageHead from "@/components/PageHead";
-
-const projets = [
-  {
-    image: "/tbd-fret.png",
-    alt: "Site TBD Fret — Transporteur France-Italie",
-    tag: "Transport routier · Savoie",
-    nom: "TBD Fret",
-    description:
-      "Site vitrine Next.js pour un transporteur France-Italie actif depuis 1980. Formulaires devis et candidature connectés à Brevo.",
-    lien: "https://www.tbd-fret.com",
-  },
-  {
-    image: "/lm3c.png",
-    alt: "Site LM3C Plomberie — Artisan plombier-chauffagiste",
-    tag: "Plomberie · Savoie & Haute-Savoie",
-    nom: "LM3C Plomberie",
-    description:
-      "Site vitrine pour un artisan plombier-chauffagiste. Design épuré, formulaire de contact, optimisation SEO locale.",
-    lien: "https://www.lm3c.fr",
-  },
-  {
-    image: "/ads.png",
-    alt: "Site ALP'DEPANNE ET SANITAIRES — Plombier Aix-les-Bains",
-    tag: "Plomberie · Aix-les-Bains",
-    nom: "ALP'DEPANNE ET SANITAIRES",
-    description:
-      "Site vitrine pour un plombier solo spécialisé ballon eau chaude et rénovation salle de bain. Formulaire Formspree, bouton d'appel flottant.",
-    lien: "https://www.ads-plomberie.fr",
-  },
-  {
-    image: "/andreas-peisser.png",
-    alt: "Site Andreas Peisser — Guide de haute montagne",
-    tag: "Guide de haute montagne · Savoie",
-    nom: "Andreas Peisser",
-    description:
-      "Site vitrine pour un guide UIAGM avec 25 ans d'expérience. Slideshow plein écran, page Super Haute Route, formulaire multilingue.",
-    lien: "https://andreaspeisser.netlify.app/",
-  },
-  {
-    image: "/ssb73.png",
-    alt: "Site SSB73 — Services Solutions Bois",
-    tag: "Charpente · Menuiserie · Savoie",
-    nom: "SSB73",
-    description:
-      "Charpente, menuiserie, couverture et zinguerie à Sainte-Hélène-du-Lac.",
-    lien: "https://www.ssb73.fr",
-  },
-  {
-    image: "/cgd-pro.png",
-    alt: "Site CGD Pro — Impression 3D",
-    tag: "Impression 3D · Savoie",
-    nom: "CGD Pro",
-    description:
-      "Site vitrine pour un professionnel de l'impression 3D. Site en cours de finalisation.",
-    lien: "https://www.cgd-pro.fr",
-    badge: "En cours",
-  },
-];
+import { realisationsEnLigne, realisationsEnCours } from "@/lib/realisations";
 
 export const metadata = {
   title: "Réalisations — Compagnon Digital",
   description:
-    "Découvrez les sites web réalisés par Compagnon Digital pour des artisans et TPE en Savoie et Haute-Savoie.",
+    "Les sites réalisés par Compagnon Digital pour des indépendants et petites entreprises : artisans du bâtiment, transport, restauration, impression 3D.",
   alternates: {
     canonical: "https://compagnondigital.fr/realisations",
   },
@@ -75,12 +18,29 @@ export default function RealisationsPage() {
     <>
       <Navbar />
       <main>
-        <PageHead eyebrow="Réalisations" title="Tous mes projets." />
+        <PageHead
+          eyebrow="Réalisations"
+          title="Tous mes projets."
+          intro="Des sites pensés pour une chose : que vos futurs clients vous trouvent, vous comprennent et vous contactent."
+        />
         <section className="section">
           <div className="wrap">
-            <RealisationsGallery projets={projets} />
+            <RealisationsGallery projets={realisationsEnLigne} />
           </div>
         </section>
+        {realisationsEnCours.length > 0 && (
+          <section className="section section--tight">
+            <div className="wrap">
+              <div className="strip__head" data-reveal>
+                <div>
+                  <p className="eyebrow">En cours</p>
+                  <h2 className="h-title h2">En cours de réalisation.</h2>
+                </div>
+              </div>
+              <RealisationsGallery projets={realisationsEnCours} />
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>
