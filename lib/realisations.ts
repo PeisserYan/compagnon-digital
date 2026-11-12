@@ -43,9 +43,9 @@ export const realisations: Realisation[] = [
     image: "/ads.png",
     alt: "Site ALP'DEPANNE ET SANITAIRES — Plombier à Aix-les-Bains",
     tag: "Plomberie · Aix-les-Bains",
-    nom: "ALP'DEPANNE ET SANITAIRES",
+    nom: "ADS",
     description:
-      "Plombier indépendant à Aix-les-Bains. Services, chantiers et avis clients sur un site clair ; appel, WhatsApp ou demande de devis en un geste.",
+      "ALP'DEPANNE ET SANITAIRES, plombier indépendant à Aix-les-Bains. Services, chantiers et avis clients sur un site clair ; appel, WhatsApp ou demande de devis en un geste.",
     lien: "https://www.ads-plomberie.fr",
     statut: "en-ligne",
     vedette: 3,
@@ -79,8 +79,8 @@ export const realisations: Realisation[] = [
     tag: "Guide de haute montagne · Savoie",
     nom: "Andreas Peisser",
     description:
-      "Guide UIAGM depuis 2000. Site en allemand pour sa clientèle germanophone : courses d'hiver et d'été, récit de la Super Haute Route, demande par type de sortie.",
-    lien: "https://andreaspeisser.netlify.app/",
+      "Guide de haute montagne IFMGA depuis 2000. Site en allemand pour sa clientèle germanophone : courses d'été et d'hiver avec tarifs, traversée Vienne–Menton à ski, FAQ et demande de course.",
+    lien: "https://andreas-peisser.com",
     statut: "en-ligne",
   },
   {
