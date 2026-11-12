@@ -67,7 +67,7 @@ export default async function Clients({ searchParams }: { searchParams: { vue?: 
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Clients</h1>
+        <h1 className="adm-title t-accent">Clients</h1>
         <NouveauMenu />
       </div>
       <p className="text-sm" style={{ color: "var(--gris-texte)" }}>

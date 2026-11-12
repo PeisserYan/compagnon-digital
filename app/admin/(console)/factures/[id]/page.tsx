@@ -27,7 +27,7 @@ export default async function DocPage({ params }: { params: { id: string } }) {
   return (
     <div className="space-y-5 max-w-3xl">
       <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>{doc.numero ?? `Brouillon de ${doc.type}`}</h1>
+        <h1 className="adm-title t-accent">{doc.numero ?? `Brouillon de ${doc.type}`}</h1>
         <Badge k={doc.statut} />
       </div>
 

@@ -6,7 +6,7 @@ import FicheClientForm from "../FicheClientForm";
 export default function NouveauClient() {
   return (
     <div className="space-y-5 max-w-4xl">
-      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Nouveau client</h1>
+      <h1 className="adm-title t-accent">Nouveau client</h1>
       <p className="text-sm" style={{ color: "var(--gris-texte)" }}>Fiche de facturation. Pour un simple contact, passe plutôt par « Nouvelle affaire » : nom, téléphone et email suffisent.</p>
       <Card>
         <FicheClientForm action={creerClient} bouton="Créer la fiche" />

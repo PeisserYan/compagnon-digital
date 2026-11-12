@@ -1,0 +1,71 @@
+/* ════════════════════════════════════════════════════════════════════════
+   Console /admin — format « GD Concept » adapté à un outil de gestion.
+   Repris du site : fond gris + cartes blanches sans bordure, arrondis 4/6/10,
+   bouton à carré-flèche qui glisse, titres à parallélogramme orange,
+   panneau sombre à bandes diagonales (barre latérale), logo orange vif sur noir.
+   Volontairement écartés : photos, parallaxe, apparitions au scroll — la
+   console doit rester dense et rapide à lire.
+   Tout est préfixé .adm pour ne rien changer au site public.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.adm { background: var(--surface); color: var(--noir); }
+
+/* ── Barre latérale sombre flottante ── */
+.adm-side { position: sticky; top: 0; z-index: 30; background: var(--noir); color: var(--light); }
+.adm-side.stripes::before { right: auto; left: -40%; width: 160px; }
+.adm-side.stripes::after { right: -70%; width: 200px; }
+.adm-side__inner { position: relative; z-index: 1; }
+.adm-logo img { height: 40px; width: auto; }
+.adm-nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.adm-nav::-webkit-scrollbar { display: none; }
+.adm-nav a { position: relative; isolation: isolate; flex: none; white-space: nowrap; padding: 10px 12px 10px 14px; border-radius: var(--r-s); font-size: 15px; font-weight: 500; color: rgba(255,255,255,.72); transition: color .25s, background .25s; }
+.adm-nav a:hover { color: var(--light); background: rgba(255,255,255,.06); }
+.adm-nav a.is-active { color: var(--light); padding-left: 30px; }
+.adm-nav a.is-active::before { content: ""; position: absolute; z-index: -1; left: 6px; top: 50%; transform: translateY(-50%); width: 34px; height: 1.25em; background: var(--orange); clip-path: polygon(45% 0, 100% 0, 55% 100%, 0 100%); }
+.adm-logout { font-size: 14px; color: rgba(255,255,255,.55); padding: 8px 12px; background: none; border: 0; cursor: pointer; transition: color .2s; }
+.adm-logout:hover { color: var(--orange); }
+
+@media (min-width: 768px) {
+  .adm-side { top: 14px; margin: 14px 0 14px 14px; width: 236px; height: calc(100vh - 28px); border-radius: var(--r-l); box-shadow: 0 12px 30px -14px rgba(17,17,17,.45); }
+  .adm-side__inner { height: 100%; display: flex; flex-direction: column; padding: 26px 16px 18px; }
+  .adm-logo { padding: 0 8px; margin-bottom: 30px; }
+  .adm-logo img { height: 52px; }
+  .adm-nav { flex-direction: column; overflow: visible; }
+  .adm-logout { margin-top: auto; text-align: left; }
+}
+
+/* ── Titres de page ── */
+.adm-title { font-family: var(--ff-title); font-weight: 700; line-height: 1.15; font-size: clamp(24px, 2.4vw, 32px); color: var(--noir); }
+.adm-title.t-accent { padding-left: 28px; }
+.adm-title.t-accent::before { width: 60px; }
+
+/* ── Cartes : blanches sur gris, sans bordure, arrondi 10 ── */
+.adm .rounded-xl { border-radius: var(--r-l); }
+.adm .rounded-lg { border-radius: var(--r-m); }
+.adm-card { background: var(--light); border-radius: var(--r-l); }
+
+/* Badges : étiquettes à angle doux (4 px) plutôt que pilules */
+.adm-badge { display: inline-block; white-space: nowrap; border-radius: var(--r-s); padding: 2px 8px; font-size: 12px; font-weight: 600; }
+
+/* ── Boutons ── */
+/* Principal : version compacte du bouton du site (carré orange + flèche noire qui glisse) */
+.adm-btn { --arrow: 38px; position: relative; display: inline-flex; align-items: center; justify-content: flex-start; min-height: var(--arrow); width: fit-content; max-width: 100%; padding: 0 14px 0 calc(var(--arrow) + 12px); border-radius: var(--r-m); font-size: 14px; font-weight: 500; line-height: 1.2; color: var(--noir); background: rgba(17,17,17,.05); border: 0; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background .3s, padding .4s var(--ease); }
+.adm-btn::before, .adm-btn::after { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: var(--arrow); height: var(--arrow); border-radius: var(--r-m); transition: left .4s var(--ease); }
+.adm-btn::before { background: var(--accent); }
+.adm-btn::after { background: var(--noir); -webkit-mask: var(--ico-arrow) center/18px no-repeat; mask: var(--ico-arrow) center/18px no-repeat; }
+.adm-btn:hover, .adm-btn:focus-visible { background: rgba(17,17,17,.1); padding: 0 calc(var(--arrow) + 12px) 0 14px; }
+.adm-btn:hover::before, .adm-btn:focus-visible::before, .adm-btn:hover::after, .adm-btn:focus-visible::after { left: calc(100% - var(--arrow)); }
+.adm-btn:disabled { opacity: .6; pointer-events: none; }
+.adm-btn--block { width: 100%; }
+/* Secondaire : bouton blanc à filet, sans flèche */
+.adm-btn-ghost { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: var(--r-m); border: 1px solid var(--gris-border); background: var(--light); font-size: 14px; font-weight: 500; color: var(--noir); cursor: pointer; text-decoration: none; transition: border-color .25s, color .25s; }
+.adm-btn-ghost:hover { border-color: var(--noir) !important; }
+
+/* ── Champs ── */
+.adm input:not([type="checkbox"]):not([type="radio"]), .adm select, .adm textarea { border-radius: var(--r-s); }
+.adm input:focus-visible, .adm select:focus-visible, .adm textarea:focus-visible { outline: 2px solid var(--orange); outline-offset: 1px; }
+
+/* ── Connexion : panneau sombre à bandes, carte blanche ── */
+.adm-login { min-height: 100vh; background: var(--noir); }
+.adm-login.stripes::before { right: 30%; width: 420px; }
+.adm-login.stripes::after { right: -4%; width: 420px; }

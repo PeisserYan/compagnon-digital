@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./admin.css";
 
 export const metadata: Metadata = {
   title: "Console | Compagnon Digital",
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
-  return <div className="min-h-screen" style={{ background: "var(--gris-clair)", color: "var(--noir)" }}>{children}</div>;
+  return <div className="adm min-h-screen">{children}</div>;
 }

@@ -11,7 +11,7 @@ export default async function NouvelleAffaire({ searchParams }: { searchParams: 
   const { data } = await db.from("clients").select("id, societe").order("societe");
   return (
     <div className="space-y-5 max-w-3xl">
-      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Nouvelle affaire</h1>
+      <h1 className="adm-title t-accent">Nouvelle affaire</h1>
       <Card>
         <NouvelleAffaireForm clients={data ?? []} clientId={searchParams.client}>
           <ChampsAffaire />
