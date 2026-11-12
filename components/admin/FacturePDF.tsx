@@ -195,7 +195,7 @@ export function FacturePDFDoc({ data }: { data: FactureData }) {
         {/* Totaux avec lettres à gauche */}
         <View style={S.totauxRow}>
           <View style={S.totauxLeft}>
-            <Text style={S.montantLettres}>Arrêtée à la somme de {nombreEnLettres(totalHT)}.</Text>
+            <Text style={S.montantLettres}>Arrêtée à la somme de {nombreEnLettres(Math.abs(totalHT))}.</Text>
           </View>
           <View style={S.totauxRight}>
             <View style={S.totauxLine}>
