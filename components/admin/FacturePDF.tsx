@@ -140,7 +140,7 @@ export function FacturePDFDoc({ data }: { data: FactureData }) {
           <View style={S.infoCol}>
             <Text style={S.infoLabel}>DE</Text>
             <Text style={S.infoNom}>Compagnon Digital</Text>
-            <Text style={S.infoLine}>Yan Peisser</Text>
+            <Text style={S.infoLine}>Yan Peisser EI</Text>
             <Text style={S.infoLine}>10 Croix De Saint Maure</Text>
             <Text style={S.infoLine}>73630 Jarsy</Text>
             <Text style={S.infoLine}>yan@compagnondigital.fr</Text>
@@ -226,8 +226,8 @@ export function FacturePDFDoc({ data }: { data: FactureData }) {
 
         {/* Footer absolu */}
         <View style={S.footer} fixed>
-          <Text style={S.footerText}>TVA non applicable, art. 293B du CGI — Yan Peisser, auto-entrepreneur, SIRET 103 262 150 00016</Text>
-          <Text style={S.footerText}>En cas de retard de paiement : pénalités au taux légal + indemnité forfaitaire de 40 € (art. L. 441-10 C. com.){data.noteBasDePage ? ' — ' + data.noteBasDePage : ''}</Text>
+          <Text style={S.footerText}>TVA non applicable, art. 293B du CGI — Yan Peisser EI (entrepreneur individuel), SIRET 103 262 150 00016</Text>
+          <Text style={S.footerText}>Pas d'escompte pour paiement anticipé. En cas de retard : pénalités au taux de 3 fois le taux d'intérêt légal + indemnité forfaitaire pour frais de recouvrement de 40 € (art. L. 441-10 C. com.){data.noteBasDePage ? ' — ' + data.noteBasDePage : ''}</Text>
         </View>
 
       </Page>
