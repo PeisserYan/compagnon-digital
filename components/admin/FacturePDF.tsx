@@ -183,6 +183,7 @@ export function FacturePDFDoc({ data }: { data: FactureData }) {
               <View style={S.colDesc}>
                 <Text style={S.colDescTitle}>{titre || ligne.description}</Text>
                 {sous ? <Text style={S.colDescSub}>{sous}</Text> : null}
+                {ligne.descriptionSecondaire ? <Text style={S.colDescSub}>{ligne.descriptionSecondaire}</Text> : null}
               </View>
               <Text style={S.colQte}>{ligne.quantite}</Text>
               <Text style={S.colPU}>{fmt(ligne.prixUnitaire)}</Text>
@@ -227,7 +228,7 @@ export function FacturePDFDoc({ data }: { data: FactureData }) {
         {/* Footer absolu */}
         <View style={S.footer} fixed>
           <Text style={S.footerText}>TVA non applicable, art. 293B du CGI — Yan Peisser EI (entrepreneur individuel), SIRET 103 262 150 00016</Text>
-          <Text style={S.footerText}>Pas d'escompte pour paiement anticipé. En cas de retard : pénalités au taux de 3 fois le taux d'intérêt légal + indemnité forfaitaire pour frais de recouvrement de 40 € (art. L. 441-10 C. com.){data.noteBasDePage ? ' — ' + data.noteBasDePage : ''}</Text>
+          <Text style={S.footerText}>Pas d'escompte pour paiement anticipé. En cas de retard : pénalités au taux de 3 fois le taux d'intérêt légal + indemnité forfaitaire pour frais de recouvrement de 40 € (art. L. 441-10 C. com.)</Text>
         </View>
 
       </Page>
