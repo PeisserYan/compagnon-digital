@@ -76,7 +76,7 @@ export default async function Nouveau({ searchParams }: { searchParams: { affair
 
   return (
     <div className="space-y-5">
-      <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Nouveau document</h1>
+      <h1 className="adm-title t-accent">Nouveau document</h1>
       {origine && <p className="text-sm" style={{ color: "var(--gris-texte)" }}>{origine}</p>}
       {avertissement && <p className="text-sm" style={{ color: "#b42318" }}>{avertissement}</p>}
       {(cl.data ?? []).length === 0 ? (

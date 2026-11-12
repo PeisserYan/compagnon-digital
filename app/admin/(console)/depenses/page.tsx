@@ -12,7 +12,7 @@ export default async function Depenses() {
   const deps = (data ?? []) as Depense[];
   return (
     <div className="space-y-5">
-      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Dépenses</h1>
+      <h1 className="adm-title t-accent">Dépenses</h1>
       <Card>
         <form action={creerDepense} className="grid grid-cols-2 lg:grid-cols-5 gap-3 items-end text-sm">
           <label>Date<input type="date" name="date" defaultValue={todayISO()} className={inputCls} style={inputStyle} /></label>

@@ -28,7 +28,7 @@ export default async function FicheClient({ params }: { params: { id: string } }
   return (
     <div className="space-y-5 max-w-4xl">
       <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>{client.societe}</h1>
+        <h1 className="adm-title t-accent">{client.societe}</h1>
         <Badge k={estClient ? "client" : "prospect"} />
         {client.notion_url && <a href={client.notion_url} target="_blank" rel="noreferrer" className="text-sm underline">Archive Notion</a>}
       </div>

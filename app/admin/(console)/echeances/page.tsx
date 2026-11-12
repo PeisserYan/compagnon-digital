@@ -57,7 +57,7 @@ export default async function Echeances({ searchParams }: { searchParams: { m?: 
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Échéances</h1>
+      <h1 className="adm-title t-accent">Échéances</h1>
 
       <Card>
         <div className="flex justify-between mb-3 text-sm">

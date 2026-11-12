@@ -35,7 +35,7 @@ export default async function Factures({ searchParams }: { searchParams: { type?
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Devis & factures</h1>
+        <h1 className="adm-title t-accent">Devis & factures</h1>
         <Link href="/admin/factures/nouveau" className={btn} style={btnStyle}>Nouveau</Link>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm">

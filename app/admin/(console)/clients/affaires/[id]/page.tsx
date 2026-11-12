@@ -34,7 +34,7 @@ export default async function FicheAffaire({ params }: { params: { id: string } 
     <div className="space-y-5 max-w-4xl">
       <div className="space-y-1">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>{a.titre}</h1>
+          <h1 className="adm-title t-accent">{a.titre}</h1>
           <EtapeTag e={a.etape_affichee} />
         </div>
         <p className="text-sm" style={{ color: "var(--gris-texte)" }}>

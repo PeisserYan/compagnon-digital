@@ -2,10 +2,11 @@ import type { ReactNode } from "react";
 import { LIB_ETAPE } from "@/lib/admin/crm";
 import type { EtapeAffichee } from "@/lib/admin/types";
 
-export const card = { background: "#fff", border: "1px solid var(--gris-border)" } as const;
+// Format GD : cartes blanches sans bordure sur fond gris (voir app/admin/admin.css).
+export const card = { background: "#fff" } as const;
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-xl p-4 md:p-5 ${className}`} style={card}>{children}</div>;
+  return <div className={`adm-card p-4 md:p-5 ${className}`}>{children}</div>;
 }
 
 export function Stat({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: "warn" | "ok" }) {
@@ -18,11 +19,12 @@ export function Stat({ label, value, sub, tone }: { label: string; value: string
   );
 }
 
-export const inputCls = "w-full rounded-md px-3 py-2.5 md:py-2 border text-base md:text-sm bg-white";
+export const inputCls = "w-full px-3 py-2.5 md:py-2 border text-base md:text-sm bg-white";
 export const inputStyle = { borderColor: "var(--gris-border)" } as const;
-export const btn = "rounded-md px-3 py-2.5 md:py-2 text-sm font-medium text-white text-center";
-export const btnStyle = { background: "var(--orange-texte)" } as const;
-export const btnGhost = "rounded-md px-3 py-2.5 md:py-2 text-sm border text-center";
+// Bouton principal : carré orange + flèche qui glisse (format du site). Secondaire : blanc à filet.
+export const btn = "adm-btn";
+export const btnStyle = {} as const;
+export const btnGhost = "adm-btn-ghost";
 
 const BADGES: Record<string, [string, string]> = {
   brouillon: ["Brouillon", "#6b6b6b"],
@@ -41,7 +43,7 @@ const BADGES: Record<string, [string, string]> = {
 };
 export function Badge({ k }: { k: string }) {
   const [label, color] = BADGES[k] ?? [k, "#6b6b6b"];
-  return <span className="inline-block rounded-full px-2 py-0.5 text-xs font-medium" style={{ color, background: color + "1a" }}>{label}</span>;
+  return <span className="adm-badge" style={{ color, background: color + "1a" }}>{label}</span>;
 }
 
 // Étape d'une affaire : bleu tant qu'elle est ouverte, ambre pendant la facturation, vert une fois finalisée.
@@ -56,5 +58,5 @@ const COULEUR_ETAPE: Partial<Record<EtapeAffichee, string>> = {
 };
 export function EtapeTag({ e }: { e: EtapeAffichee }) {
   const color = COULEUR_ETAPE[e] ?? "#1d4ed8";
-  return <span className="inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium" style={{ color, background: color + "1a" }}>{LIB_ETAPE[e]}</span>;
+  return <span className="adm-badge" style={{ color, background: color + "1a" }}>{LIB_ETAPE[e]}</span>;
 }

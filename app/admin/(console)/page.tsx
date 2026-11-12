@@ -50,7 +50,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h1 className="text-xl md:text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Tableau de bord {annee}</h1>
+        <h1 className="adm-title t-accent">Tableau de bord {annee}</h1>
         <div className="flex gap-3 text-sm">
           <Link href={`/admin?annee=${annee - 1}`}>← {annee - 1}</Link>
           {annee < now.getFullYear() && <Link href={`/admin?annee=${annee + 1}`}>{annee + 1} →</Link>}
