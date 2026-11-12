@@ -4,7 +4,7 @@
 const QUESTIONS = [
   {
     q: "Combien coûte un site ?",
-    r: "Un site one page démarre à 500 €, un site vitrine à 800 €. Un site marchand est sur devis, selon le nombre de produits. Le prix est fixé par écrit avant de commencer et ne bouge pas.",
+    r: "Un site one page démarre à 498 €, un site vitrine à 790 €. Un site marchand est sur devis, selon le nombre de produits. Le prix est fixé par écrit avant de commencer et ne bouge pas.",
   },
   {
     q: "En combien de temps mon site est-il en ligne ?",

@@ -7,7 +7,7 @@ const services = [
   {
     tag: "01 · L'essentiel",
     titre: "Vous voulez exister proprement.",
-    prix: "One page dès 500€ · site vitrine dès 800€",
+    prix: "One page dès 498 € · site vitrine dès 790 €",
     description:
       "Un site vitrine qui vous ressemble. Mobile, propre, RGPD en règle. Le client vous trouve, vous appelle, ou vous laisse un message.",
     items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
@@ -59,7 +59,7 @@ export default function Creation() {
             <p className="lead" style={{ marginTop: "var(--s-m)", marginBottom: 0 }} data-reveal>
               Votre site est prêt mais personne ne le trouve ?{" "}
               <Link href="/site-web/visibilite" style={{ color: "var(--orange-texte)", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: "4px" }}>
-                Voir la visibilité : SEO, Google Ads, GEO
+                Voir les formules de visibilité : Référencement et Publicité
               </Link>
             </p>
           </div>

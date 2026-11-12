@@ -3,79 +3,82 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
 
-// Page « Visibilité » (ex-« Référencement », nov. 2026) : SEO et GEO (gratuit, durable)
-// + Google Ads (publicité payante). Écrite pour convertir : situations client, prix, déroulé, objections.
+// Page « Visibilité » (refonte 12 nov. 2026) : deux formules claires au lieu de trois leviers.
+// Pack Référencement = SEO + GEO (97 €/mois). Pack Publicité = Google Ads seul (200 €/mois + budget pub).
+// Mise en place incluse dans les deux. Écrite pour vendre : formule, prix, inclus, délai, pour qui.
 
-const leviers = [
+const packs = [
   {
-    tag: "01 · Référencement naturel (SEO)",
-    titre: "Être trouvé sur Google, sans payer chaque clic.",
-    prix: "Suivi dès 47 €/mois",
+    tag: "Pack Référencement · SEO + GEO",
+    titre: "Être trouvé sur Google et recommandé par les IA, sans payer chaque clic.",
+    prix: "97 €/mois",
+    mention: "Mise en place incluse",
     texte:
-      "Quand quelqu’un tape votre métier et votre ville, c’est vous qu’il doit voir. Chaque mois, je suis vos positions et j’ajuste vos mots-clés vers les recherches qui amènent de vrais clients.",
+      "Quand quelqu’un tape votre métier et votre ville sur Google, ou demande à ChatGPT « quel plombier à Chambéry ? », c’est votre nom qui doit sortir. Ce pack travaille les deux.",
     points: [
-      "Suivi mensuel de vos positions et mots-clés",
-      "Ajustement des mots-clés vers les recherches qui rapportent",
-      "En option : fiche Google Business, contenus, netlinking",
+      "Mise en place : fiche Google Business, pages optimisées, suivi installé",
+      "Suivi mensuel de vos positions et de vos mots-clés",
+      "Ajustements vers les recherches qui amènent de vrais clients",
+      "Présence sur les sources que les IA citent",
+      "Mesure mensuelle de vos citations dans les IA",
+      "Un point chaque mois, en chiffres simples",
     ],
-    ideal: "Idéal si vous voulez des demandes régulières, sur la durée.",
+    delai: "Premiers effets en général après quelques mois, puis ça s’installe.",
+    ideal: "Pour vous si vous voulez des demandes régulières, sur la durée, sans budget pub.",
   },
   {
-    tag: "02 · Publicité Google Ads (SEA)",
+    tag: "Pack Publicité · Google Ads",
     titre: "Des appels dès ce mois-ci.",
-    prix: "Gestion dès 200 €/mois + budget pub",
+    prix: "200 €/mois + budget pub",
+    mention: "Mise en place incluse",
     texte:
       "Votre annonce s’affiche en tête de Google dès les premiers jours, uniquement dans votre zone et sur les recherches qui comptent. Vous payez au clic, avec un plafond que vous fixez.",
     points: [
-      "Choix des mots-clés et de la zone",
-      "Rédaction des annonces",
+      "Mise en place : compte à votre nom, mots-clés, zone, annonces",
       "Suivi des appels et des demandes reçus",
       "Ajustements chaque mois pour baisser le coût par client",
+      "Budget pub payé directement à Google : 500 €/mois conseillés",
+      "Un point chaque mois, en chiffres simples",
     ],
-    ideal: "Idéal pour un lancement, une période creuse ou en attendant que le SEO monte.",
-  },
-  {
-    tag: "03 · Visibilité IA (GEO)",
-    titre: "Être recommandé par ChatGPT et les autres IA.",
-    prix: "Sur devis, après diagnostic",
-    texte:
-      "De plus en plus de clients demandent directement à une IA « quel plombier à Chambéry ? ». Elle cite quelques entreprises. Le GEO, c’est faire en sorte que la vôtre en fasse partie.",
-    points: [
-      "Repérer les questions que vos clients posent aux IA",
-      "Être présent sur les sources qu’elles citent",
-      "Des contenus clairs et structurés qu’elles reprennent",
-      "Mesure mensuelle de vos citations",
-    ],
-    ideal: "Idéal en complément du SEO, pour prendre de l’avance sur vos concurrents.",
+    delai: "Premiers appels en général dès les premiers jours.",
+    ideal: "Pour vous si vous lancez une activité, traversez une période creuse ou ne pouvez pas attendre.",
   },
 ];
 
 const choix = [
   {
     situation: "Vous avez besoin d’appels maintenant",
-    reponse: "Google Ads. C’est le seul levier qui donne des résultats en quelques jours. On peut lancer le SEO en parallèle pour moins dépendre de la pub ensuite.",
+    reponse: "Le pack Publicité. C’est le seul levier qui donne des résultats en quelques jours.",
   },
   {
     situation: "Vous voulez des clients sans payer chaque contact",
-    reponse: "Le SEO local, fiche Google en tête. Plus lent au départ, mais c’est ce qui travaille pour vous sur des années.",
+    reponse: "Le pack Référencement. Plus lent au départ, mais c’est ce qui travaille pour vous sur des années, sur Google comme dans les IA.",
   },
   {
-    situation: "Vous êtes déjà bien placé sur Google",
-    reponse: "Le GEO. Vos concurrents n’y pensent pas encore : c’est le moment d’y prendre votre place.",
+    situation: "Vous voulez les deux",
+    reponse: "On combine : la publicité amène des appels tout de suite, le référencement monte en parallèle. Ensuite, vous pouvez réduire la pub. 297 €/mois + budget pub.",
   },
 ];
 
 const etapes = [
   { titre: "Diagnostic", texte: "15 minutes au téléphone, gratuit. Je regarde d’où viennent vos clients aujourd’hui et ce qui bloque." },
-  { titre: "Plan", texte: "Je vous dis quels leviers activer, dans quel ordre, et pour quel budget. Par écrit, avant de commencer." },
-  { titre: "Mise en place", texte: "Je m’occupe de tout : fiche Google, pages, campagnes, suivi des appels et des demandes." },
-  { titre: "Suivi mensuel", texte: "Chaque mois, des chiffres simples : positions, appels, demandes reçues. Et ce que je change." },
+  { titre: "Choix du pack", texte: "Je vous dis quel pack vous convient, ou les deux, et pour quel budget. Par écrit, avant de commencer." },
+  { titre: "Mise en place", texte: "Incluse, je m’occupe de tout : fiche Google, pages, campagnes, suivi des appels et des demandes." },
+  { titre: "Suivi mensuel", texte: "Chaque mois, des chiffres simples : positions, citations IA, appels, demandes reçues. Et ce que je change." },
 ];
 
 const questions = [
   {
+    q: "C’est quoi, le GEO ?",
+    r: "De plus en plus de gens posent leur question directement à une IA comme ChatGPT au lieu de chercher sur Google. L’IA cite quelques entreprises. Le GEO, c’est faire en sorte que la vôtre en fasse partie. Il est inclus dans le pack Référencement, parce qu’il s’appuie sur le même travail que le SEO.",
+  },
+  {
+    q: "Y a-t-il des frais de mise en place ?",
+    r: "Non. La mise en place est incluse dans les deux packs : fiche Google Business, optimisation des pages, création des campagnes et installation du suivi.",
+  },
+  {
     q: "En combien de temps je vois des résultats ?",
-    r: "Avec Google Ads, dès les premiers jours. En SEO, les premiers effets se voient en général après quelques mois, puis ça s’installe. C’est pour ça que je combine souvent les deux au démarrage.",
+    r: "Avec le pack Publicité, dès les premiers jours. Avec le pack Référencement, les premiers effets se voient en général après quelques mois, puis ça s’installe. C’est pour ça que je combine souvent les deux au démarrage.",
   },
   {
     q: "Quel budget publicitaire prévoir pour Google Ads ?",
@@ -83,7 +86,7 @@ const questions = [
   },
   {
     q: "Le budget pub passe par vous ?",
-    r: "Non. Il est payé directement à Google, sur un compte à votre nom. Vous voyez chaque euro dépensé et vous restez propriétaire de vos campagnes. Ma gestion est facturée à part.",
+    r: "Non. Il est payé directement à Google, sur un compte à votre nom. Vous voyez chaque euro dépensé et vous restez propriétaire de vos campagnes. Les 200 €/mois de gestion sont facturés à part.",
   },
   {
     q: "Vous me garantissez la première place sur Google ?",
@@ -112,8 +115,8 @@ export default function Visibilite() {
       <main>
         <PageHead
           eyebrow="Visibilité"
-          title="Que vos clients vous trouvent avant vos concurrents."
-          intro="Sur Google, en tête des annonces et dans les réponses des IA. Je choisis avec vous les bons leviers selon votre urgence et votre budget, puis je vous montre chaque mois ce qu’ils rapportent."
+          title="Deux formules pour que vos clients vous trouvent."
+          intro="Référencement à 97 €/mois pour être trouvé sur Google et dans les IA. Publicité Google Ads à 200 €/mois pour des appels tout de suite. Mise en place incluse, résultats montrés chaque mois."
           cta={{ href: "/#diagnostic", label: "Faire le diagnostic" }}
         />
 
@@ -132,26 +135,33 @@ export default function Visibilite() {
           </div>
         </section>
 
-        {/* Les trois leviers */}
+        {/* Les deux packs */}
         <section className="section on-dark stripes">
           <div className="wrap">
             <div className="sec-head" data-reveal>
-              <p className="eyebrow">Trois leviers</p>
-              <h2 className="h-title h2 t-accent">Gratuit et durable, ou payant et immédiat.</h2>
+              <p className="eyebrow">Deux formules</p>
+              <h2 className="h-title h2 t-accent">Durable ou immédiat. Prix clairs, mise en place incluse.</h2>
             </div>
-            <div className="tiles">
-              {leviers.map((l) => (
-                <div key={l.tag} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
-                  <p className="eyebrow">{l.tag}</p>
-                  <h3 className="h-title h3" style={{ color: "var(--noir)" }}>{l.titre}</h3>
-                  <span className="price">{l.prix}</span>
-                  <p>{l.texte}</p>
+            <div className="tiles tiles--2">
+              {packs.map((p) => (
+                <div key={p.tag} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
+                  <p className="eyebrow">{p.tag}</p>
+                  <h3 className="h-title h3" style={{ color: "var(--noir)" }}>{p.titre}</h3>
+                  <p style={{ marginBottom: "var(--s-s)" }}>
+                    <span className="price" style={{ fontSize: "20px", marginBottom: 0 }}>{p.prix}</span>
+                    <span style={{ marginLeft: 10, fontWeight: 500, color: "var(--orange-texte)" }}>{p.mention}</span>
+                  </p>
+                  <p>{p.texte}</p>
                   <ul className="checks">
-                    {l.points.map((pt) => (
+                    {p.points.map((pt) => (
                       <li key={pt}>{pt}</li>
                     ))}
                   </ul>
-                  <p style={{ marginTop: "var(--s-s)", marginBottom: 0, fontWeight: 500, color: "var(--noir)" }}>{l.ideal}</p>
+                  <p style={{ marginTop: "var(--s-s)" }}>{p.delai}</p>
+                  <p style={{ marginBottom: "var(--s-s)", fontWeight: 500, color: "var(--noir)" }}>{p.ideal}</p>
+                  <Link href="/#diagnostic" className="btn">
+                    Faire le diagnostic
+                  </Link>
                 </div>
               ))}
             </div>
@@ -163,7 +173,7 @@ export default function Visibilite() {
           <div className="wrap">
             <div className="sec-head" data-reveal>
               <p className="eyebrow">Par où commencer ?</p>
-              <h2 className="h-title h2 t-accent">Ça dépend de votre situation.</h2>
+              <h2 className="h-title h2 t-accent">Quel pack pour vous ?</h2>
             </div>
             <div className="tiles">
               {choix.map((c) => (

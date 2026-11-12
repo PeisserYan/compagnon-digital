@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Création de site web et référencement | Compagnon Digital",
-  description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 3 minutes, voyez où vous perdez des clients.",
+  description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 1 minute, voyez où vous perdez des clients.",
   keywords: ["création site web indépendant", "site web petite entreprise", "web designer freelance", "création site web TPE", "site web artisan Savoie", "création site web Chambéry", "création site web Aix-les-Bains"],
   authors: [{ name: "Yan Peisser", url: "https://compagnondigital.fr" }],
   creator: "Yan Peisser",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Création de site web et référencement | Compagnon Digital",
-    description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 3 minutes, voyez où vous perdez des clients.",
+    description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 1 minute, voyez où vous perdez des clients.",
     url: "https://compagnondigital.fr",
     siteName: "Compagnon Digital",
     locale: "fr_FR",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Création de site web et référencement | Compagnon Digital",
-    description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 3 minutes, voyez où vous perdez des clients.",
+    description: "Création de site web et référencement pour indépendants et petites entreprises. Faites le diagnostic gratuit : en 1 minute, voyez où vous perdez des clients.",
   },
   robots: {
     index: true,

@@ -12,12 +12,12 @@ const blocs = [
   },
   {
     href: "/site-web/visibilite",
-    tag: "02 · Référencement",
+    tag: "02 · Visibilité",
     titre: "Être trouvé par les bons clients.",
     description:
-      "SEO, SEA, GEO. Trois approches complémentaires pour apparaître quand vos clients vous cherchent.",
-    items: ["SEO local", "SEA Google Ads", "GEO (IA & LLMs)", "Suivi mensuel"],
-    cta: "Voir les approches",
+      "Deux formules : être trouvé durablement sur Google et dans les IA, ou des appels tout de suite grâce à la publicité.",
+    items: ["Pack Référencement SEO + GEO : 97 €/mois", "Pack Publicité Google Ads : 200 €/mois + budget", "Mise en place incluse", "Suivi mensuel"],
+    cta: "Voir les deux formules",
   },
 ];
 
