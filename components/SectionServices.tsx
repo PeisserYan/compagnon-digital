@@ -16,7 +16,7 @@ const blocs = [
     titre: "Être trouvé par les bons clients.",
     description:
       "Deux formules : être trouvé durablement sur Google et dans les IA, ou des appels tout de suite grâce à la publicité.",
-    items: ["Pack Référencement SEO + GEO : 97 €/mois", "Pack Publicité Google Ads : 200 €/mois + budget", "Mise en place incluse", "Suivi mensuel"],
+    items: ["Pack Référencement SEO + GEO : dès 97 €/mois", "Pack Publicité Google Ads : dès 200 €/mois + budget", "Mise en place incluse", "Suivi mensuel"],
     cta: "Voir les deux formules",
   },
 ];

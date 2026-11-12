@@ -21,8 +21,8 @@ const BLOCS = [
     texte:
       "Deux formules, selon votre urgence : être trouvé durablement sur Google et dans les IA, ou des appels tout de suite grâce à la publicité.",
     points: [
-      "Pack Référencement (SEO + GEO) : 97 €/mois",
-      "Pack Publicité (Google Ads) : 200 €/mois + budget pub",
+      "Pack Référencement (SEO + GEO) : dès 97 €/mois",
+      "Pack Publicité (Google Ads) : dès 200 €/mois + budget pub",
       "Mise en place incluse",
     ],
     href: "/site-web/visibilite",

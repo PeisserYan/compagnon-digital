@@ -1,67 +1,15 @@
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
+import OffreVisibilite from "@/components/visibilite/OffreVisibilite";
 
 // Page « Visibilité » (refonte 12 nov. 2026) : deux formules claires au lieu de trois leviers.
-// Pack Référencement = SEO + GEO (97 €/mois). Pack Publicité = Google Ads seul (200 €/mois + budget pub).
+// Pack Référencement = SEO + GEO (dès 97 €/mois). Pack Publicité = Google Ads seul (dès 200 €/mois + budget pub).
+// Chaque pack a son bouton et un formulaire de demande directe (components/visibilite/OffreVisibilite).
 // Mise en place incluse dans les deux. Écrite pour vendre : formule, prix, inclus, délai, pour qui.
 
-const packs = [
-  {
-    tag: "Pack Référencement · SEO + GEO",
-    titre: "Être trouvé sur Google et recommandé par les IA, sans payer chaque clic.",
-    prix: "97 €/mois",
-    mention: "Mise en place incluse",
-    texte:
-      "Quand quelqu’un tape votre métier et votre ville sur Google, ou demande à ChatGPT « quel plombier à Chambéry ? », c’est votre nom qui doit sortir. Ce pack travaille les deux.",
-    points: [
-      "Mise en place : fiche Google Business, pages optimisées, suivi installé",
-      "Suivi mensuel de vos positions et de vos mots-clés",
-      "Ajustements vers les recherches qui amènent de vrais clients",
-      "Présence sur les sources que les IA citent",
-      "Mesure mensuelle de vos citations dans les IA",
-      "Un point chaque mois, en chiffres simples",
-    ],
-    delai: "Premiers effets en général après quelques mois, puis ça s’installe.",
-    ideal: "Pour vous si vous voulez des demandes régulières, sur la durée, sans budget pub.",
-  },
-  {
-    tag: "Pack Publicité · Google Ads",
-    titre: "Des appels dès ce mois-ci.",
-    prix: "200 €/mois + budget pub",
-    mention: "Mise en place incluse",
-    texte:
-      "Votre annonce s’affiche en tête de Google dès les premiers jours, uniquement dans votre zone et sur les recherches qui comptent. Vous payez au clic, avec un plafond que vous fixez.",
-    points: [
-      "Mise en place : compte à votre nom, mots-clés, zone, annonces",
-      "Suivi des appels et des demandes reçus",
-      "Ajustements chaque mois pour baisser le coût par client",
-      "Budget pub payé directement à Google : 500 €/mois conseillés",
-      "Un point chaque mois, en chiffres simples",
-    ],
-    delai: "Premiers appels en général dès les premiers jours.",
-    ideal: "Pour vous si vous lancez une activité, traversez une période creuse ou ne pouvez pas attendre.",
-  },
-];
-
-const choix = [
-  {
-    situation: "Vous avez besoin d’appels maintenant",
-    reponse: "Le pack Publicité. C’est le seul levier qui donne des résultats en quelques jours.",
-  },
-  {
-    situation: "Vous voulez des clients sans payer chaque contact",
-    reponse: "Le pack Référencement. Plus lent au départ, mais c’est ce qui travaille pour vous sur des années, sur Google comme dans les IA.",
-  },
-  {
-    situation: "Vous voulez les deux",
-    reponse: "On combine : la publicité amène des appels tout de suite, le référencement monte en parallèle. Ensuite, vous pouvez réduire la pub. 297 €/mois + budget pub.",
-  },
-];
-
 const etapes = [
-  { titre: "Diagnostic", texte: "15 minutes au téléphone, gratuit. Je regarde d’où viennent vos clients aujourd’hui et ce qui bloque." },
+  { titre: "Votre demande", texte: "Vous choisissez un pack, ou vous faites le diagnostic si vous hésitez. Je vous rappelle sous 24 h." },
   { titre: "Choix du pack", texte: "Je vous dis quel pack vous convient, ou les deux, et pour quel budget. Par écrit, avant de commencer." },
   { titre: "Mise en place", texte: "Incluse, je m’occupe de tout : fiche Google, pages, campagnes, suivi des appels et des demandes." },
   { titre: "Suivi mensuel", texte: "Chaque mois, des chiffres simples : positions, citations IA, appels, demandes reçues. Et ce que je change." },
@@ -86,7 +34,7 @@ const questions = [
   },
   {
     q: "Le budget pub passe par vous ?",
-    r: "Non. Il est payé directement à Google, sur un compte à votre nom. Vous voyez chaque euro dépensé et vous restez propriétaire de vos campagnes. Les 200 €/mois de gestion sont facturés à part.",
+    r: "Non. Il est payé directement à Google, sur un compte à votre nom. Vous voyez chaque euro dépensé et vous restez propriétaire de vos campagnes. La gestion est facturée à part.",
   },
   {
     q: "Vous me garantissez la première place sur Google ?",
@@ -116,8 +64,8 @@ export default function Visibilite() {
         <PageHead
           eyebrow="Visibilité"
           title="Deux formules pour que vos clients vous trouvent."
-          intro="Référencement à 97 €/mois pour être trouvé sur Google et dans les IA. Publicité Google Ads à 200 €/mois pour des appels tout de suite. Mise en place incluse, résultats montrés chaque mois."
-          cta={{ href: "/#diagnostic", label: "Faire le diagnostic" }}
+          intro="Référencement à partir de 97 €/mois pour être trouvé sur Google et dans les IA. Publicité Google Ads à partir de 200 €/mois pour des appels tout de suite. Mise en place incluse, résultats montrés chaque mois."
+          cta={{ href: "#formules", label: "Voir les deux formules" }}
         />
 
         {/* Le problème */}
@@ -135,61 +83,7 @@ export default function Visibilite() {
           </div>
         </section>
 
-        {/* Les deux packs */}
-        <section className="section on-dark stripes">
-          <div className="wrap">
-            <div className="sec-head" data-reveal>
-              <p className="eyebrow">Deux formules</p>
-              <h2 className="h-title h2 t-accent">Durable ou immédiat. Prix clairs, mise en place incluse.</h2>
-            </div>
-            <div className="tiles tiles--2">
-              {packs.map((p) => (
-                <div key={p.tag} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
-                  <p className="eyebrow">{p.tag}</p>
-                  <h3 className="h-title h3" style={{ color: "var(--noir)" }}>{p.titre}</h3>
-                  <p style={{ marginBottom: "var(--s-s)" }}>
-                    <span className="price" style={{ fontSize: "20px", marginBottom: 0 }}>{p.prix}</span>
-                    <span style={{ marginLeft: 10, fontWeight: 500, color: "var(--orange-texte)" }}>{p.mention}</span>
-                  </p>
-                  <p>{p.texte}</p>
-                  <ul className="checks">
-                    {p.points.map((pt) => (
-                      <li key={pt}>{pt}</li>
-                    ))}
-                  </ul>
-                  <p style={{ marginTop: "var(--s-s)" }}>{p.delai}</p>
-                  <p style={{ marginBottom: "var(--s-s)", fontWeight: 500, color: "var(--noir)" }}>{p.ideal}</p>
-                  <Link href="/#diagnostic" className="btn">
-                    Faire le diagnostic
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Par où commencer */}
-        <section className="section">
-          <div className="wrap">
-            <div className="sec-head" data-reveal>
-              <p className="eyebrow">Par où commencer ?</p>
-              <h2 className="h-title h2 t-accent">Quel pack pour vous ?</h2>
-            </div>
-            <div className="tiles">
-              {choix.map((c) => (
-                <div key={c.situation} className="tile" data-reveal>
-                  <h3 className="h-title" style={{ fontSize: "20px" }}>{c.situation}</h3>
-                  <p style={{ marginBottom: 0 }}>{c.reponse}</p>
-                </div>
-              ))}
-            </div>
-            <div className="center-cta" data-reveal>
-              <Link href="/#diagnostic" className="btn">
-                Pas sûr ? Faire le diagnostic
-              </Link>
-            </div>
-          </div>
-        </section>
+        <OffreVisibilite />
 
         {/* Déroulé */}
         <section className="section on-dark stripes">
