@@ -2,7 +2,7 @@
    Console /admin — format « GD Concept » adapté à un outil de gestion.
    Repris du site : fond gris + cartes blanches sans bordure, arrondis 4/6/10,
    bouton à carré-flèche qui glisse, titres à parallélogramme orange,
-   panneau sombre à bandes diagonales (barre latérale), logo orange vif sur noir.
+   header flottant identique au site (comportement au scroll compris).
    Volontairement écartés : photos, parallaxe, apparitions au scroll — la
    console doit rester dense et rapide à lire.
    Tout est préfixé .adm pour ne rien changer au site public.
@@ -10,28 +10,18 @@
 
 .adm { background: var(--surface); color: var(--noir); }
 
-/* ── Barre latérale sombre flottante ── */
-.adm-side { position: sticky; top: 0; z-index: 30; background: var(--noir); color: var(--light); }
-.adm-side.stripes::before { right: auto; left: -40%; width: 160px; }
-.adm-side.stripes::after { right: -70%; width: 200px; }
-.adm-side__inner { position: relative; z-index: 1; }
-.adm-logo img { height: 40px; width: auto; }
-.adm-nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-.adm-nav::-webkit-scrollbar { display: none; }
-.adm-nav a { position: relative; isolation: isolate; flex: none; white-space: nowrap; padding: 10px 12px 10px 14px; border-radius: var(--r-s); font-size: 15px; font-weight: 500; color: rgba(255,255,255,.72); transition: color .25s, background .25s; }
-.adm-nav a:hover { color: var(--light); background: rgba(255,255,255,.06); }
-.adm-nav a.is-active { color: var(--light); padding-left: 30px; }
-.adm-nav a.is-active::before { content: ""; position: absolute; z-index: -1; left: 6px; top: 50%; transform: translateY(-50%); width: 34px; height: 1.25em; background: var(--orange); clip-path: polygon(45% 0, 100% 0, 55% 100%, 0 100%); }
-.adm-logout { font-size: 14px; color: rgba(255,255,255,.55); padding: 8px 12px; background: none; border: 0; cursor: pointer; transition: color .2s; }
-.adm-logout:hover { color: var(--orange); }
-
-@media (min-width: 768px) {
-  .adm-side { top: 14px; margin: 14px 0 14px 14px; width: 236px; height: calc(100vh - 28px); border-radius: var(--r-l); box-shadow: 0 12px 30px -14px rgba(17,17,17,.45); }
-  .adm-side__inner { height: 100%; display: flex; flex-direction: column; padding: 26px 16px 18px; }
-  .adm-logo { padding: 0 8px; margin-bottom: 30px; }
-  .adm-logo img { height: 52px; }
-  .adm-nav { flex-direction: column; overflow: visible; }
-  .adm-logout { margin-top: auto; text-align: left; }
+/* ── Header : celui du site (.header, globals.css) ; ici seulement la zone de contenu ── */
+/* Contenu aligné sur les bords du header flottant, toute la largeur utile. */
+.adm-main { box-sizing: content-box; max-width: calc(var(--max) - 120px); margin: 0 auto; padding: calc(var(--header-h) + 28px + 36px) var(--pad) 60px; }
+.adm-logout-form { display: contents; }
+/* Séparée des liens par un filet : sinon on la confond avec le lien actif (gris aussi, comme sur le site). */
+.adm-logout { font-weight: 500; font-size: 14px; color: var(--gris-texte); padding: 8px 4px 8px 18px; border-left: 1px solid var(--gris-border) !important; background: none; border: 0; cursor: pointer; transition: color .25s; }
+.adm-logout:hover { color: var(--orange-texte); }
+@media (max-width: 1100px) {
+  .nav.open .adm-logout { padding: 14px; width: 100%; text-align: left; border-left: 0 !important; border-top: 1px solid var(--gris-border) !important; }
+}
+@media (max-width: 700px) {
+  .adm-main { padding-top: calc(12px + 68px + 24px); padding-bottom: 40px; }
 }
 
 /* ── Titres de page ── */
