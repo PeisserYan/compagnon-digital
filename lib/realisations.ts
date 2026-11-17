@@ -90,9 +90,9 @@ export const realisations: Realisation[] = [
     tag: "Impression 3D · Toulouse",
     nom: "CGD Pro",
     description:
-      "Pièces techniques en impression 3D. Demande de devis avec envoi des fichiers STL/STEP ; les photos de réalisations sont en cours d'ajout.",
+      "Pièces techniques en impression 3D. Demande de devis avec envoi des fichiers STL/STEP, galerie de réalisations et FAQ.",
     lien: "https://www.cgd-pro.fr",
-    statut: "en-cours",
+    statut: "en-ligne",
   },
   {
     slug: "tom-keude",
@@ -103,6 +103,17 @@ export const realisations: Realisation[] = [
     description:
       "Créations cousues main à partir de matériaux récupérés. Catalogue et contact direct pour commander ; la vente en ligne viendra dans un second temps.",
     lien: "https://www.tom-keude.fr",
+    statut: "en-cours",
+  },
+  {
+    slug: "gd-concept",
+    image: "/gd-concept.png",
+    alt: "Site GD Concept — Charpentier éco-constructeur près de Lyon",
+    tag: "Charpente & construction bois · Lyon",
+    nom: "GD Concept",
+    description:
+      "Charpentier éco-constructeur à Soucieu-en-Jarrest. Présentation des services (charpente, couverture, isolation, ossature bois), démarche, avis et galerie de chantiers.",
+    lien: "https://gd-concept.vercel.app",
     statut: "en-cours",
   },
 ];
