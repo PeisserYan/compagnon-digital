@@ -3,7 +3,8 @@
 #
 # Secrets à créer dans GitHub (Settings → Secrets and variables → Actions) :
 #   SUPABASE_URL               ex. https://wksblmccugdmiafqzajd.supabase.co
-#   SUPABASE_SERVICE_ROLE_KEY  clé service_role (Supabase → Project Settings → API)
+#   SUPABASE_SERVICE_ROLE_KEY  clé secrète Supabase (Project Settings → API Keys) :
+#                              nouvelle clé « sb_secret_… » ou ancienne clé JWT service_role « eyJ… »
 #
 # Chaque passage : 1 insertion dans keepalive_log + lectures sur les tables métier
 # + purge des lignes de plus de 90 jours. Le job échoue (et GitHub envoie un email)
@@ -34,10 +35,15 @@ jobs:
             echo "::error::Secrets SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY manquants"; exit 1
           fi
 
+          # Les nouvelles clés sb_secret_… s'envoient uniquement en apikey ;
+          # les anciennes clés JWT (eyJ…) aussi en Authorization: Bearer.
+          AUTH=()
+          case "$KEY" in eyJ*) AUTH=(-H "Authorization: Bearer $KEY") ;; esac
+
           appel() { # méthode chemin [corps]
             local code
             code=$(curl -sS -o /tmp/rep -w '%{http_code}' -X "$1" "$URL/rest/v1/$2" \
-              -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+              -H "apikey: $KEY" "${AUTH[@]}" \
               -H "Content-Type: application/json" -H "Prefer: return=minimal" \
               ${3:+-d "$3"})
             echo "$1 $2 → $code"
