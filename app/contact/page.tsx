@@ -27,7 +27,7 @@ export default function Contact({ searchParams }: { searchParams: { intent?: str
         />
         <SectionDiagnostic intent={intent} titre="Un échange de 15 minutes, et vous savez quoi faire." />
       </main>
-      <Footer />
+      <Footer bandeau={false} />
     </>
   );
 }

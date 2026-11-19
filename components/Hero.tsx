@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { avis, GoogleG } from "@/components/SectionAvis";
+
+const ETOILE = "M12 2.5l2.94 5.96 6.56.95-4.75 4.63 1.12 6.54L12 17.5l-5.87 3.08 1.12-6.54L2.5 9.41l6.56-.95L12 2.5z";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 const BASE_POSITION = "50% 43%"; // cadrage de la photo principale
@@ -64,14 +67,10 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.5, ease }}
           className="hero__actions"
         >
-          <div className="btn-row">
-            <Link href="/contact" className="btn">
-              Discuter de mon projet
-            </Link>
-            <Link href="/contact?intent=diagnostic" className="btn btn--ghost">
-              Faire le diagnostic gratuit (1 min)
-            </Link>
-          </div>
+          {/* Un seul bouton : « Discuter de mon projet » est déjà dans le header, juste au-dessus. */}
+          <Link href="/contact?intent=diagnostic" className="btn">
+            Faire le diagnostic gratuit (1 min)
+          </Link>
           <p className="btn-note">
             Gratuit · Sans engagement
           </p>
@@ -88,12 +87,28 @@ export default function Hero() {
         <p>
           Site web, visibilité sur Google et dans les IA, publicité : je repère <strong>où votre activité perd des clients</strong>, puis je construis ce qui manque.
         </p>
-        <Link href="/realisations" className="btn btn--light">
-          Voir mes réalisations
-        </Link>
-        <p className="hero__tel">
-          Ou par téléphone : <a href="tel:+33673401475">06 73 40 14 75</a>
-        </p>
+        {/* Preuve sociale : un vrai avis Google (extrait), plutôt que le numéro de téléphone (resté dans le footer) */}
+        <figure className="hero__avis">
+          <div className="hero__avis-top">
+            <span className="hero__stars" role="img" aria-label="5 étoiles sur 5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg key={i} viewBox="0 0 24 24" aria-hidden="true">
+                  <path d={ETOILE} />
+                </svg>
+              ))}
+            </span>
+            <GoogleG size={18} />
+          </div>
+          {/* Espaces insécables autour des guillemets : jamais de « » seul en bout de ligne */}
+          <blockquote>«&nbsp;Travail soigné, prix honnête et justifié. Je&nbsp;recommande&nbsp;vivement.&nbsp;»</blockquote>
+          <figcaption>
+            <span className="hero__avis-init" aria-hidden="true" style={{ background: avis[0].couleur }}>{avis[0].initiale}</span>
+            <span>
+              <strong>{avis[0].nom}</strong>
+              <small>Avis Google</small>
+            </span>
+          </figcaption>
+        </figure>
       </motion.aside>
     </section>
   );

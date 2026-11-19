@@ -2,7 +2,7 @@
 const GOOGLE_MAPS_URL =
   "https://www.google.com/maps/place/Compagnon+Digital/@45.7290223,5.7443591,170765m/data=!3m2!1e3!4b1!4m6!3m5!1s0x478bb9d42b124cc1:0x98f423741ec12fd0!8m2!3d45.7299598!4d6.403734!16s%2Fg%2F11z6nn4rf8?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D";
 
-const avis = [
+export const avis = [
   {
     nom: "Thomas Gabin",
     initiale: "T",
@@ -26,7 +26,7 @@ const avis = [
   },
 ];
 
-function GoogleG({ size = 24 }: { size?: number }) {
+export function GoogleG({ size = 24 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
       <path

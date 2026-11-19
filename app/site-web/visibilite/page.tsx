@@ -2,6 +2,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
+import Faq from "@/components/Faq";
 
 // Page « Visibilité Google & IA » (ex-« Référencement », nov. 2026). Offre restructurée le 19 nov. 2026 :
 // forfait unique SEO + GEO à 147 €/mois, accélérateur dès 297 €/mois, Google Ads dès 197 €/mois + budget (19 nov. 2026, sans engagement).
@@ -14,6 +15,7 @@ type Levier = {
   texte: string;
   points: string[];
   ideal: string;
+  cta: string;
   vedette?: boolean;
 };
 
@@ -30,6 +32,7 @@ const leviers: Levier[] = [
       "Suivi automatique de vos positions sur Google + rapport mensuel synthétique",
     ],
     ideal: "Sans engagement · 3 à 6 mois recommandés pour observer des résultats durables sur Google et les IA.",
+    cta: "Choisir le forfait à 147 €/mois",
     vedette: true,
   },
   {
@@ -44,6 +47,7 @@ const leviers: Levier[] = [
       "Collecte automatique d'avis Google auprès de vos clients satisfaits",
     ],
     ideal: "Idéal pour développer votre zone d'intervention sans recruter de commercial.",
+    cta: "Étudier ma zone d'intervention",
   },
   {
     tag: "03 · Google Ads",
@@ -56,22 +60,9 @@ const leviers: Levier[] = [
       "Suivi des appels et des demandes reçus",
       "Ajustements chaque mois pour baisser le coût par client",
     ],
-    ideal: "Idéal pour un lancement, une période creuse ou tester une offre.",
-  },
-];
-
-const choix = [
-  {
-    situation: "Vous avez besoin d’appels maintenant",
-    reponse: "Google Ads. C’est le seul levier qui donne des résultats en quelques jours. On peut lancer le forfait SEO + IA en parallèle pour moins dépendre de la pub ensuite.",
-  },
-  {
-    situation: "Vous voulez des clients sans payer chaque contact",
-    reponse: "Le forfait SEO + IA à 147 €/mois : fiche Google en tête, un contenu chaque mois, un site que les IA savent lire. Plus lent au départ, mais c’est ce qui travaille pour vous sur des années.",
-  },
-  {
-    situation: "Vous visez plusieurs villes ou un métier très concurrentiel",
-    reponse: "L’accélérateur : une page dédiée à chaque ville et quatre contenus par mois pour prendre les premières places plus vite.",
+    // Le badge seul ne disait pas que le budget pub est payé à Google, à part : précisé ici.
+    ideal: "Budget pub payé directement à Google, sur un compte à votre nom (500 €/mois conseillés). Idéal pour un lancement, une période creuse ou tester une offre.",
+    cta: "Lancer une campagne",
   },
 ];
 
@@ -83,6 +74,10 @@ const etapes = [
 ];
 
 const questions = [
+  {
+    q: "Par quel levier commencer ?",
+    r: "Ça dépend de votre urgence. Besoin d’appels maintenant : Google Ads, le seul levier qui donne des résultats en quelques jours (on peut lancer le forfait SEO + IA en parallèle pour moins dépendre de la pub ensuite). Des clients sans payer chaque contact : le forfait SEO + IA à 147 €/mois, plus lent au départ mais durable. Plusieurs villes ou un métier très concurrentiel : l’accélérateur. Pas sûr ? On en parle 15 minutes, gratuitement.",
+  },
   {
     q: "Y a-t-il un engagement de durée sur le forfait Visibilité ?",
     r: "Non, aucun engagement : vous pouvez arrêter à tout moment sur simple demande. En revanche, contrairement à Google Ads qui coupe dès qu’on arrête de payer, le référencement sur Google et les IA met généralement 3 à 6 mois pour produire un vrai effet boule de neige sur vos appels.",
@@ -131,35 +126,23 @@ export default function Visibilite() {
           cta={{ href: "/contact?intent=visibilite", label: "Tester ma visibilité Google & IA" }}
         />
 
-        {/* Le problème */}
+        {/* Les trois leviers : fond clair, l'en-tête de page juste au-dessus est déjà noir */}
         <section className="section">
-          <div className="wrap">
-            <div className="sec-head--split sec-head" data-reveal>
-              <div>
-                <p className="eyebrow">Le constat</p>
-                <h2 className="h-title h2 t-accent">Un site que personne ne voit ne rapporte rien.</h2>
-              </div>
-              <p className="lead">
-                Vos clients cherchent sur Google, comparent trois noms et appellent le premier qui inspire confiance. Si vous n’êtes pas dans ces trois-là, votre site peut être parfait : il ne sonnera pas. Mon travail, c’est de vous y mettre.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Les trois leviers */}
-        <section className="section on-dark stripes">
           <div className="wrap">
             <div className="sec-head" data-reveal>
               <p className="eyebrow">Trois leviers</p>
               <h2 className="h-title h2 t-accent">Ne laissez plus vos concurrents prendre les appels à votre place.</h2>
+              {/* Ex-section « Le constat » (grande bande pour deux lignes), fusionnée ici le 19 nov. 2026 */}
+              <p className="lead" style={{ marginBottom: 0 }}>
+                Vos clients cherchent sur Google, comparent trois noms et appellent le premier qui inspire confiance. Si vous n’êtes pas dans ces trois-là, votre site peut être parfait : il ne sonnera pas. Mon travail, c’est de vous y mettre.
+              </p>
             </div>
             <div className="tiles">
               {leviers.map((l) => (
                 <div
                   key={l.tag}
-                  className={`tile${l.vedette ? " tile--featured" : ""}`}
+                  className={`tile tile--light${l.vedette ? " tile--featured" : ""}`}
                   data-reveal
-                  style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}
                 >
                   <p className="eyebrow">{l.tag}</p>
                   <span className={`price${l.vedette ? " price--accent" : ""}`}>{l.badge}</span>
@@ -171,31 +154,11 @@ export default function Visibilite() {
                     ))}
                   </ul>
                   <p className="tile__foot">{l.ideal}</p>
+                  <Link href="/contact?intent=visibilite" className={`btn${l.vedette ? "" : " btn--ink"}`} style={{ whiteSpace: "normal" }}>
+                    {l.cta}
+                  </Link>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Par où commencer */}
-        <section className="section">
-          <div className="wrap">
-            <div className="sec-head" data-reveal>
-              <p className="eyebrow">Par où commencer ?</p>
-              <h2 className="h-title h2 t-accent">Ça dépend de votre situation.</h2>
-            </div>
-            <div className="tiles">
-              {choix.map((c) => (
-                <div key={c.situation} className="tile" data-reveal>
-                  <h3 className="h-title" style={{ fontSize: "20px" }}>{c.situation}</h3>
-                  <p style={{ marginBottom: 0 }}>{c.reponse}</p>
-                </div>
-              ))}
-            </div>
-            <div className="center-cta" data-reveal>
-              <Link href="/contact?intent=visibilite" className="btn">
-                Tester ma visibilité Google & IA
-              </Link>
             </div>
           </div>
         </section>
@@ -209,7 +172,7 @@ export default function Visibilite() {
             </div>
             <div className="tiles tiles--4">
               {etapes.map((e, i) => (
-                <div key={e.titre} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
+                <div key={e.titre} className="tile tile--light tile--compact" data-reveal>
                   <span className="tile__num">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="h-title" style={{ fontSize: "20px", color: "var(--noir)" }}>{e.titre}</h3>
                   <p style={{ marginBottom: 0 }}>{e.texte}</p>
@@ -219,25 +182,15 @@ export default function Visibilite() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="section section--tight">
+        {/* FAQ : padding complet, elle suit une section sombre */}
+        <section className="section">
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
           <div className="wrap">
             <div data-reveal>
               <p className="eyebrow">FAQ</p>
               <h2 className="h-title h2 t-accent">Vos questions avant de vous lancer</h2>
             </div>
-            <div className="faq">
-              {questions.map(({ q, r }) => (
-                <details key={q} className="faq-item" data-reveal>
-                  <summary>
-                    <span>{q}</span>
-                    <span aria-hidden="true" className="faq-icon">+</span>
-                  </summary>
-                  <p>{r}</p>
-                </details>
-              ))}
-            </div>
+            <Faq questions={questions} />
           </div>
         </section>
       </main>

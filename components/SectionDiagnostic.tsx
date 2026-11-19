@@ -26,9 +26,6 @@ export default function SectionDiagnostic({ intent = null, titre }: { intent?: B
               <span>
                 <small>Une question précise, déjà client ?</small>
                 <a href="mailto:yan@compagnondigital.fr">yan@compagnondigital.fr</a>
-                <small style={{ marginTop: "4px" }}>
-                  ou <a href="tel:+33673401475">06 73 40 14 75</a>
-                </small>
               </span>
             </li>
           </ul>

@@ -11,10 +11,12 @@ const NAV = [
 ];
 
 // Format GD Concept : bande CTA à bandes diagonales, pied de page sombre, barre basse.
-export default function Footer() {
+// bandeau : false sur les pages où le tunnel est déjà affiché (un CTA « diagnostic » sous le diagnostic n'a pas de sens).
+export default function Footer({ bandeau = true }: { bandeau?: boolean } = {}) {
   return (
     <>
       {/* Bandeau CTA : s'adresse aux indécis, donc mène directement à la branche « diagnostic » du tunnel. */}
+      {bandeau && (
       <section className="band">
         <div className="wrap">
           <h2>Vous ne savez pas par où commencer&nbsp;? On fait le point ensemble.</h2>
@@ -25,6 +27,7 @@ export default function Footer() {
           </div>
         </div>
       </section>
+      )}
 
       <footer className="footer">
         <div className="wrap footer__grid">

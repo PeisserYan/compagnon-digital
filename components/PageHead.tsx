@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
-// En-tête des pages intérieures (format GD « page-head ») : photo du héros en parallaxe sous un
-// dégradé noir, sur-titre orange, titre à parallélogramme, texte d'intro, bouton facultatif.
+// En-tête des pages intérieures (format GD « page-head ») : fond noir à bandes diagonales (même motif
+// que les sections sombres ; la photo du héros assombrie donnait un dégradé brun peu lisible, retirée le 19 nov. 2026),
+// sur-titre orange, titre à parallélogramme, texte d'intro, bouton facultatif.
 export default function PageHead({
   eyebrow,
   title,
@@ -15,10 +15,7 @@ export default function PageHead({
   cta?: { href: string; label: string };
 }) {
   return (
-    <section className="page-head on-dark">
-      <div className="page-head__bg" data-parallax="0.15" aria-hidden="true">
-        <Image src="/hero/hero-base.webp" alt="" fill priority sizes="100vw" className="object-cover" style={{ objectPosition: "50% 70%" }} />
-      </div>
+    <section className="page-head on-dark stripes">
       <div className="wrap">
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h1 className="t-accent">{title}</h1>

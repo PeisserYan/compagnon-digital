@@ -32,7 +32,7 @@ export default function SectionServices() {
         </div>
         <div className="tiles tiles--2">
           {blocs.map((b) => (
-            <div key={b.tag} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
+            <div key={b.tag} className="tile tile--light" data-reveal>
               <p className="eyebrow">{b.tag}</p>
               <h3 className="h-title h3" style={{ color: "var(--noir)" }}>{b.titre}</h3>
               <p style={{ color: "var(--gris-texte)" }}>{b.description}</p>
