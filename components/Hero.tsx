@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 const ease = [0.76, 0, 0.24, 1] as const;
 const BASE_POSITION = "50% 43%"; // cadrage de la photo principale
 
-// Repris du texte d'accroche (Site web, référencement, publicité Google)
-const CHIPS = ["Site web", "Référencement", "Publicité Google"];
+// Repris du texte d'accroche (site web, visibilité Google & IA, publicité Google)
+const CHIPS = ["Site web", "Google & IA", "Publicité Google"];
 
 export default function Hero() {
   return (
@@ -64,11 +64,16 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.5, ease }}
           className="hero__actions"
         >
-          <Link href="/#diagnostic" className="btn">
-            Faire le diagnostic
-          </Link>
+          <div className="btn-row">
+            <Link href="/contact" className="btn">
+              Discuter de mon projet
+            </Link>
+            <Link href="/contact?intent=diagnostic" className="btn btn--ghost">
+              Faire le diagnostic gratuit (1 min)
+            </Link>
+          </div>
           <p className="btn-note">
-            Gratuit · 1 minute · Sans engagement
+            Gratuit · Sans engagement
           </p>
         </motion.div>
       </div>
@@ -81,7 +86,7 @@ export default function Hero() {
        
       >
         <p>
-          Site web, référencement, publicité Google : je repère <strong>où votre activité perd des clients</strong>, puis je construis ce qui manque.
+          Site web, visibilité sur Google et dans les IA, publicité : je repère <strong>où votre activité perd des clients</strong>, puis je construis ce qui manque.
         </p>
         <Link href="/realisations" className="btn btn--light">
           Voir mes réalisations

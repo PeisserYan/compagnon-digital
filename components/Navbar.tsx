@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import ScrollFx from "@/components/ScrollFx";
 
 const SERVICES_LINKS = [
-  { href: "/site-web/creation", label: "Création de site" },
-  { href: "/site-web/visibilite", label: "Visibilité" },
+  { href: "/site-web/creation", label: "Création de site", detail: "Vitrine, E-commerce, Sur-mesure" },
+  { href: "/site-web/visibilite", label: "Visibilité Google & IA", detail: "SEO, GEO, Google Ads" },
 ];
 
 const NAV_LINKS = [
@@ -81,9 +81,10 @@ export default function Navbar() {
                 Services <Chevron />
               </button>
               <div className="dd__menu">
-                {SERVICES_LINKS.map(({ href, label }) => (
+                {SERVICES_LINKS.map(({ href, label, detail }) => (
                   <Link key={href} href={href} onClick={close}>
-                    {label}
+                    <span className="block">{label}</span>
+                    <span className="block text-[13px] font-normal" style={{ color: "var(--gris-texte)" }}>{detail}</span>
                   </Link>
                 ))}
               </div>
@@ -94,14 +95,15 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="header__cta-m">
-              <Link href="/#diagnostic" className="btn" onClick={close}>
-                Faire le diagnostic
+              <Link href="/contact" className="btn" onClick={close}>
+                Discuter de mon projet
               </Link>
             </div>
           </nav>
 
-          <Link href="/#diagnostic" className="btn header__cta">
-            Faire le diagnostic
+          <Link href="/contact" className="btn header__cta" aria-label="Discuter de mon projet">
+            <span className="lbl-long">Discuter de mon projet</span>
+            <span className="lbl-court" aria-hidden="true">Mon projet</span>
           </Link>
 
           <button

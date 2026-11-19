@@ -19,14 +19,13 @@ const BLOCS = [
     label: "02 · Visibilité",
     titre: "Être trouvé par les bons clients.",
     texte:
-      "Apparaître au moment où vos clients vous cherchent : dans Google, en tête des annonces et dans les réponses des IA.",
+      "Un beau site ne sert à rien si personne ne le voit. Je vous place là où vos clients cherchent : en tête sur Google et dans les recommandations de ChatGPT.",
     points: [
-      "Référencement naturel (SEO) : remonter dans Google, durablement",
-      "Publicité Google Ads : des appels dès ce mois-ci",
-      "GEO : être recommandé par ChatGPT et les autres IA",
+      "Visibilité durable (SEO + IA) · 147 €/mois : Remonter sur Google, optimiser votre fiche Google et être cité par les IA.",
+      "Appels immédiats (Google Ads) · dès 197 €/mois : Des demandes dès cette semaine pour lancer ou booster l'activité.",
     ],
     href: "/site-web/visibilite",
-    cta: "Découvrir la visibilité",
+    cta: "Découvrir les offres de visibilité",
     image: "/hero/hero-reveal.webp",
     alt: "",
     position: "center",

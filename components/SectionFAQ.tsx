@@ -4,7 +4,7 @@
 const QUESTIONS = [
   {
     q: "Combien coûte un site ?",
-    r: "Un site one page démarre à 500 €, un site vitrine à 800 €. Un site marchand est sur devis, selon le nombre de produits. Le prix est fixé par écrit avant de commencer et ne bouge pas.",
+    r: "Un site one page démarre à 498 €, un site vitrine à 790 €. Un site marchand est sur devis, selon le nombre de produits. Le prix est fixé par écrit avant de commencer et ne bouge pas.",
   },
   {
     q: "En combien de temps mon site est-il en ligne ?",
@@ -21,6 +21,18 @@ const QUESTIONS = [
   {
     q: "Pourquoi ne pas le faire moi-même sur Wix ?",
     r: "Vous pouvez, et pour certains c'est le bon choix. Mais un site en ligne n'est pas un site qui ramène des clients : structure, textes qui convertissent, référencement local, et votre temps. Je me concentre sur ce qui fait venir les clients, pas seulement sur la mise en ligne.",
+  },
+  {
+    q: "Une fois mon site en ligne, quels sont les frais récurrents ?",
+    r: "La création de votre site est un paiement unique et il vous appartient à 100 %. Pour le faire fonctionner, je propose deux formules sans engagement dès la première année : l'hébergement et la sécurité à 10 €/mois (100 €/an), ou la formule Sérénité à 29 €/mois (290 €/an) qui inclut en plus une série de modifications par mois (textes, photos, actualités). Le forfait Visibilité à 147 €/mois est quant à lui optionnel, uniquement si vous souhaitez remonter sur Google et les IA.",
+  },
+  {
+    q: "Que se passe-t-il si j'arrête de payer l'hébergement ? Est-ce que je perds mon site ?",
+    r: "Non, jamais. Votre site vous appartient à 100 % et les formules sont sans engagement. En paiement mensuel, vous pouvez arrêter à tout moment avec un préavis de 30 jours. En paiement annuel (non remboursable au prorata), il vous suffit d'annuler le renouvellement au moins 30 jours avant la date d'échéance. Dans tous les cas, je vous remets l'intégralité du code source et de vos accès : vous êtes libre de transférer votre site chez un autre hébergeur, de le gérer vous-même ou de le fermer.",
+  },
+  {
+    q: "Pourquoi mélanger le référencement Google (SEO) et les IA (GEO) ?",
+    r: "Parce que vos clients ne cherchent plus uniquement sur Google : ils demandent directement à ChatGPT ou Perplexity « quel est le meilleur artisan près de chez moi ». Les règles pour être cité par ces IA reposent sur la structure de votre site et votre réputation locale. Je travaille les deux en même temps, dans un seul forfait.",
   },
   {
     q: "Le diagnostic gratuit, c'est un piège commercial ?",

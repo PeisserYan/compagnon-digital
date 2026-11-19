@@ -1,4 +1,5 @@
-import Diagnostic from "@/components/diagnostic/Diagnostic";
+import Tunnel from "@/components/diagnostic/Tunnel";
+import type { Branche } from "@/lib/tunnel";
 
 function Ico({ d }: { d: string }) {
   return (
@@ -10,14 +11,15 @@ function Ico({ d }: { d: string }) {
   );
 }
 
-// Format GD Concept : texte + coordonnées à gauche, formulaire dans une carte claire à droite.
-export default function SectionDiagnostic() {
+// Format GD Concept : texte + coordonnées à gauche, tunnel (aiguillage 3 branches) dans une carte claire à droite.
+// Utilisée sur l'accueil (#diagnostic) et sur /contact (avec pré-sélection ?intent=).
+export default function SectionDiagnostic({ intent = null, titre }: { intent?: Branche | null; titre?: string }) {
   return (
     <section id="contact" className="section">
       <div id="diagnostic" className="wrap quote__grid" style={{ scrollMarginTop: "110px" }}>
         <div className="quote__side" data-reveal>
-          <p className="eyebrow">Diagnostic</p>
-          <h2 className="h-title h2 t-accent">Où votre activité perd-elle des clients&nbsp;?</h2>
+          <p className="eyebrow">Votre projet</p>
+          <h2 className="h-title h2 t-accent">{titre ?? "Où votre activité perd-elle des clients\u00a0?"}</h2>
           <ul className="contact-lines">
             <li>
               <Ico d="M4 4h16v16H4zM4 7l8 6 8-6" />
@@ -33,7 +35,7 @@ export default function SectionDiagnostic() {
         </div>
 
         <div data-reveal>
-          <Diagnostic />
+          <Tunnel key={intent ?? "aucun"} intent={intent} />
         </div>
       </div>
     </section>

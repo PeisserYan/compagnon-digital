@@ -12,7 +12,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const TOTAL = QUESTIONS.length;
 
 
-const champ: React.CSSProperties = {
+export const champ: React.CSSProperties = {
   width: "100%",
   padding: "0.95rem 1rem",
   border: "1px solid var(--gris-border)",
@@ -23,20 +23,23 @@ const champ: React.CSSProperties = {
   outline: "none",
 };
 
-const titreStyle: React.CSSProperties = {
+export const titreStyle: React.CSSProperties = {
   fontFamily: "var(--font-playfair)",
   fontSize: "clamp(1.5rem, 3vw, 2rem)",
   lineHeight: 1.25,
   color: "var(--noir)",
 };
 
-export default function Diagnostic() {
+// Branche C du tunnel (components/diagnostic/Tunnel.tsx).
+// direct : saute l'écran d'intro (le prospect a déjà choisi « Je ne sais pas trop par où commencer »).
+// onQuitter : « retour » depuis la 1re question ramène à l'aiguillage du tunnel.
+export default function Diagnostic({ direct = false, onQuitter }: { direct?: boolean; onQuitter?: () => void } = {}) {
   const reduire = useReducedMotion();
   const carteRef = useRef<HTMLDivElement>(null);
   const timer = useRef<number>();
   const premierRendu = useRef(true);
 
-  const [ecran, setEcran] = useState<Ecran>({ kind: "intro" });
+  const [ecran, setEcran] = useState<Ecran>(direct ? { kind: "question", index: 0 } : { kind: "intro" });
   const [sens, setSens] = useState<1 | -1>(1);
   const [reponses, setReponses] = useState<Reponses>({});
   const [prenom, setPrenom] = useState("");
@@ -93,7 +96,11 @@ export default function Diagnostic() {
 
   function retour() {
     if (ecran.kind === "contact") aller({ kind: "question", index: TOTAL - 1 }, -1);
-    else if (ecran.kind === "question") aller(ecran.index > 0 ? { kind: "question", index: ecran.index - 1 } : { kind: "intro" }, -1);
+    else if (ecran.kind === "question" && ecran.index > 0) aller({ kind: "question", index: ecran.index - 1 }, -1);
+    else if (ecran.kind === "question") {
+      if (onQuitter) onQuitter();
+      else aller({ kind: "intro" }, -1);
+    }
   }
 
   async function envoyer(e: React.FormEvent) {
@@ -206,7 +213,7 @@ export default function Diagnostic() {
                   Suivant
                 </button>
               )}
-              <BoutonRetour onClick={retour} />
+              <BoutonRetour onClick={retour} label={ecran.index === 0 && onQuitter ? "← Changer de situation" : undefined} />
             </div>
           )}
 
@@ -278,7 +285,7 @@ export default function Diagnostic() {
               <p className="mb-6 text-sm leading-relaxed" style={{ color: "var(--gris-texte)" }}>
                 {envoi === "erreur"
                   ? "Votre demande n'a pas pu m'être transmise. Réservez directement un créneau ci-dessous, ou appelez-moi au 06 73 40 14 75."
-                  : "Je vous appelle sous 24 h (jours ouvrés) pour en parler 15 minutes. Vous préférez choisir le moment ?"}
+                  : `Merci ${prenom}, j'ai tout ce qu'il me faut. Réservez un créneau de 15 minutes ci-dessous : on fera le tri ensemble entre ce qui est vraiment utile pour vous aujourd'hui et ce qui peut attendre.`}
               </p>
               <a href={GOOGLE_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn">
                 Choisir mon créneau
@@ -291,7 +298,7 @@ export default function Diagnostic() {
   );
 }
 
-function BoutonRetour({ onClick }: { onClick: () => void }) {
+export function BoutonRetour({ onClick, label = "← Question précédente" }: { onClick: () => void; label?: string }) {
   return (
     <button
       type="button"
@@ -299,12 +306,12 @@ function BoutonRetour({ onClick }: { onClick: () => void }) {
       className="mt-8 block text-sm hover:opacity-60 transition-opacity"
       style={{ background: "none", border: "none", padding: 0, color: "var(--gris-texte)", cursor: "pointer" }}
     >
-      ← Question précédente
+      {label}
     </button>
   );
 }
 
-function Choix({ actif, multiple, onClick, children }: { actif: boolean; multiple?: boolean; onClick: () => void; children: React.ReactNode }) {
+export function Choix({ actif, multiple, onClick, children }: { actif: boolean; multiple?: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       type="button"

@@ -3,65 +3,75 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHead from "@/components/PageHead";
 
-// Page « Visibilité » (ex-« Référencement », nov. 2026) : SEO et GEO (gratuit, durable)
-// + Google Ads (publicité payante). Écrite pour convertir : situations client, prix, déroulé, objections.
+// Page « Visibilité Google & IA » (ex-« Référencement », nov. 2026). Offre restructurée le 19 nov. 2026 :
+// forfait unique SEO + GEO à 147 €/mois, accélérateur dès 297 €/mois, Google Ads dès 197 €/mois + budget (19 nov. 2026, sans engagement).
+// Écrite pour convertir : situations client, prix, déroulé, objections.
 
-const leviers = [
+type Levier = {
+  tag: string;
+  badge: string;
+  titre: string;
+  texte: string;
+  points: string[];
+  ideal: string;
+  vedette?: boolean;
+};
+
+const leviers: Levier[] = [
   {
-    tag: "01 · Référencement naturel (SEO)",
-    titre: "Être trouvé sur Google, sans payer chaque clic.",
-    prix: "Suivi dès 47 €/mois",
-    texte:
-      "Quand quelqu’un tape votre métier et votre ville, c’est vous qu’il doit voir. Chaque mois, je suis vos positions et j’ajuste vos mots-clés vers les recherches qui amènent de vrais clients.",
+    tag: "01 · Visibilité durable",
+    badge: "Recommandé · Forfait SEO + GEO · 147 €/mois",
+    titre: "Être trouvé sur Google et recommandé par les IA.",
+    texte: "Votre site travaille pour vous chaque mois, sans payer à chaque clic.",
     points: [
-      "Suivi mensuel de vos positions et mots-clés",
-      "Ajustement des mots-clés vers les recherches qui rapportent",
-      "En option : fiche Google Business, contenus, netlinking",
+      "Optimisation de votre fiche Google (2 publications/mois + modèles de réponses aux avis)",
+      "1 article optimisé par mois (500-600 mots) pour capter les recherches locales",
+      "Configuration initiale « IA-ready » (Schema.org) + ajout de FAQ ciblées pour ChatGPT et Perplexity",
+      "Suivi automatique de vos positions sur Google + rapport mensuel synthétique",
     ],
-    ideal: "Idéal si vous voulez des demandes régulières, sur la durée.",
+    ideal: "Sans engagement · 3 à 6 mois recommandés pour observer des résultats durables sur Google et les IA.",
+    vedette: true,
   },
   {
-    tag: "02 · Publicité Google Ads (SEA)",
-    titre: "Des appels dès ce mois-ci.",
-    prix: "Gestion dès 200 €/mois + budget pub",
-    texte:
-      "Votre annonce s’affiche en tête de Google dès les premiers jours, uniquement dans votre zone et sur les recherches qui comptent. Vous payez au clic, avec un plafond que vous fixez.",
+    tag: "02 · L'accélérateur",
+    badge: "Sur-mesure · dès 297 €/mois",
+    titre: "Couvrir plusieurs villes et accélérer les demandes.",
+    texte: "Pour les métiers très concurrentiels ou ceux qui veulent rayonner sur tout le département.",
+    points: [
+      "Tout le forfait à 147 €/mois inclus",
+      "Pages locales dédiées (ex. : votre métier sur Aix-les-Bains, Chambéry, Annecy...)",
+      "Rythme de publication renforcé (4 contenus/mois) pour prendre les premières places plus vite",
+      "Collecte automatique d'avis Google auprès de vos clients satisfaits",
+    ],
+    ideal: "Idéal pour développer votre zone d'intervention sans recruter de commercial.",
+  },
+  {
+    tag: "03 · Google Ads",
+    badge: "Gestion dès 197 €/mois + budget pub",
+    titre: "Des appels dès cette semaine.",
+    texte: "Vous apparaissez tout en haut de Google dès le lancement de la campagne.",
     points: [
       "Choix des mots-clés et de la zone",
       "Rédaction des annonces",
       "Suivi des appels et des demandes reçus",
       "Ajustements chaque mois pour baisser le coût par client",
     ],
-    ideal: "Idéal pour un lancement, une période creuse ou en attendant que le SEO monte.",
-  },
-  {
-    tag: "03 · Visibilité IA (GEO)",
-    titre: "Être recommandé par ChatGPT et les autres IA.",
-    prix: "Sur devis, après diagnostic",
-    texte:
-      "De plus en plus de clients demandent directement à une IA « quel plombier à Chambéry ? ». Elle cite quelques entreprises. Le GEO, c’est faire en sorte que la vôtre en fasse partie.",
-    points: [
-      "Repérer les questions que vos clients posent aux IA",
-      "Être présent sur les sources qu’elles citent",
-      "Des contenus clairs et structurés qu’elles reprennent",
-      "Mesure mensuelle de vos citations",
-    ],
-    ideal: "Idéal en complément du SEO, pour prendre de l’avance sur vos concurrents.",
+    ideal: "Idéal pour un lancement, une période creuse ou tester une offre.",
   },
 ];
 
 const choix = [
   {
     situation: "Vous avez besoin d’appels maintenant",
-    reponse: "Google Ads. C’est le seul levier qui donne des résultats en quelques jours. On peut lancer le SEO en parallèle pour moins dépendre de la pub ensuite.",
+    reponse: "Google Ads. C’est le seul levier qui donne des résultats en quelques jours. On peut lancer le forfait SEO + IA en parallèle pour moins dépendre de la pub ensuite.",
   },
   {
     situation: "Vous voulez des clients sans payer chaque contact",
-    reponse: "Le SEO local, fiche Google en tête. Plus lent au départ, mais c’est ce qui travaille pour vous sur des années.",
+    reponse: "Le forfait SEO + IA à 147 €/mois : fiche Google en tête, un contenu chaque mois, un site que les IA savent lire. Plus lent au départ, mais c’est ce qui travaille pour vous sur des années.",
   },
   {
-    situation: "Vous êtes déjà bien placé sur Google",
-    reponse: "Le GEO. Vos concurrents n’y pensent pas encore : c’est le moment d’y prendre votre place.",
+    situation: "Vous visez plusieurs villes ou un métier très concurrentiel",
+    reponse: "L’accélérateur : une page dédiée à chaque ville et quatre contenus par mois pour prendre les premières places plus vite.",
   },
 ];
 
@@ -73,6 +83,10 @@ const etapes = [
 ];
 
 const questions = [
+  {
+    q: "Y a-t-il un engagement de durée sur le forfait Visibilité ?",
+    r: "Non, aucun engagement : vous pouvez arrêter à tout moment sur simple demande. En revanche, contrairement à Google Ads qui coupe dès qu’on arrête de payer, le référencement sur Google et les IA met généralement 3 à 6 mois pour produire un vrai effet boule de neige sur vos appels.",
+  },
   {
     q: "En combien de temps je vois des résultats ?",
     r: "Avec Google Ads, dès les premiers jours. En SEO, les premiers effets se voient en général après quelques mois, puis ça s’installe. C’est pour ça que je combine souvent les deux au démarrage.",
@@ -111,10 +125,10 @@ export default function Visibilite() {
       <Navbar />
       <main>
         <PageHead
-          eyebrow="Visibilité"
+          eyebrow="Visibilité Google & IA"
           title="Que vos clients vous trouvent avant vos concurrents."
           intro="Sur Google, en tête des annonces et dans les réponses des IA. Je choisis avec vous les bons leviers selon votre urgence et votre budget, puis je vous montre chaque mois ce qu’ils rapportent."
-          cta={{ href: "/#diagnostic", label: "Faire le diagnostic" }}
+          cta={{ href: "/contact?intent=visibilite", label: "Tester ma visibilité Google & IA" }}
         />
 
         {/* Le problème */}
@@ -137,21 +151,26 @@ export default function Visibilite() {
           <div className="wrap">
             <div className="sec-head" data-reveal>
               <p className="eyebrow">Trois leviers</p>
-              <h2 className="h-title h2 t-accent">Gratuit et durable, ou payant et immédiat.</h2>
+              <h2 className="h-title h2 t-accent">Ne laissez plus vos concurrents prendre les appels à votre place.</h2>
             </div>
             <div className="tiles">
               {leviers.map((l) => (
-                <div key={l.tag} className="tile" data-reveal style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}>
+                <div
+                  key={l.tag}
+                  className={`tile${l.vedette ? " tile--featured" : ""}`}
+                  data-reveal
+                  style={{ background: "var(--light)", color: "var(--noir)", border: 0 }}
+                >
                   <p className="eyebrow">{l.tag}</p>
+                  <span className={`price${l.vedette ? " price--accent" : ""}`}>{l.badge}</span>
                   <h3 className="h-title h3" style={{ color: "var(--noir)" }}>{l.titre}</h3>
-                  <span className="price">{l.prix}</span>
                   <p>{l.texte}</p>
                   <ul className="checks">
                     {l.points.map((pt) => (
                       <li key={pt}>{pt}</li>
                     ))}
                   </ul>
-                  <p style={{ marginTop: "var(--s-s)", marginBottom: 0, fontWeight: 500, color: "var(--noir)" }}>{l.ideal}</p>
+                  <p className="tile__foot">{l.ideal}</p>
                 </div>
               ))}
             </div>
@@ -174,8 +193,8 @@ export default function Visibilite() {
               ))}
             </div>
             <div className="center-cta" data-reveal>
-              <Link href="/#diagnostic" className="btn">
-                Pas sûr ? Faire le diagnostic
+              <Link href="/contact?intent=visibilite" className="btn">
+                Tester ma visibilité Google & IA
               </Link>
             </div>
           </div>

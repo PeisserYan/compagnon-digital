@@ -40,7 +40,7 @@ export default function PolitiqueDeConfidentialite() {
                 Données collectées
               </h2>
               <p>
-                Via le diagnostic : vos réponses au questionnaire (taille de structure, tranche de chiffre d'affaires, origine de vos clients, site internet, objectif), votre prénom, votre téléphone et votre email. Ces données servent uniquement à vous envoyer votre diagnostic et à vous recontacter à son sujet. Elles ne sont ni vendues ni cédées. Les emails sont envoyés via Brevo, qui agit comme sous-traitant technique.
+                Via le formulaire « Discuter de mon projet » et le diagnostic : vos réponses au questionnaire (type de site souhaité et délai, adresse de votre site actuel et priorité, ou taille de structure, tranche de chiffre d'affaires, origine de vos clients, site internet, objectif), vos nom et prénom, votre entreprise ou métier, votre ville ou zone d'intervention, votre téléphone et votre email. Ces données servent uniquement à vous répondre et à vous recontacter au sujet de votre demande. Elles ne sont ni vendues ni cédées. Les emails sont envoyés via Brevo, qui agit comme sous-traitant technique.
               </p>
             </section>
 

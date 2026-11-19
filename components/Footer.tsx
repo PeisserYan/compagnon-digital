@@ -3,7 +3,8 @@ import Image from "next/image";
 
 const NAV = [
   { href: "/site-web/creation", label: "Création de site" },
-  { href: "/site-web/visibilite", label: "Visibilité" },
+  { href: "/site-web/visibilite", label: "Visibilité Google & IA" },
+  { href: "/contact", label: "Discuter de mon projet" },
   { href: "/realisations", label: "Réalisations" },
   { href: "/#apropos", label: "À propos" },
   { href: "/#faq", label: "FAQ" },
@@ -13,13 +14,13 @@ const NAV = [
 export default function Footer() {
   return (
     <>
-      {/* Bandeau CTA : un seul appel à l'action, le diagnostic (le téléphone reste dans le footer). */}
+      {/* Bandeau CTA : s'adresse aux indécis, donc mène directement à la branche « diagnostic » du tunnel. */}
       <section className="band">
         <div className="wrap">
           <h2>Vous ne savez pas par où commencer&nbsp;? On fait le point ensemble.</h2>
           <div className="acts">
-            <Link href="/#diagnostic" className="btn btn--ink">
-              Faire le diagnostic
+            <Link href="/contact?intent=diagnostic" className="btn btn--ink">
+              Faire le diagnostic gratuit
             </Link>
           </div>
         </div>

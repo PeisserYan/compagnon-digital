@@ -7,17 +7,17 @@ const blocs = [
     titre: "Site web qui convertit.",
     description:
       "Site one page, site vitrine, site marchand. Un site conçu pour ramener des clients, pas juste pour exister.",
-    items: ["Site one page", "Site vitrine", "Site marchand", "Mobile, RGPD & hébergement inclus"],
+    items: ["Site one page", "Site vitrine", "Site marchand", "Mobile & RGPD · hébergement dès 10 €/mois"],
     cta: "Voir les formules",
   },
   {
     href: "/site-web/visibilite",
-    tag: "02 · Référencement",
+    tag: "02 · Visibilité Google & IA",
     titre: "Être trouvé par les bons clients.",
     description:
-      "SEO, SEA, GEO. Trois approches complémentaires pour apparaître quand vos clients vous cherchent.",
-    items: ["SEO local", "SEA Google Ads", "GEO (IA & LLMs)", "Suivi mensuel"],
-    cta: "Voir les approches",
+      "Un beau site ne sert à rien si personne ne le voit. Je vous place là où vos clients cherchent : en tête sur Google et dans les recommandations de ChatGPT.",
+    items: ["Forfait SEO + IA · 147 €/mois", "Accélérateur multi-villes · dès 297 €/mois", "Google Ads · dès 197 €/mois + budget pub", "Rapport clair chaque mois"],
+    cta: "Découvrir les offres de visibilité",
   },
 ];
 
@@ -48,8 +48,8 @@ export default function SectionServices() {
           ))}
         </div>
         <div className="center-cta" data-reveal>
-          <Link href="/#diagnostic" className="btn btn--light">
-            Faire le diagnostic
+          <Link href="/contact" className="btn btn--light">
+            Discuter de mon projet
           </Link>
         </div>
       </div>

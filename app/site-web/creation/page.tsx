@@ -7,10 +7,10 @@ const services = [
   {
     tag: "01 · L'essentiel",
     titre: "Vous voulez exister proprement.",
-    prix: "One page dès 500€ · site vitrine dès 800€",
+    prix: "One page dès 498 € · site vitrine dès 790 €",
     description:
       "Un site vitrine qui vous ressemble. Mobile, propre, RGPD en règle. Le client vous trouve, vous appelle, ou vous laisse un message.",
-    items: ["Vitrine", "Mobile", "RGPD", "Hébergement inclus"],
+    items: ["Vitrine", "Mobile", "RGPD", "Hébergement & maintenance dès 10 €/mois", "Structure prête pour Google & les IA"],
   },
   {
     tag: "02 · L'outil",
@@ -18,12 +18,12 @@ const services = [
     prix: "Sur mesure selon vos besoins",
     description:
       "Réservation, e-commerce, devis en ligne, espace client. Votre site devient votre premier salarié — celui qui ne dort pas.",
-    items: ["Réservation", "E-commerce", "Devis en ligne", "Espace client"],
+    items: ["Réservation", "E-commerce", "Devis en ligne", "Espace client", "Architecture SEO & données structurées"],
   },
 ];
 
 const etapes = [
-  { titre: "Le diagnostic", texte: "5 questions, 1 minute. Vous me dites où vous en êtes et ce que vous voulez." },
+  { titre: "Votre projet", texte: "3 questions, moins d'une minute. Vous me dites quel site il vous faut et pour quand." },
   { titre: "On s’appelle", texte: "15 minutes au téléphone. Je vous propose la formule adaptée et un prix fixé par écrit, qui ne bouge pas." },
   { titre: "Votre site en ligne", texte: "En 2 à 4 semaines une fois vos contenus réunis. Je rédige les textes avec vous." },
 ];
@@ -37,7 +37,7 @@ export default function Creation() {
           eyebrow="Création de site web"
           title="Choisissez votre formule."
           intro="Chaque site est conçu et développé sur mesure, adapté à votre métier et à vos clients."
-          cta={{ href: "/#diagnostic", label: "Faire le diagnostic" }}
+          cta={{ href: "/contact?intent=creation", label: "Démarrer mon projet de site" }}
         />
         <section className="section">
           <div className="wrap">
@@ -56,12 +56,18 @@ export default function Creation() {
                 </div>
               ))}
             </div>
-            <p className="lead" style={{ marginTop: "var(--s-m)", marginBottom: 0 }} data-reveal>
-              Votre site est prêt mais personne ne le trouve ?{" "}
-              <Link href="/site-web/visibilite" style={{ color: "var(--orange-texte)", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: "4px" }}>
-                Voir la visibilité : SEO, Google Ads, GEO
+            {/* Encart de transition vers l'offre Visibilité Google & IA */}
+            <aside className="encart" style={{ marginTop: "var(--s-m)" }} data-reveal>
+              <div>
+                <h2>Un site neuf sans visibilité, c&apos;est une belle vitrine dans une rue déserte.</h2>
+                <p>
+                  Tous mes sites sont livrés propres techniquement pour Google. Pour qu&apos;ils remontent durablement face à vos concurrents et dans les réponses de ChatGPT, je propose un accompagnement mensuel clé en main à 147&nbsp;€/mois.
+                </p>
+              </div>
+              <Link href="/site-web/visibilite" className="btn">
+                Voir ce qui est inclus dans le suivi SEO + IA
               </Link>
-            </p>
+            </aside>
           </div>
         </section>
 
@@ -82,8 +88,8 @@ export default function Creation() {
               ))}
             </div>
             <div className="center-cta" data-reveal>
-              <Link href="/#diagnostic" className="btn btn--light">
-                Faire le diagnostic
+              <Link href="/contact?intent=creation" className="btn btn--light">
+                Démarrer mon projet de site
               </Link>
             </div>
           </div>

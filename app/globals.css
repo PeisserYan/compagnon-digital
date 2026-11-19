@@ -96,6 +96,16 @@ body { background: var(--surface); color: var(--noir); }
 .btn--ink:hover, .btn--ink:focus-visible { background: rgba(17,17,17,.1); }
 .btn--phone::after { -webkit-mask: var(--ico-phone) center/20px no-repeat; mask: var(--ico-phone) center/20px no-repeat; }
 .btn-note { font-size: 13px; opacity: .8; margin-top: 10px; }
+/* Bouton secondaire « contour » : même mécanique de flèche, carré vide cerclé */
+.btn--ghost::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
+.btn--ghost::after { background: currentColor; }
+.btn--ghost:hover::before, .btn--ghost:focus-visible::before { background: var(--accent); box-shadow: none; }
+.btn--ghost:hover::after, .btn--ghost:focus-visible::after { background: var(--on-accent); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px var(--s-s); align-items: center; }
+@media (max-width: 480px) { .btn-row .btn { white-space: normal; padding-top: 6px; padding-bottom: 6px; } }
+/* Libellé court du CTA d'en-tête quand la place manque (avant le passage au burger) */
+.lbl-court { display: none; }
+@media (max-width: 1280px) and (min-width: 1101px) { .header__cta .lbl-long { display: none; } .header__cta .lbl-court { display: inline; } }
 
 /* ── Header flottant ── */
 .header { position: fixed; z-index: 100; top: 28px; left: 0; right: 0; padding: 0 var(--pad); transition: top .35s var(--ease), transform .45s var(--ease); }
@@ -323,6 +333,18 @@ a.tile:hover, .tile--hover:hover { box-shadow: 0 14px 30px -14px rgba(17,17,17,.
 .tile .btn { margin-top: auto; }
 .tile__num { font-family: var(--ff-title); font-weight: 700; font-size: 44px; line-height: 1; color: var(--orange-texte); margin-bottom: 16px; }
 .price { display: inline-block; align-self: flex-start; background: var(--gris-clair); border-radius: var(--r-s); padding: 6px 10px; font-weight: 600; font-size: 15px; color: var(--noir); margin-bottom: var(--s-s); }
+
+.price--accent { background: var(--orange); color: var(--noir); }
+.tile--featured { box-shadow: inset 0 0 0 2px var(--orange); }
+.tile__foot { margin-top: auto; padding-top: var(--s-s); font-weight: 500; color: var(--noir); }
+.tile .tile__foot { margin-bottom: 0; color: var(--noir); }
+/* Encart de transition léger (fond orange très pâle) */
+.encart { background: #FFF4EA; border: 1px solid rgba(242,153,74,.35); border-radius: var(--r-l); padding: clamp(24px, 4vw, 40px); display: grid; grid-template-columns: 1fr auto; gap: var(--s-m); align-items: center; }
+.encart h2 { font-family: var(--ff-title); font-weight: 700; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.25; color: var(--noir); margin-bottom: 12px; }
+.encart p { line-height: 1.6; color: var(--gris-texte); margin: 0; max-width: 680px; }
+.encart .btn { white-space: normal; }
+@media (max-width: 900px) { .encart { grid-template-columns: 1fr; gap: var(--s-s); } }
+.tunnel__intro { margin-bottom: 1.75rem; }
 .on-dark .tile { background: rgba(255,255,255,.05); color: var(--light); border: 1px solid rgba(255,255,255,.1); }
 .on-dark .tile p { color: rgba(255,255,255,.72); }
 .on-dark .tile .h-title { color: var(--light); }
