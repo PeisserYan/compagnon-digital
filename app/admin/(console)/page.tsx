@@ -4,11 +4,10 @@ import { Card, Stat, Badge, EtapeTag, inputCls, inputStyle, btn, btnStyle } from
 import type { Affaire } from "@/lib/admin/types";
 import { majParametres } from "./actions";
 import Link from "next/link";
+import CaParMois, { type PaiementDetail } from "./CaParMois";
 
 export const dynamic = "force-dynamic";
-const MOIS = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
-
-export default async function Dashboard({ searchParams }: { searchParams: { annee?: string } }) {
+export default async function Dashboard({ searchParams }: { searchParams: { annee?: string; mois?: string } }) {
   const db = createClient();
   const now = new Date();
   const annee = Number(searchParams.annee) || now.getFullYear();
@@ -17,7 +16,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
   const today = now.toISOString().slice(0, 10);
 
   const [pai, dep, par, dus, ech, act] = await Promise.all([
-    db.from("paiements").select("date, montant").gte("date", debut).lte("date", fin),
+    db.from("paiements").select("id, date, montant, mode, document_id, documents(numero, nature, clients(societe))").gte("date", debut).lte("date", fin),
     db.from("depenses").select("montant").gte("date", debut).lte("date", fin),
     db.from("parametres").select("*").eq("id", 1).single(),
     db.from("documents").select("id, numero, total_ht, date_echeance, clients(societe)").eq("type", "facture").eq("statut", "emis").order("date_echeance"),
@@ -31,7 +30,13 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
     (cl ?? []).forEach((c) => nomsClients.set(c.id, c.societe));
   }
 
-  const paiements = (pai.data ?? []) as { date: string; montant: number }[];
+  type PaiementBrut = { id: string; date: string; montant: number; mode: string; document_id: string | null; documents: { numero: string | null; nature: string | null; clients: { societe: string } | null } | null };
+  const paiements: PaiementDetail[] = ((pai.data ?? []) as unknown as PaiementBrut[]).map((p) => ({
+    id: p.id, date: p.date, montant: Number(p.montant), mode: p.mode, document_id: p.document_id,
+    numero: p.documents?.numero ?? null, nature: p.documents?.nature ?? null, client: p.documents?.clients?.societe ?? null,
+  }));
+  const moisParam = Number(searchParams.mois);
+  const moisInitial = moisParam >= 1 && moisParam <= 12 ? moisParam - 1 : null;
   const parMois = Array<number>(12).fill(0);
   paiements.forEach((p) => (parMois[Number(p.date.slice(5, 7)) - 1] += Number(p.montant)));
   const caAnnuel = parMois.reduce((a, b) => a + b, 0);
@@ -41,7 +46,6 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
   const taux = Number(par.data?.taux_cotisations ?? 0);
   const cotis = caAnnuel * taux;
   const net = caAnnuel - depenses - cotis;
-  const max = Math.max(...parMois, 1);
 
   const enAttente = ((dus.data ?? []) as unknown as { id: string; numero: string; total_ht: number; date_echeance: string | null; clients: { societe: string } | null }[]);
   const totalAttente = enAttente.reduce((s, d) => s + Number(d.total_ht), 0);
@@ -83,18 +87,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { anne
         </ul>
       </Card>
 
-      <Card>
-        <p className="text-sm font-medium mb-4">CA encaissé par mois</p>
-        <div className="flex items-end gap-1 md:gap-2 h-40">
-          {parMois.map((v, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center justify-end h-full">
-              <span className="text-[9px] md:text-[10px] mb-1" style={{ color: "var(--gris-texte)" }}>{v ? Math.round(v) : ""}</span>
-              <div className="w-full rounded-t" style={{ height: `${(v / max) * 100}%`, minHeight: v ? 2 : 0, background: "var(--orange)" }} />
-              <span className="text-[9px] md:text-[11px] mt-1" style={{ color: "var(--gris-texte)" }}>{MOIS[i]}</span>
-            </div>
-          ))}
-        </div>
-      </Card>
+      <CaParMois key={annee} annee={annee} paiements={paiements} moisInitial={moisInitial} />
 
       <div className="grid lg:grid-cols-2 gap-4">
         <Card>

@@ -59,3 +59,14 @@
 .adm-login { min-height: 100vh; background: var(--noir); }
 .adm-login.stripes::before { right: 30%; width: 420px; }
 .adm-login.stripes::after { right: -4%; width: 420px; }
+
+/* ── Squelettes de chargement (loading.tsx) : apparition différée pour ne pas clignoter sur les pages rapides ── */
+.adm-skel { border-radius: var(--r-l); background: var(--light); opacity: 0; animation: adm-skel-in .2s .12s forwards, adm-skel-pulse 1.4s .32s ease-in-out infinite; }
+@keyframes adm-skel-in { to { opacity: 1; } }
+@keyframes adm-skel-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .adm-skel { animation: adm-skel-in .01s .12s forwards; } }
+
+/* ── Histogramme cliquable du tableau de bord ── */
+.adm-bar { background: none; border: 0; padding: 0; cursor: pointer; }
+.adm-bar:hover .adm-bar__fill { filter: brightness(.92); }
+.adm-bar:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: var(--r-s); }

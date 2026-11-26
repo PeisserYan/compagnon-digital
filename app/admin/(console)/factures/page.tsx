@@ -9,11 +9,11 @@ export const dynamic = "force-dynamic";
 
 const FILTRES = [["", "Tous"], ["facture", "Factures"], ["devis", "Devis"], ["avoir", "Avoirs"], ["encaisser", "À encaisser"]] as const;
 
-// Conserve filtre et ordre dans l'URL (?type=…&ordre=desc).
+// Conserve filtre et ordre dans l'URL (?type=…&ordre=asc). Par défaut : numéro décroissant (le plus récent en haut).
 const lien = (type: string, desc: boolean) => {
   const p = new URLSearchParams();
   if (type) p.set("type", type);
-  if (desc) p.set("ordre", "desc");
+  if (!desc) p.set("ordre", "asc");
   const qs = p.toString();
   return `/admin/factures${qs ? `?${qs}` : ""}`;
 };
@@ -21,7 +21,7 @@ const lien = (type: string, desc: boolean) => {
 export default async function Factures({ searchParams }: { searchParams: { type?: string; ordre?: string } }) {
   const db = createClient();
   const filtre = searchParams.type ?? "";
-  const desc = searchParams.ordre === "desc";
+  const desc = searchParams.ordre !== "asc";
   // Tri par numéro ; en décroissant, les brouillons (sans numéro) passent en tête.
   let q = db.from("documents").select("*, clients(societe)").order("numero", { ascending: !desc, nullsFirst: desc });
   if (filtre === "encaisser") q = q.eq("type", "facture").eq("statut", "emis");
